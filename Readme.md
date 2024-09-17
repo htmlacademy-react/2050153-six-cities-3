@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
 * Студент: [Наталья Зиновьева](https://up.htmlacademy.ru/react-individual/3/user/2050153).
-* Наставник: `Неизвестно`.
+* Наставник: [Евгений Колегов](https://htmlacademy.ru/profile/kollegoff).
 
 ---
 
