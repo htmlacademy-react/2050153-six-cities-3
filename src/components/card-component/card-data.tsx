@@ -17,8 +17,8 @@ export const cards: CardProps[] = [
     price: 149,
     isFavorite: false,
     isPremium: true,
-    rating: 4.5
-    previewImage: "https://15.design.htmlacademy.pro/static/hotel/11.jpg",
+    rating: 4.5,
+    previewImage: 'https://15.design.htmlacademy.pro/static/hotel/11.jpg',
   },
   {
     id: '00362d4f-012c-4f47-a532-bbf4ed4ee717',
@@ -27,8 +27,8 @@ export const cards: CardProps[] = [
     price: 768,
     isFavorite: false,
     isPremium: true,
-    rating: 2.1
-    previewImage: "https://15.design.htmlacademy.pro/static/hotel/10.jpg",
+    rating: 2.1,
+    previewImage: 'https://15.design.htmlacademy.pro/static/hotel/10.jpg',
   },
   {
     id: 'ba0142cd-685e-40d6-98cb-d987837db5fe',
@@ -37,8 +37,8 @@ export const cards: CardProps[] = [
     price: 288,
     isFavorite: true,
     isPremium: true,
-    rating: 3.1
-    previewImage: "https://15.design.htmlacademy.pro/static/hotel/12.jpg",
+    rating: 3.1,
+    previewImage: 'https://15.design.htmlacademy.pro/static/hotel/12.jpg',
   },
   {
     id: '550ae365-205a-48a2-9cb0-90ad2b9fc108',
@@ -47,8 +47,8 @@ export const cards: CardProps[] = [
     price: 225,
     isFavorite: true,
     isPremium: false,
-    rating: 2.9
-    previewImage: "https://15.design.htmlacademy.pro/static/hotel/13.jpg",
+    rating: 2.9,
+    previewImage: 'https://15.design.htmlacademy.pro/static/hotel/13.jpg',
   },
   {
     id: '4b218a0c-8c81-442b-9012-a4c3576cd23f',
@@ -57,7 +57,7 @@ export const cards: CardProps[] = [
     price: 340,
     isFavorite: false,
     isPremium: false,
-    rating: 2.9
-    previewImage: "https://15.design.htmlacademy.pro/static/hotel/14.jpg",
+    rating: 2.9,
+    previewImage: 'https://15.design.htmlacademy.pro/static/hotel/14.jpg',
   },
 ]

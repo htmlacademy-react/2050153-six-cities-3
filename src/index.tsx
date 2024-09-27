@@ -1,5 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import App from './components/app/app';
+import { Setting } from './const';
+
+// const Setting = {
+//   OffersCount: 5
+// };
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -7,6 +13,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <h1>Hello, World!</h1>
+    <App offersCount = { Setting.OffersCount } />
   </React.StrictMode>
 );

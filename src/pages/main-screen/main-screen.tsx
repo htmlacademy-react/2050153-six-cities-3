@@ -35,11 +35,11 @@ function MainScreen({offersCount}: MainScreenProps): JSX.Element {
                   rating={card.rating}
                   previewImage={card.previewImage}
                 />
-              ))};
+              ))}
               </div>
             </section>
-            <div class="cities__right-section">
-              <section class="cities__map map"></section>
+            <div className="cities__right-section">
+              <section className="cities__map map"></section>
             </div>
           </div>
         </div>

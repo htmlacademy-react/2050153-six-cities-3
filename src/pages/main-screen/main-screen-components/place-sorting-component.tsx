@@ -1,21 +1,22 @@
-import SORT_OPTIONS from '/src/const';
+import { SortOptions } from '../../../const';
 
 function PlaceSortingComponent(): JSX.Element {
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>
-      <span className="places__sorting-type" tabindex="0">
+      <span className="places__sorting-type" tabIndex="0">
           Popular
         <svg className="places__sorting-arrow" width="7" height="4">
-          <use xlink:href="#icon-arrow-select"></use>
+          <use xlinkHref="#icon-arrow-select"></use>
         </svg>
       </span>
       <ul className="places__options places__options--custom places__options--opened">
-        {SORT_OPTIONS.map((option) => {
+        {SortOptions.map((option: string) => {
           <li
             className="places__option"
             key={option}
-            tabIndex="0">
+            tabIndex="0"
+          >
             {option}
           </li>
         })}
