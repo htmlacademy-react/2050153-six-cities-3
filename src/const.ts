@@ -18,4 +18,10 @@ export const Setting = {
   OffersCount: 5
 };
 
-export default { Cities, SortOptions, Setting };
+export enum PageType {
+  Main = 'cities',
+  Favorites = 'favorites',
+  Offer = 'near-places'
+}
+
+export default { Cities, SortOptions, Setting, PageType };

@@ -3,6 +3,7 @@ export type CardProps = {
   title: string
   type: string
   price: number
+  city: string
   isFavorite: boolean
   isPremium: boolean
   rating: number
@@ -15,6 +16,7 @@ export const cards: CardProps[] = [
     title: 'Tile House',
     type: 'room',
     price: 149,
+    city: 'Amsterdam',
     isFavorite: false,
     isPremium: true,
     rating: 4.5,
@@ -25,7 +27,8 @@ export const cards: CardProps[] = [
     title: 'Penthouse, 4-5 rooms + 5 balconies',
     type: 'house',
     price: 768,
-    isFavorite: false,
+    city: 'Amsterdam',
+    isFavorite: true,
     isPremium: true,
     rating: 2.1,
     previewImage: 'https://15.design.htmlacademy.pro/static/hotel/10.jpg',
@@ -35,6 +38,7 @@ export const cards: CardProps[] = [
     title: 'The Pondhouse - A Magical Place',
     type: 'room',
     price: 288,
+    city: 'Paris',
     isFavorite: true,
     isPremium: true,
     rating: 3.1,
@@ -45,6 +49,7 @@ export const cards: CardProps[] = [
     title: 'The Pondhouse - A Magical Place',
     type: 'hotel',
     price: 225,
+    city: 'Cologne',
     isFavorite: true,
     isPremium: false,
     rating: 2.9,
@@ -55,6 +60,7 @@ export const cards: CardProps[] = [
     title: 'The house among olive',
     type: 'hotel',
     price: 340,
+    city: 'Cologne',
     isFavorite: false,
     isPremium: false,
     rating: 2.9,
