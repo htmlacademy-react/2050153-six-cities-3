@@ -3,13 +3,15 @@ import {CardProps} from './card-data';
 
 function CardOffersComponent({title, type, price, isPremium, rating, previewImage}: CardProps): JSX.Element {
   return (
-    <article class="near-places__card place-card">
-      {isPremium ?
-        <div className="place-card__mark">
-          <span>Premium</span>
-        </div>
-      : ''}
-      <div class="near-places__image-wrapper place-card__image-wrapper">
+    <article className="near-places__card place-card">
+      {{if (isPremium)
+        {
+          <div className="place-card__mark">
+            <span>Premium</span>
+          </div>
+        }
+      }}
+      <div className="near-places__image-wrapper place-card__image-wrapper">
         <a href="#">
           <img
             className="place-card__image"
@@ -56,4 +58,4 @@ function CardOffersComponent({title, type, price, isPremium, rating, previewImag
   );
 }
 
-export default CardComponent;
+export default CardOffersComponent;

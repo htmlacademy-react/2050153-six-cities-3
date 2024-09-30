@@ -1,14 +1,14 @@
 export type CardProps = {
-  id?: string
-  title: string
-  type: string
-  price: number
-  city: string
-  isFavorite: boolean
-  isPremium: boolean
-  rating: number
+  id?: string,
+  title: string,
+  type: string,
+  price: number,
+  city: string,
+  isFavorite: boolean,
+  isPremium: boolean,
+  rating: number,
   previewImage?: string
-}
+};
 
 export const cards: CardProps[] = [
   {
@@ -66,4 +66,4 @@ export const cards: CardProps[] = [
     rating: 2.9,
     previewImage: 'https://15.design.htmlacademy.pro/static/hotel/14.jpg',
   },
-]
+];

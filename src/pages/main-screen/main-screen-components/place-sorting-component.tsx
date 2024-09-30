@@ -11,7 +11,7 @@ function PlaceSortingComponent(): JSX.Element {
         </svg>
       </span>
       <ul className="places__options places__options--custom places__options--opened">
-        {SortOptions.map((option: string) => {
+        {SortOptions.map((option: string) => (
           <li
             className="places__option"
             key={option}
@@ -19,10 +19,10 @@ function PlaceSortingComponent(): JSX.Element {
           >
             {option}
           </li>
-        })}
+        ))}
       </ul>
     </form>
   );
 }
 
-export default PlaceSortingComponent
+export default PlaceSortingComponent;

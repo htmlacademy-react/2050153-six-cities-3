@@ -19,19 +19,19 @@ export type OfferProps = {
   isFavorite: boolean
   isPremium: boolean
   rating?: number
-  description?: string []
+  description?: string[]
   bedrooms: number
-  goods?: string []
+  goods?: string[]
   host: {
     name: string
     avatarUrl: string
     isPro: boolean
   }
-  images?: [string]
+  images?: string[]
   maxAdults: number
 }
 
-export const offer: OfferProps[] = [{
+export const offer: OfferProps[] = {
   id: '6af6f711-c28d-4121-82cd-e0b462a27f00',
   title: 'Beautiful & luxurious studio at great location',
   type: 'apartment',
@@ -82,4 +82,4 @@ export const offer: OfferProps[] = [{
     'img/studio-01.jpg'
   ],
   maxAdults: 4
-}
+};

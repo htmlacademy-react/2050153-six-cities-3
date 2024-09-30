@@ -4,14 +4,14 @@ import Footer from '../../components/footer/footer';
 
 function FavoritesScreen(): JSX.Element {
   return (
-    <div class="page">
+    <div className="page">
       <Header />
 
-      <main class="page__main page__main--favorites">
-        <div class="page__favorites-container container">
-          <section class="favorites">
-            <h1 class="favorites__title">Saved listing</h1>
-            <ul class="favorites__list">
+      <main className="page__main page__main--favorites">
+        <div className="page__favorites-container container">
+          <section className="favorites">
+            <h1 className="favorites__title">Saved listing</h1>
+            <ul className="favorites__list">
               <FavoritesLocationsComponents />
             </ul>
           </section>

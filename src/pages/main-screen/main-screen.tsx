@@ -19,23 +19,23 @@ function MainScreen({offersCount}: MainScreenProps): JSX.Element {
           <LocationsTabList />
         </div>
         <div className="cities">
-        <div className="cities__places-container container">
+          <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{offersCount} places to stay in Amsterdam</b>
               <PlaceSortingComponent />
               <div className="cities__places-list places__list tabs__content">
-              {cards.map((card) => (
-                <CardComponent
-                  key={card.id}
-                  title={card.title}
-                  type={card.type}
-                  price={card.price}
-                  isPremium={card.isPremium}
-                  rating={card.rating}
-                  previewImage={card.previewImage}
-                />
-              ))}
+                {cards.map((card) => (
+                  <CardComponent
+                    key={card.id}
+                    title={card.title}
+                    type={card.type}
+                    price={card.price}
+                    isPremium={card.isPremium}
+                    rating={card.rating}
+                    previewImage={card.previewImage}
+                  />
+                ))}
               </div>
             </section>
             <div className="cities__right-section">

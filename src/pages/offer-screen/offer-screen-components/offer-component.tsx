@@ -2,12 +2,13 @@ import OfferProps from './offer-data';
 
 function OfferComponent ({title, type, price, isPremium, rating, description, bedrooms, goods, host, maxAdults}: OfferProps): JSX.Element {
   return (
-    {isPremium ?
-      <div className="offer__mark">
-        <span>Premium</span>
-      </div>
-      : ''
-    }
+    {{if (isPremium)
+      {
+        <div className="offer__mark">
+          <span>Premium</span>
+        </div>
+      }
+    }}
     <div className="offer__name-wrapper">
       <h1 className="offer__name">
         {title}

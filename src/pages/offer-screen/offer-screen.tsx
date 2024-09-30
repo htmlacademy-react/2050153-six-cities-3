@@ -2,7 +2,7 @@ import Header from '../../components/header/header';
 import {offer} from './offer-data';
 import OfferGalleryComponent from './offer-screen-components/offer-gallery-component';
 import OfferComponent from './offer-screen-components/offer-component';
-import OfferReviewListContainer from './offer-screen-components/offer-review-list-component';
+import OfferReviewListComponent from './offer-screen-components/offer-review-list-component';
 import CardOfferComponent from '../../components/card-component/card-offers-component';
 import {cards} from '../../components/card-component/card-data';
 
@@ -35,11 +35,11 @@ function OfferScreen({nearOffersCount}: OfferScreenProps): JSX.Element {
             />
             <section className="offer__reviews reviews">
               <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
-              <OfferReviewListContainer />
+              <OfferReviewListComponent />
               <form className="reviews__form form" action="#" method="post">
                 <label className="reviews__label form__label" for="review">Your review</label>
                 <div className="reviews__rating-form form__rating">
-                  {RatingStars.map((count) => (
+                  {RatingStars.map((count: string) => (
                     <input className="form__rating-input visually-hidden" name="rating" value={count} id={{`${count} stars`}} type="radio" />
                     <label for={{`${count} stars`}} className="reviews__rating-label form__rating-label" title="perfect">
                       <svg className="form__star-image" width="37" height="33">

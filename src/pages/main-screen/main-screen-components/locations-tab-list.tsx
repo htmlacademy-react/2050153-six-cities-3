@@ -16,4 +16,4 @@ function LocationsTabList(): JSX.Element {
   );
 }
 
-export default LocationsTabList
+export default LocationsTabList;

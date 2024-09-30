@@ -1,4 +1,4 @@
-export const Cities = [
+export const Cities: string[] = [
   'Paris',
   'Cologne',
   'Brussels',
@@ -7,7 +7,7 @@ export const Cities = [
   'Dusseldorf'
 ];
 
-export const SortOptions = [
+export const SortOptions: string[] = [
   'Popular',
   'Price: low to high',
   'Price: high to low',

@@ -1,4 +1,4 @@
-function OfferReviewListContainer(): JSX.Element {
+function OfferReviewListComponent(): JSX.Element {
   return (
     <ul className="reviews__list">
       <li className="reviews__item">
