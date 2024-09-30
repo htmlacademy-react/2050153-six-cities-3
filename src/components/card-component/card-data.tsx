@@ -1,13 +1,13 @@
 export type CardProps = {
-  id?: string,
-  title: string,
-  type: string,
-  price: number,
-  city: string,
-  isFavorite: boolean,
-  isPremium: boolean,
-  rating: number,
-  previewImage?: string
+  id?: string;
+  title: string;
+  type: string;
+  price: number;
+  city: string;
+  isFavorite: boolean;
+  isPremium: boolean;
+  rating: number;
+  previewImage?: string;
 };
 
 export const cards: CardProps[] = [

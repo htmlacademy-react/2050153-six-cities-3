@@ -5,7 +5,7 @@ import Header from '../../components/header/header';
 import LocationsTabList from './main-screen-components/locations-tab-list';
 
 type MainScreenProps = {
-  offersCount: number
+  offersCount: number;
 }
 
 function MainScreen({offersCount}: MainScreenProps): JSX.Element {

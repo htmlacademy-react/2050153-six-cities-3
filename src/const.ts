@@ -24,4 +24,4 @@ export enum PageType {
   Offer = 'near-places'
 }
 
-export default { Cities, SortOptions, Setting, PageType };
+// export default { Cities, SortOptions, Setting, PageType };
