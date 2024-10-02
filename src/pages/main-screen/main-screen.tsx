@@ -34,6 +34,8 @@ function MainScreen({offersCount}: MainScreenProps): JSX.Element {
                     isPremium={card.isPremium}
                     rating={card.rating}
                     previewImage={card.previewImage}
+                    city={card.city}
+                    isFavorite={card.isFavorite}
                   />
                 ))}
               </div>
