@@ -1,4 +1,4 @@
-import {Cities} from '/src/const';
+import {Cities} from '../../../const';
 
 function LocationsTabList(): JSX.Element {
   return (

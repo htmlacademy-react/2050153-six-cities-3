@@ -1,5 +1,5 @@
 export type OfferProps = {
-  id: string;
+  id?: string;
   title: string;
   type: string;
   price: number;
@@ -9,7 +9,7 @@ export type OfferProps = {
       latitude: number;
       longitude: number;
       zoom: number;
-     }
+     };
   };
   location: {
     latitude: number;
@@ -18,7 +18,7 @@ export type OfferProps = {
   };
   isFavorite: boolean;
   isPremium: boolean;
-  rating?: number;
+  rating: number;
   description?: string[];
   bedrooms: number;
   goods?: string[];
@@ -29,9 +29,9 @@ export type OfferProps = {
   };
   images?: string[];
   maxAdults: number;
-}
+};
 
-export const offer: OfferProps[] = {
+export const offer: OfferProps = {
   id: '6af6f711-c28d-4121-82cd-e0b462a27f00',
   title: 'Beautiful & luxurious studio at great location',
   type: 'apartment',
