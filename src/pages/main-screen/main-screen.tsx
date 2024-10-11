@@ -1,8 +1,10 @@
+import {Helmet} from 'react-helmet-async';
 import CardComponent from '../../components/card-component/card-component';
 import {cards} from '../../components/card-component/card-data';
 import PlaceSortingComponent from './main-screen-components/place-sorting-component';
 import Header from '../../components/header/header';
 import LocationsTabList from './main-screen-components/locations-tab-list';
+import {PageTitle} from '../../const';
 
 type MainScreenProps = {
   offersCount: number;
@@ -11,6 +13,9 @@ type MainScreenProps = {
 function MainScreen({offersCount}: MainScreenProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
+      <Helmet>
+        <title>{PageTitle.Main}</title>
+      </Helmet>
       <Header />
 
       <main className="page__main page__main--index">

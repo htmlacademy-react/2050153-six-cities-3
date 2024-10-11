@@ -38,3 +38,12 @@ export enum AuthorizationStatus {
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
+
+// eslint-disable-next-line react-refresh/only-export-components
+export enum PageTitle {
+  Main = '6 cities',
+  Login = '6 cities: authorization',
+  Favorites = '6 cities: favorites',
+  Offer = '6 cities: offer',
+  NotFound = '6 cities: not found'
+}

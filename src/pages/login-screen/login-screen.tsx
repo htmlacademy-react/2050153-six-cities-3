@@ -1,9 +1,14 @@
 import {Link} from 'react-router-dom';
+import {Helmet} from 'react-helmet-async';
 import Header from '../../components/header/header';
+import {PageTitle} from '../../const';
 
 function LoginScreen(): JSX.Element {
   return (
     <>
+      <Helmet>
+        <title>{PageTitle.Login}</title>
+      </Helmet>
       <Header />
 
       <main className="page__main page__main--login">

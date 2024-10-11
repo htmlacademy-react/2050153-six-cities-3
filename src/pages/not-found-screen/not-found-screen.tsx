@@ -1,9 +1,14 @@
 import {Link} from 'react-router-dom';
+import {Helmet} from 'react-helmet-async';
 import Header from '../../components/header/header';
+import {PageTitle} from '../../const';
 
 function NotFoundScreen(): JSX.Element {
   return (
     <>
+      <Helmet>
+        <title>{PageTitle.NotFound}</title>
+      </Helmet>
       <Header />
 
       <main className="page__main page__main--not-found">
