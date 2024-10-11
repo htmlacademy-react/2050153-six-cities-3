@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom';
 import {CardProps} from './card-data';
 // import CapitalizeWords from '../../utils';
 
@@ -12,7 +13,7 @@ function CardComponent({title, type, price, isPremium, rating, previewImage}: Ca
         )
         : null}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
+        <Link to="#todo">
           <img
             className="place-card__image"
             src={previewImage}
@@ -20,7 +21,7 @@ function CardComponent({title, type, price, isPremium, rating, previewImage}: Ca
             height="200"
             alt="Place image"
           />
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -50,7 +51,7 @@ function CardComponent({title, type, price, isPremium, rating, previewImage}: Ca
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <Link to="#todo">{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

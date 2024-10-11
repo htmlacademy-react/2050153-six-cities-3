@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom';
 import Header from '../../components/header/header';
 
 function LoginScreen(): JSX.Element {
@@ -23,9 +24,9 @@ function LoginScreen(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#">
+              <Link className="locations__item-link" to="#todo">
                 <span>Amsterdam</span>
-              </a>
+              </Link>
             </div>
           </section>
         </div>
