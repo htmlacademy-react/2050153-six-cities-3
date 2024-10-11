@@ -1,3 +1,4 @@
+import {Helmet} from 'react-helmet-async';
 import Header from '../../components/header/header';
 import {offer} from './offer-screen-components/offer-data';
 import OfferGalleryComponent from './offer-screen-components/offer-gallery-component';
@@ -5,17 +6,22 @@ import OfferComponent from './offer-screen-components/offer-component';
 import OfferReviewListComponent from './offer-screen-components/offer-review-list-component';
 import CardOfferComponent from '../../components/card-component/card-offers-component';
 import {cards} from '../../components/card-component/card-data';
+import {PageTitle} from '../../const';
 
 const RatingStars: string[] = ['5', '4', '3', '2', '1'];
 
 // type OfferScreenProps = {
-//   nearOffersCount: number
+//   offerId: string;
 // }
 
 function OfferScreen(): JSX.Element {
   return (
     <>
+      <Helmet>
+        <title>{PageTitle.Offer}</title>
+      </Helmet>
       <Header />
+
       <main className="page__main page__main--offer">
         <section className="offer">
           <OfferGalleryComponent />

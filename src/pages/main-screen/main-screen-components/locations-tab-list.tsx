@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom';
 import {Cities} from '../../../const';
 
 function LocationsTabList(): JSX.Element {
@@ -6,9 +7,9 @@ function LocationsTabList(): JSX.Element {
       <ul className="locations__list tabs__list">
         {Cities.map((city: string) => (
           <li className="locations__item" key={city}>
-            <a className="locations__item-link tabs__item" href="#">
+            <Link className="locations__item-link tabs__item" to="#todo">
               <span>{city}</span>
-            </a>
+            </Link>
           </li>
         ))}
       </ul>
