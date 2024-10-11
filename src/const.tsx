@@ -23,3 +23,10 @@ export const PageType = {
   Favorites: 'favorites',
   Offer: 'near-places'
 };
+
+export enum AppRoute {
+  Main = '/',
+  Login = '/login',
+  Favorites = '/favorites',
+  Offer = '/offer/:id'
+}

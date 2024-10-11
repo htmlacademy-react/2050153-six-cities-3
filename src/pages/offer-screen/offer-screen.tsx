@@ -9,13 +9,14 @@ import {cards} from '../../components/card-component/card-data';
 const RatingStars: string[] = ['5', '4', '3', '2', '1'];
 
 // type OfferScreenProps = {
-//   nearOffersCount: number
+//   offerId: string;
 // }
 
 function OfferScreen(): JSX.Element {
   return (
     <>
       <Header />
+
       <main className="page__main page__main--offer">
         <section className="offer">
           <OfferGalleryComponent />
