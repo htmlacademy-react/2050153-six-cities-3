@@ -1,6 +1,6 @@
 import {Helmet} from 'react-helmet-async';
 import CardComponent from '../../components/card-component/card-component';
-import {cards} from '../../components/card-component/card-data';
+import {offers} from '../../mocks/offers';
 import PlaceSortingComponent from './main-screen-components/place-sorting-component';
 import Header from '../../components/header/header';
 import LocationsTabList from './main-screen-components/locations-tab-list';
@@ -30,7 +30,7 @@ function MainScreen({offersCount}: MainScreenProps): JSX.Element {
               <b className="places__found">{offersCount} places to stay in Amsterdam</b>
               <PlaceSortingComponent />
               <div className="cities__places-list places__list tabs__content">
-                {cards.map((card) => (
+                {offers.map((card) => (
                   <CardComponent
                     key={card.id}
                     title={card.title}
@@ -39,7 +39,7 @@ function MainScreen({offersCount}: MainScreenProps): JSX.Element {
                     isPremium={card.isPremium}
                     rating={card.rating}
                     previewImage={card.previewImage}
-                    city={card.city}
+                    city={card.city.name}
                     isFavorite={card.isFavorite}
                   />
                 ))}

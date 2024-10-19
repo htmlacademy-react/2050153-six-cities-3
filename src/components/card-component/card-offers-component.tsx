@@ -1,6 +1,5 @@
 import {Link} from 'react-router-dom';
-import {CardProps} from './card-data';
-// import CapitalizeWords from '../../utils';
+import {CardProps} from '../../types/offers';
 
 function CardOffersComponent({title, type, price, isPremium, rating, previewImage}: CardProps): JSX.Element {
   return (

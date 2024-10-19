@@ -1,21 +1,26 @@
-import {offer} from '../offer-screen-components/offer-data';
+import {offers} from '../../../mocks/offers';
 
-function OfferGalleryComponent(): JSX.Element {
+type OfferGalleryProps = {
+  offerId: string;
+}
+
+function OfferGalleryComponent({offerId}: OfferGalleryProps): JSX.Element {
   return (
     <div className="offer__gallery-container container">
       <div className="offer__gallery">
-        {offer.images ?
-          offer.images.map((image: string) => (
-          // eslint-disable-next-line react/jsx-key
-            <div className="offer__image-wrapper">
-              <img
-                className="offer__image"
-                src={image}
-                alt="Photo studio"
-              />
-            </div>
-          ))
-          : null}
+        {offers.map((offer) => (
+          offer.images ?
+            offer.images.map((image: string) => (
+              <div className="offer__image-wrapper" key={offerId}>
+                <img
+                  className="offer__image"
+                  src={image}
+                  alt="Photo studio"
+                />
+              </div>
+            ))
+            : null
+        ))}
       </div>
     </div>
   );

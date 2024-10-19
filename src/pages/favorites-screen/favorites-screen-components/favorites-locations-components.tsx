@@ -1,6 +1,6 @@
 import {Link} from 'react-router-dom';
 import CardComponent from '../../../components/card-component/card-component';
-import {cards} from '../../../components/card-component/card-data';
+import {offers} from '../../../mocks/offers';
 import {Cities} from '../../../const';
 
 function FavoritesLocationsComponents(): JSX.Element {
@@ -17,19 +17,32 @@ function FavoritesLocationsComponents(): JSX.Element {
             </div>
           </div>
           <div className="favorites__places">
-            {cards.map((card) => (
-              card.isFavorite && (card.city === city) ?
+            {offers.map((card) => (
+              card.isFavorite && (card.city.name === city) ?
                 (
                   <CardComponent
                     key={card.id}
+                    id={card.id}
                     title={card.title}
                     type={card.type}
                     price={card.price}
                     isPremium={card.isPremium}
                     rating={card.rating}
                     previewImage={card.previewImage}
-                    city={card.city}
-                    isFavorite={false}
+                    city={{
+                      name: card.city.name,
+                      location: {
+                        latitude: card.location.latitude,
+                        longitude: card.location.longitude,
+                        zoom: card.location.zoom
+                      }
+                    }}
+                    isFavorite={card.isFavorite}
+                    location = {{
+                      latitude: card.location.latitude,
+                      longitude: card.location.longitude,
+                      zoom: card.location.zoom
+                    }}
                   />
                 )
                 : null
