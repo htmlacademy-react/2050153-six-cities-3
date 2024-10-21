@@ -33,14 +33,27 @@ function MainScreen({offersCount}: MainScreenProps): JSX.Element {
                 {offers.map((card) => (
                   <CardComponent
                     key={card.id}
+                    id={card.id}
                     title={card.title}
                     type={card.type}
                     price={card.price}
                     isPremium={card.isPremium}
                     rating={card.rating}
                     previewImage={card.previewImage}
-                    city={card.city.name}
+                    city={{
+                      name: card.city.name,
+                      location: {
+                        latitude: card.location.latitude,
+                        longitude: card.location.longitude,
+                        zoom: card.location.zoom
+                      }
+                    }}
                     isFavorite={card.isFavorite}
+                    location = {{
+                      latitude: card.location.latitude,
+                      longitude: card.location.longitude,
+                      zoom: card.location.zoom
+                    }}
                   />
                 ))}
               </div>
