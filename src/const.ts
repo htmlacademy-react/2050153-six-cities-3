@@ -47,3 +47,32 @@ export enum PageTitle {
   Offer = '6 cities: offer',
   NotFound = '6 cities: not found'
 }
+
+// константы для моков
+export const Goods = [
+  'Heating',
+  'Wi-Fi',
+  'Washing machine',
+  'Towels',
+  'Coffee machine',
+  'Baby seat',
+  'Kitchen',
+  'Dishwasher',
+  'Cabel TV',
+  'Fridge'
+];
+
+export const Urls = [
+  'img/room.jpg',
+  'img/apartment-01.jpg',
+  'img/apartment-02.jpg',
+  'img/apartment-03.jpg',
+  'img/studio-01.jpg'
+];
+
+export const OfferTypes = [
+  'apartment',
+  'room',
+  'house',
+  'hotel'
+];

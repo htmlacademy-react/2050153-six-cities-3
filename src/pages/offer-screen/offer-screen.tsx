@@ -1,11 +1,9 @@
-import {Helmet} from 'react-helmet-async';
-import Header from '../../components/header/header';
-import {offers} from '../../mocks/offers';
+import { offers } from '../../mocks/offers';
+import { reviews } from '../../mocks/reviews';
 import OfferGalleryComponent from './offer-screen-components/offer-gallery-component';
 import OfferComponent from './offer-screen-components/offer-component';
 import OfferReviewListComponent from './offer-screen-components/offer-review-list-component';
 import CardOfferComponent from '../../components/card-component/card-offers-component';
-import {PageTitle} from '../../const';
 
 const RatingStars: string[] = ['5', '4', '3', '2', '1'];
 
@@ -15,19 +13,19 @@ type OfferScreenProps = {
 
 function OfferScreen({offerId}: OfferScreenProps): JSX.Element {
   return (
-    <>
-      <Helmet>
-        <title>{PageTitle.Offer}</title>
-      </Helmet>
-      <Header />
-
-      <main className="page__main page__main--offer">
-        {offers.map((offer) => (
-          <section className="offer" key={offerId}>
-            <OfferGalleryComponent offerId={offerId} />
+    <main className="page__main page__main--offer">
+      {offers.map((offer) => (
+        offer.id === offerId ?
+          <section className="offer" key={offer.id}>
+            {offer.images ?
+              <OfferGalleryComponent
+                id={offer.id}
+                images={offer.images}
+              /> : null}
             <div className="offer__container container">
               <div className="offer__wrapper">
                 <OfferComponent
+                  key={offer.id}
                   id={offer.id}
                   title={offer.title}
                   type={offer.type}
@@ -56,7 +54,18 @@ function OfferScreen({offerId}: OfferScreenProps): JSX.Element {
                 />
                 <section className="offer__reviews reviews">
                   <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
-                  <OfferReviewListComponent />
+                  <ul className="reviews__list">
+                    {reviews.map((review) => (
+                      <OfferReviewListComponent
+                        key={review.id}
+                        id={review.id}
+                        date={review.date}
+                        user={review.user}
+                        comment={review.comment}
+                        rating={review.rating}
+                      />
+                    ))}
+                  </ul>
                   <form className="reviews__form form" action="#" method="post">
                     <label className="reviews__label form__label" htmlFor="review">Your review</label>
                     <div className="reviews__rating-form form__rating">
@@ -84,42 +93,42 @@ function OfferScreen({offerId}: OfferScreenProps): JSX.Element {
             </div>
             <section className="offer__map map"></section>
           </section>
-        ))}
-        <div className="container">
-          <section className="near-places places">
-            <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <div className="near-places__list places__list">
-              {offers.map((card) => (
-                <CardOfferComponent
-                  key={card.id}
-                  id={card.id}
-                  title={card.title}
-                  type={card.type}
-                  price={card.price}
-                  isPremium={card.isPremium}
-                  rating={card.rating}
-                  previewImage={card.previewImage}
-                  city={{
-                    name: card.city.name,
-                    location: {
-                      latitude: card.location.latitude,
-                      longitude: card.location.longitude,
-                      zoom: card.location.zoom
-                    }
-                  }}
-                  isFavorite={card.isFavorite}
-                  location = {{
+          : null
+      ))}
+      <div className="container">
+        <section className="near-places places">
+          <h2 className="near-places__title">Other places in the neighbourhood</h2>
+          <div className="near-places__list places__list">
+            {offers.map((card) => (
+              <CardOfferComponent
+                key={card.id}
+                id={card.id}
+                title={card.title}
+                type={card.type}
+                price={card.price}
+                isPremium={card.isPremium}
+                rating={card.rating}
+                previewImage={card.previewImage}
+                city={{
+                  name: card.city.name,
+                  location: {
                     latitude: card.location.latitude,
                     longitude: card.location.longitude,
                     zoom: card.location.zoom
-                  }}
-                />
-              ))}
-            </div>
-          </section>
-        </div>
-      </main>
-    </>
+                  }
+                }}
+                isFavorite={card.isFavorite}
+                location = {{
+                  latitude: card.location.latitude,
+                  longitude: card.location.longitude,
+                  zoom: card.location.zoom
+                }}
+              />
+            ))}
+          </div>
+        </section>
+      </div>
+    </main>
   );
 }
 

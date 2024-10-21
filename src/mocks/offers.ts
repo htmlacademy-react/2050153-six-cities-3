@@ -1,51 +1,6 @@
-import {OffersProps} from '../types/offers';
-import {Cities} from '../const';
-
-const Goods = [
-  'Heating',
-  'Wi-Fi',
-  'Washing machine',
-  'Towels',
-  'Coffee machine',
-  'Baby seat',
-  'Kitchen',
-  'Dishwasher',
-  'Cabel TV',
-  'Fridge'
-];
-
-const Urls = [
-  'img/room.jpg',
-  'img/apartment-01.jpg',
-  'img/apartment-02.jpg',
-  'img/apartment-03.jpg',
-  'img/studio-01.jpg'
-];
-
-const OfferTypes = [
-  'apartment',
-  'room',
-  'house',
-  'hotel'
-];
-
-// Функции нужные для рендомной генерации данных
-// Получение целого положительного числа из диапазона
-const getRandomInteger = (a : number, b : number) => {
-  const lower = Math.ceil(Math.min(a, b));
-  const upper = Math.floor(Math.max(a, b));
-  return Math.floor(Math.random() * (upper - lower + 1) + lower);
-};
-
-// Получение случайного значения из массива данных
-const getRandomArrayElement = (elements: string[]) : string => elements[getRandomInteger(0, elements.length - 1)];
-
-// получение массива случайной длины из значений
-const getArrayFromRandomElements = (elements: string[]) : string[] =>
-  Array.from(
-    { length: getRandomInteger(0, elements.length - 1) },
-    () => getRandomArrayElement(elements),
-  );
+import { OffersProps } from '../types/offers';
+import { Cities, Goods, OfferTypes, Urls } from '../const';
+import { getRandomArrayElement, getArrayFromRandomElements } from '../utils/utils';
 
 export const offers: OffersProps[] = [
   {

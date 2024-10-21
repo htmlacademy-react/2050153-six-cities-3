@@ -1,26 +1,20 @@
-import {offers} from '../../../mocks/offers';
+import { OfferImagesProps } from '../../../types/offers';
 
-type OfferGalleryProps = {
-  offerId: string;
-}
-
-function OfferGalleryComponent({offerId}: OfferGalleryProps): JSX.Element {
+function OfferGalleryComponent({images, id}: OfferImagesProps): JSX.Element {
   return (
     <div className="offer__gallery-container container">
       <div className="offer__gallery">
-        {offers.map((offer) => (
-          offer.images ?
-            offer.images.map((image: string) => (
-              <div className="offer__image-wrapper" key={offerId}>
-                <img
-                  className="offer__image"
-                  src={image}
-                  alt="Photo studio"
-                />
-              </div>
-            ))
-            : null
-        ))}
+        {images ?
+          images.map((image: string) => (
+            <div className="offer__image-wrapper" key={id}>
+              <img
+                className="offer__image"
+                src={image}
+                alt="Photo studio"
+              />
+            </div>
+          ))
+          : null}
       </div>
     </div>
   );

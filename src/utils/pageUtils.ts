@@ -1,4 +1,4 @@
-import { AppRoute, PageTitle, AuthorizationStatus } from './const';
+import { AppRoute, PageTitle, AuthorizationStatus } from '../const';
 
 // Приобразование формата отображения текста с первой заглавной буквой.
 // Пример: "Название Города"

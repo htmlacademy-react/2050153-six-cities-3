@@ -1,5 +1,5 @@
 import {Link, useLocation} from 'react-router-dom';
-import { getAuthorizationStatus, getLayoutState } from '../../utils';
+import { getAuthorizationStatus, getLayoutState } from '../../utils/pageUtils';
 import { AppRoute, AuthorizationStatus } from '../../const';
 
 function Header(): JSX.Element {
@@ -29,7 +29,13 @@ function Header(): JSX.Element {
                         <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
                         <span className="header__favorite-count">3</span>
                       </Link>
-                    ) : null
+                    ) : (
+                      <Link className="header__nav-link header__nav-link--profile" to={`${AppRoute.Login}`}>
+                        <div className="header__avatar-wrapper user__avatar-wrapper">
+                        </div>
+                        <span className="header_login">Sign in</span>
+                      </Link>
+                    )
                   }
                 </li>
                 <li className="header__nav-item">
@@ -39,10 +45,7 @@ function Header(): JSX.Element {
                       <Link className="header__nav-link" to={`${AppRoute.Main}`}>
                         <span className="header__signout">Sign out</span>
                       </Link>
-                    ) : (
-                      <Link className="header__nav-link" to={`${AppRoute.Login}`}>
-                        <span className="header_login">Sign in</span>
-                      </Link>)
+                    ) : null
                   }
                 </li>
               </ul>

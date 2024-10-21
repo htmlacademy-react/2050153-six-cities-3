@@ -9,7 +9,7 @@ import OfferScreen from '../../pages/offer-screen/offer-screen';
 import PrivateRoute from '../private-route/private-route';
 import {offers} from '../../mocks/offers';
 import Layout from '../layout/layout';
-import {getAuthorizationStatus} from '../../utils';
+import {getAuthorizationStatus} from '../../utils/pageUtils';
 
 type AppScreenProps = {
   offersCount: number;

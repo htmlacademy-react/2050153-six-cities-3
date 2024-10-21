@@ -1,7 +1,7 @@
 import {Outlet, useLocation} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
 import {AppRoute} from '../../const';
-import {getLayoutState} from '../../utils';
+import {getLayoutState} from '../../utils/pageUtils';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 
@@ -18,9 +18,7 @@ function Layout(): JSX.Element {
 
       <div className={`page${rootClassName}`}>
         <Header />
-        <main>
-          <Outlet />
-        </main>
+        <Outlet />
         {shouldRenderFooter ? (
           <Footer />
         ) : null}
