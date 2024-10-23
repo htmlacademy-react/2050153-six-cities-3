@@ -7,7 +7,7 @@
 
 // Функции нужные для рендомной генерации данных
 // Получение целого положительного числа из диапазона
-const getRandomInteger = (a : number, b : number) => {
+export const getRandomInteger = (a : number, b : number) => {
   const lower = Math.ceil(Math.min(a, b));
   const upper = Math.floor(Math.max(a, b));
   return Math.floor(Math.random() * (upper - lower + 1) + lower);

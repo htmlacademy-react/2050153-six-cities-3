@@ -3,10 +3,6 @@ import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import { Setting } from './const';
 
-// const Setting = {
-//   OffersCount: 5
-// };
-
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );

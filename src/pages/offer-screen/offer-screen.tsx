@@ -1,17 +1,19 @@
-import { offers } from '../../mocks/offers';
 import { reviews } from '../../mocks/reviews';
 import OfferGalleryComponent from './offer-screen-components/offer-gallery-component';
 import OfferComponent from './offer-screen-components/offer-component';
 import OfferReviewListComponent from './offer-screen-components/offer-review-list-component';
 import CardOfferComponent from '../../components/card-component/card-offers-component';
+import { OffersProps } from '../../types/offer';
 
 const RatingStars: string[] = ['5', '4', '3', '2', '1'];
 
 type OfferScreenProps = {
-  offerId: string;
+  offers: OffersProps[];
 }
 
-function OfferScreen({offerId}: OfferScreenProps): JSX.Element {
+function OfferScreen({offers}: OfferScreenProps): JSX.Element {
+  const offerId = offers[1].id;
+
   return (
     <main className="page__main page__main--offer">
       {offers.map((offer) => (

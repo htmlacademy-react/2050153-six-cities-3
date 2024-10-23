@@ -24,6 +24,9 @@ export const getLayoutState = (pathname: AppRoute) =>{
     shouldRenderFooter = true;
   } else if (pathname === AppRoute.Offer) {
     pageTitle = PageTitle.Offer;
+  } else {
+    shouldRenderUser = false;
+    pageTitle = PageTitle.NotFound;
   }
 
   return {rootClassName, linkClassName, shouldRenderUser, shouldRenderFooter, pageTitle};

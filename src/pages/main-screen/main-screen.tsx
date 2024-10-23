@@ -1,13 +1,15 @@
 import CardComponent from '../../components/card-component/card-component';
-import {offers} from '../../mocks/offers';
+import { OffersProps } from '../../types/offer';
 import PlaceSortingComponent from './main-screen-components/place-sorting-component';
 import LocationsTabList from './main-screen-components/locations-tab-list';
 
 type MainScreenProps = {
   offersCount: number;
+  offers: OffersProps[];
 }
 
-function MainScreen({offersCount}: MainScreenProps): JSX.Element {
+function MainScreen({offersCount, offers}: MainScreenProps): JSX.Element {
+
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>

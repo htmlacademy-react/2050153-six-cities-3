@@ -1,5 +1,5 @@
 import {Link} from 'react-router-dom';
-import {CardProps} from '../../types/offers';
+import {CardProps} from '../../types/offer';
 
 function CardComponent({title, type, price, isPremium, rating, previewImage}: CardProps): JSX.Element {
   return (

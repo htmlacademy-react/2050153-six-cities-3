@@ -1,4 +1,4 @@
-import {OfferProps} from '../../../types/offers';
+import {OfferProps} from '../../../types/offer';
 
 function OfferComponent ({id, title, type, price, isPremium, rating, description, bedrooms, goods, host, maxAdults}: OfferProps): JSX.Element {
   return (

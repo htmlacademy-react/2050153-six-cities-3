@@ -1,4 +1,4 @@
-import { OfferImagesProps } from '../../../types/offers';
+import { OfferImagesProps } from '../../../types/offer';
 
 function OfferGalleryComponent({images, id}: OfferImagesProps): JSX.Element {
   return (

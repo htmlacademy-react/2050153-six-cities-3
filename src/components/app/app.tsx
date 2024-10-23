@@ -7,7 +7,7 @@ import LoginScreen from '../../pages/login-screen/login-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import OfferScreen from '../../pages/offer-screen/offer-screen';
 import PrivateRoute from '../private-route/private-route';
-import {offers} from '../../mocks/offers';
+import { generateOffers } from '../../mocks/offers';
 import Layout from '../layout/layout';
 import {getAuthorizationStatus} from '../../utils/pageUtils';
 
@@ -17,6 +17,7 @@ type AppScreenProps = {
 
 function App({offersCount}: AppScreenProps): JSX.Element {
   const authorizationStatus = getAuthorizationStatus();
+  const offers = generateOffers(offersCount);
 
   return (
     <HelmetProvider>
@@ -28,7 +29,7 @@ function App({offersCount}: AppScreenProps): JSX.Element {
           >
             <Route
               index
-              element={<MainScreen offersCount={offersCount}/>}
+              element={<MainScreen offers={offers} offersCount={offersCount}/>}
             />
             <Route
               path={AppRoute.Login}
@@ -48,10 +49,10 @@ function App({offersCount}: AppScreenProps): JSX.Element {
             />
             <Route
               path={AppRoute.Offer}
-              element={<OfferScreen offerId={offers[0].id}/>}
+              element={<OfferScreen offers={offers}/>}
             />
             <Route
-              path="*"
+              path='*'
               element={<NotFoundScreen />}
             />
           </Route>
