@@ -29,7 +29,7 @@ export enum AppRoute {
   Main = '/',
   Login = '/login',
   Favorites = '/favorites',
-  Offer = '/offer/:id'
+  Offer = '/offer'
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -47,6 +47,14 @@ export enum PageTitle {
   Offer = '6 cities: offer',
   NotFound = '6 cities: not found'
 }
+
+export const RatingStars = [
+  {value: '5', title: 'perfect'},
+  {value: '4', title: 'good'},
+  {value: '3', title: 'not bad'},
+  {value: '2', title: 'badly'},
+  {value: '1', title: 'terribly'}
+];
 
 // константы для моков
 export const Goods = [

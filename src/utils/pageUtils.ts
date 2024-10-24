@@ -4,6 +4,8 @@ import { AppRoute, PageTitle, AuthorizationStatus } from '../const';
 // Пример: "Название Города"
 // export const CapitalizeWords = (str: string): string => str.replace(/\b\w/g, (c) => (c).toUpperCase());
 
+export const getAuthorizationStatus = () => AuthorizationStatus.NoAuth;
+
 export const getLayoutState = (pathname: AppRoute) =>{
   let rootClassName = '';
   let pageTitle = '';
@@ -27,9 +29,24 @@ export const getLayoutState = (pathname: AppRoute) =>{
   } else {
     shouldRenderUser = false;
     pageTitle = PageTitle.NotFound;
+    shouldRenderFooter = true;
   }
 
   return {rootClassName, linkClassName, shouldRenderUser, shouldRenderFooter, pageTitle};
 };
 
-export const getAuthorizationStatus = () => AuthorizationStatus.NoAuth;
+export const getCardFeatures = (pathname: AppRoute) =>{
+  let cardClassName = '';
+  let cardInfoClassName = '';
+
+  if (pathname === AppRoute.Main) {
+    cardClassName = 'cities';
+  } else if (pathname === AppRoute.Favorites) {
+    cardClassName = 'favorites';
+    cardInfoClassName = 'favorites__card-info';
+  } else if (pathname === AppRoute.Offer) {
+    cardClassName = 'near-places';
+  }
+
+  return {cardClassName, cardInfoClassName};
+};

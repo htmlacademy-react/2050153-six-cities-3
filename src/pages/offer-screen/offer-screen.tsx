@@ -1,130 +1,110 @@
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { reviews } from '../../mocks/reviews';
 import OfferGalleryComponent from './offer-screen-components/offer-gallery-component';
 import OfferComponent from './offer-screen-components/offer-component';
 import OfferReviewListComponent from './offer-screen-components/offer-review-list-component';
-import CardOfferComponent from '../../components/card-component/card-offers-component';
-import { OffersProps } from '../../types/offer';
-
-const RatingStars: string[] = ['5', '4', '3', '2', '1'];
+import OfferReviewFormComponent from './offer-screen-components/offer-review-form-component';
+import CardComponent from '../../components/card-component/card-component';
+import { CardProps, OffersProps } from '../../types/offer';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
+import { AuthorizationStatus } from '../../const';
 
 type OfferScreenProps = {
   offers: OffersProps[];
+  authorizationStatus: AuthorizationStatus;
 }
 
-function OfferScreen({offers}: OfferScreenProps): JSX.Element {
-  const offerId = offers[1].id;
+function OfferScreen({offers, authorizationStatus}: OfferScreenProps): JSX.Element {
+  const { id } = useParams();
+  const [activeOffer, setActiveOffer] = useState<CardProps>();
+
+  useEffect(() => {
+    // eslint-disable-next-line no-console
+    console.log(activeOffer);
+  });
+
+  const currentOffer: OffersProps | undefined = offers.find((offer: OffersProps) => offer.id === id);
+
+  if (!currentOffer) {
+    return <NotFoundScreen />;
+  }
+
+  const handleHover = (offer?: CardProps) => {
+    setActiveOffer(offer);
+  };
 
   return (
     <main className="page__main page__main--offer">
-      {offers.map((offer) => (
-        offer.id === offerId ?
-          <section className="offer" key={offer.id}>
-            {offer.images ?
-              <OfferGalleryComponent
-                id={offer.id}
-                images={offer.images}
-              /> : null}
-            <div className="offer__container container">
-              <div className="offer__wrapper">
-                <OfferComponent
-                  key={offer.id}
-                  id={offer.id}
-                  title={offer.title}
-                  type={offer.type}
-                  price={offer.price}
-                  isPremium={offer.isPremium}
-                  rating={offer.rating}
-                  description={offer.description}
-                  bedrooms={offer.bedrooms}
-                  goods={offer.goods}
-                  host={offer.host}
-                  maxAdults={offer.maxAdults}
-                  city={{
-                    name: offer.city.name,
-                    location: {
-                      latitude: offer.location.latitude,
-                      longitude: offer.location.longitude,
-                      zoom: offer.location.zoom
-                    }
-                  }}
-                  location={{
-                    latitude: offer.location.latitude,
-                    longitude: offer.location.longitude,
-                    zoom: offer.location.zoom
-                  }}
-                  isFavorite={offer.isFavorite}
-                />
-                <section className="offer__reviews reviews">
-                  <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
-                  <ul className="reviews__list">
-                    {reviews.map((review) => (
-                      <OfferReviewListComponent
-                        key={review.id}
-                        id={review.id}
-                        date={review.date}
-                        user={review.user}
-                        comment={review.comment}
-                        rating={review.rating}
-                      />
-                    ))}
-                  </ul>
-                  <form className="reviews__form form" action="#" method="post">
-                    <label className="reviews__label form__label" htmlFor="review">Your review</label>
-                    <div className="reviews__rating-form form__rating">
-                      {RatingStars.map((count: string) => (
-                        <>
-                          <input className="form__rating-input visually-hidden" name="rating" value={count} id={`${count} stars`} type="radio" />
-                          <label htmlFor={`${count} stars`} className="reviews__rating-label form__rating-label" title="perfect">
-                            <svg className="form__star-image" width="37" height="33">
-                              <use xlinkHref="#icon-star"></use>
-                            </svg>
-                          </label>
-                        </>
-                      ))}
-                    </div>
-                    <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved"></textarea>
-                    <div className="reviews__button-wrapper">
-                      <p className="reviews__help">
-                      To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
-                      </p>
-                      <button className="reviews__submit form__submit button" type="submit">Submit</button>
-                    </div>
-                  </form>
-                </section>
-              </div>
-            </div>
-            <section className="offer__map map"></section>
-          </section>
-          : null
-      ))}
+      <section className="offer" key={currentOffer.id}>
+        {currentOffer.images ?
+          <OfferGalleryComponent
+            id={currentOffer.id}
+            images={currentOffer.images}
+          /> : null}
+        <div className="offer__container container">
+          <div className="offer__wrapper">
+            <OfferComponent
+              key={currentOffer.id}
+              id={currentOffer.id}
+              title={currentOffer.title}
+              type={currentOffer.type}
+              price={currentOffer.price}
+              isPremium={currentOffer.isPremium}
+              rating={currentOffer.rating}
+              description={currentOffer.description}
+              bedrooms={currentOffer.bedrooms}
+              goods={currentOffer.goods}
+              host={currentOffer.host}
+              maxAdults={currentOffer.maxAdults}
+              city={{
+                name: currentOffer.city.name,
+                location: {
+                  latitude: currentOffer.location.latitude,
+                  longitude: currentOffer.location.longitude,
+                  zoom: currentOffer.location.zoom
+                }
+              }}
+              location={{
+                latitude: currentOffer.location.latitude,
+                longitude: currentOffer.location.longitude,
+                zoom: currentOffer.location.zoom
+              }}
+              isFavorite={currentOffer.isFavorite}
+            />
+            <section className="offer__reviews reviews">
+              <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
+              <ul className="reviews__list">
+                {reviews.map((review) => (
+                  <OfferReviewListComponent
+                    key={review.id}
+                    id={review.id}
+                    date={review.date}
+                    user={review.user}
+                    comment={review.comment}
+                    rating={review.rating}
+                  />
+                ))}
+              </ul>
+              {
+                authorizationStatus === AuthorizationStatus.Auth ?
+                  <OfferReviewFormComponent />
+                  : <p>Только авторизированные пользователи могут оставлять коментарий</p>
+              }
+            </section>
+          </div>
+        </div>
+        <section className="offer__map map"></section>
+      </section>
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
           <div className="near-places__list places__list">
-            {offers.map((card) => (
-              <CardOfferComponent
-                key={card.id}
-                id={card.id}
-                title={card.title}
-                type={card.type}
-                price={card.price}
-                isPremium={card.isPremium}
-                rating={card.rating}
-                previewImage={card.previewImage}
-                city={{
-                  name: card.city.name,
-                  location: {
-                    latitude: card.location.latitude,
-                    longitude: card.location.longitude,
-                    zoom: card.location.zoom
-                  }
-                }}
-                isFavorite={card.isFavorite}
-                location = {{
-                  latitude: card.location.latitude,
-                  longitude: card.location.longitude,
-                  zoom: card.location.zoom
-                }}
+            {offers.map((offer: CardProps) => (
+              <CardComponent
+                key={offer.id}
+                offer={offer}
+                handleHover={handleHover}
               />
             ))}
           </div>

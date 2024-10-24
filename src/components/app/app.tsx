@@ -29,7 +29,7 @@ function App({offersCount}: AppScreenProps): JSX.Element {
           >
             <Route
               index
-              element={<MainScreen offers={offers} offersCount={offersCount}/>}
+              element={<MainScreen offers={offers} offersCount={offersCount} />}
             />
             <Route
               path={AppRoute.Login}
@@ -43,13 +43,13 @@ function App({offersCount}: AppScreenProps): JSX.Element {
               path={AppRoute.Favorites}
               element={
                 <PrivateRoute authorizationStatus={authorizationStatus}>
-                  <FavoritesScreen />
+                  <FavoritesScreen offers={offers} />
                 </PrivateRoute>
               }
             />
             <Route
-              path={AppRoute.Offer}
-              element={<OfferScreen offers={offers}/>}
+              path={`${AppRoute.Offer}/:id`}
+              element={<OfferScreen offers={offers} authorizationStatus={authorizationStatus}/>}
             />
             <Route
               path='*'

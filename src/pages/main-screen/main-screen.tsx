@@ -1,5 +1,6 @@
+import { useEffect, useState } from 'react';
 import CardComponent from '../../components/card-component/card-component';
-import { OffersProps } from '../../types/offer';
+import { CardProps, OffersProps } from '../../types/offer';
 import PlaceSortingComponent from './main-screen-components/place-sorting-component';
 import LocationsTabList from './main-screen-components/locations-tab-list';
 
@@ -9,6 +10,15 @@ type MainScreenProps = {
 }
 
 function MainScreen({offersCount, offers}: MainScreenProps): JSX.Element {
+  const [activeOffer, setActiveOffer] = useState<CardProps>();
+  const handleHover = (offer?: CardProps) => {
+    setActiveOffer(offer);
+  };
+
+  useEffect(() => {
+    // eslint-disable-next-line no-console
+    console.log(activeOffer);
+  });
 
   return (
     <main className="page__main page__main--index">
@@ -23,30 +33,11 @@ function MainScreen({offersCount, offers}: MainScreenProps): JSX.Element {
             <b className="places__found">{offersCount} places to stay in Amsterdam</b>
             <PlaceSortingComponent />
             <div className="cities__places-list places__list tabs__content">
-              {offers.map((card) => (
+              {offers.map((offer: CardProps) => (
                 <CardComponent
-                  key={card.id}
-                  id={card.id}
-                  title={card.title}
-                  type={card.type}
-                  price={card.price}
-                  isPremium={card.isPremium}
-                  rating={card.rating}
-                  previewImage={card.previewImage}
-                  city={{
-                    name: card.city.name,
-                    location: {
-                      latitude: card.location.latitude,
-                      longitude: card.location.longitude,
-                      zoom: card.location.zoom
-                    }
-                  }}
-                  isFavorite={card.isFavorite}
-                  location = {{
-                    latitude: card.location.latitude,
-                    longitude: card.location.longitude,
-                    zoom: card.location.zoom
-                  }}
+                  key={offer.id}
+                  offer={offer}
+                  handleHover={handleHover}
                 />
               ))}
             </div>
