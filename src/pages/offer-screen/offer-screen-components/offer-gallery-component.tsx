@@ -1,13 +1,12 @@
-import {offer} from '../offer-screen-components/offer-data';
+import { OfferImagesProps } from '../../../types/offer';
 
-function OfferGalleryComponent(): JSX.Element {
+function OfferGalleryComponent({images, id}: OfferImagesProps): JSX.Element {
   return (
     <div className="offer__gallery-container container">
       <div className="offer__gallery">
-        {offer.images ?
-          offer.images.map((image: string) => (
-          // eslint-disable-next-line react/jsx-key
-            <div className="offer__image-wrapper">
+        {images ?
+          images.map((image: string) => (
+            <div className="offer__image-wrapper" key={id}>
               <img
                 className="offer__image"
                 src={image}

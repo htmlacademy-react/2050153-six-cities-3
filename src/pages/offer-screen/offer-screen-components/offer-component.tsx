@@ -1,6 +1,6 @@
-import {OfferProps} from './offer-data';
+import {OfferProps} from '../../../types/offer';
 
-function OfferComponent ({title, type, price, isPremium, rating, description, bedrooms, goods, host, maxAdults}: OfferProps): JSX.Element {
+function OfferComponent ({id, title, type, price, isPremium, rating, description, bedrooms, goods, host, maxAdults}: OfferProps): JSX.Element {
   return (
     <>
       {isPremium ?
@@ -41,7 +41,7 @@ function OfferComponent ({title, type, price, isPremium, rating, description, be
           {bedrooms} Bedrooms
         </li>
         <li className="offer__feature offer__feature--adults">
-        Max {maxAdults} adults
+          Max {maxAdults} adults
         </li>
       </ul>
       <div className="offer__price">
@@ -53,9 +53,8 @@ function OfferComponent ({title, type, price, isPremium, rating, description, be
         <ul className="offer__inside-list">
           {goods ?
             (
-              goods.map((feature) => (
-                // eslint-disable-next-line react/jsx-key
-                <li className="offer__inside-item">
+              goods.map((feature: string) => (
+                <li className="offer__inside-item" key={id}>
                   {feature}
                 </li>
               ))
@@ -83,8 +82,7 @@ function OfferComponent ({title, type, price, isPremium, rating, description, be
         <div className="offer__description">
           {description ?
             description.map((str) => (
-              // eslint-disable-next-line react/jsx-key
-              <p className="offer__text">
+              <p className="offer__text" key={id}>
                 {str}
               </p>
             ))

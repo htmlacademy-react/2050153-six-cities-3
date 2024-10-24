@@ -1,9 +1,24 @@
-import {Link} from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import CardComponent from '../../../components/card-component/card-component';
-import {cards} from '../../../components/card-component/card-data';
-import {Cities} from '../../../const';
+import { Cities } from '../../../const';
+import { CardProps, OffersProps } from '../../../types/offer';
 
-function FavoritesLocationsComponents(): JSX.Element {
+type FavoritesLocationsProps = {
+  offers: OffersProps[];
+}
+
+function FavoritesLocationsComponents({offers}: FavoritesLocationsProps): JSX.Element {
+  const [activeOffer, setActiveOffer] = useState<CardProps>();
+  const handleHover = (offer?: CardProps) => {
+    setActiveOffer(offer);
+  };
+
+  useEffect(() => {
+    // eslint-disable-next-line no-console
+    console.log(activeOffer);
+  });
+
   return (
     <>
       {Cities.map((city: string) => (
@@ -17,19 +32,13 @@ function FavoritesLocationsComponents(): JSX.Element {
             </div>
           </div>
           <div className="favorites__places">
-            {cards.map((card) => (
-              card.isFavorite && (card.city === city) ?
+            {offers.map((offer) => (
+              offer.isFavorite && (offer.city.name === city) ?
                 (
                   <CardComponent
-                    key={card.id}
-                    title={card.title}
-                    type={card.type}
-                    price={card.price}
-                    isPremium={card.isPremium}
-                    rating={card.rating}
-                    previewImage={card.previewImage}
-                    city={card.city}
-                    isFavorite={false}
+                    key={offer.id}
+                    offer={offer}
+                    handleHover={handleHover}
                   />
                 )
                 : null
