@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import CardComponent from '../../../components/card-component/card-component';
-import { CardProps, CityProps } from '../../../types/offer';
+import { CardProps, CityProps, OffersProps } from '../../../types/offer';
 import PlaceSortingComponent from './place-sorting-component';
 import MapComponent from '../../../components/map/map';
 
 type OffersListProps = {
   currentCity: CityProps;
-  currentOffers: CardProps[];
+  currentOffers: OffersProps[];
 };
 
 function OffersListComponent ({currentCity, currentOffers}: OffersListProps): JSX.Element {

@@ -8,6 +8,7 @@ import CardComponent from '../../components/card-component/card-component';
 import { CardProps, OffersProps } from '../../types/offer';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import { AuthorizationStatus } from '../../const';
+import MapComponent from '../../components/map/map';
 
 type OfferScreenProps = {
   offers: OffersProps[];
@@ -83,7 +84,7 @@ function OfferScreen({offers, authorizationStatus}: OfferScreenProps): JSX.Eleme
             </section>
           </div>
         </div>
-        <section className="offer__map map"></section>
+        <MapComponent city={currentOffer.city} offers={currentOffer} activeOfferId={currentOffer.id} />
       </section>
       <div className="container">
         <section className="near-places places">

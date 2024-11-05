@@ -1,18 +1,18 @@
 import { useState } from 'react';
-import { CardProps, CityProps } from '../../types/offer';
+import { CityProps, OffersProps } from '../../types/offer';
 import OffersListComponent from './main-screen-components/offers-list-component';
 import { Cities } from '../../const';
 
 type MainScreenProps = {
   offersCount: number;
-  offers: CardProps[];
+  offers: OffersProps[];
 }
 
 function MainScreen({offersCount, offers}: MainScreenProps): JSX.Element {
   const [currentCityName, setCurrentCityName] = useState<string | null>(null);
 
-  const getCurrentOffers = (): CardProps[] | null => {
-    const currentOffers: CardProps[] | null = [];
+  const getCurrentOffers = (): OffersProps[] | null => {
+    const currentOffers: OffersProps[] | null = [];
 
     offers.forEach((offer) => {
       if (offer.city.name === currentCityName) {

@@ -2,14 +2,14 @@ import leaflet, { LayerGroup as LayerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
-import { CardProps, CityProps } from '../../types/offer';
+import { CityProps, OffersProps } from '../../types/offer';
 import { getMapFeatures } from '../../utils/pageUtils';
 import { AppRoute, URL_PIN_ACTIVE, URL_PIN_DEFAULT } from '../../const';
 import useMap from './map-hooks/useMap';
 
 type MapProps = {
   city: CityProps;
-  offers: CardProps[];
+  offers: OffersProps | OffersProps[];
   activeOfferId?: string | null;
 };
 
@@ -32,6 +32,9 @@ function MapComponent({city, offers, activeOfferId}: MapProps): JSX.Element {
   const map = useMap({mapRef: mapRef, city: city.location});
   const cityMarkersLayer = useRef<LayerGroup>(new leaflet.LayerGroup());
 
+  const mapOffers: OffersProps[] = offers as OffersProps[];
+  const mapOffer: OffersProps = offers as OffersProps;
+
   useEffect(() => {
     if(map) {
       map.setView([city.location.latitude, city.location.longitude], city.location.zoom);
@@ -42,20 +45,32 @@ function MapComponent({city, offers, activeOfferId}: MapProps): JSX.Element {
 
   useEffect(() => {
     if (map) {
-      offers.forEach((offer) => {
+      if (mapOffers) {
+        mapOffers.forEach((offer) => {
+          leaflet
+            .marker({
+              lat: offer.location.latitude,
+              lng: offer.location.longitude,
+            }, {
+              icon: (offer.id === activeOfferId)
+                ? activeCustomIcon
+                : defaultCustomIcon,
+            })
+            .addTo(cityMarkersLayer.current);
+        });
+      }
+      if (mapOffer) {
         leaflet
           .marker({
-            lat: offer.location.latitude,
-            lng: offer.location.longitude,
+            lat: mapOffer.location.latitude,
+            lng: mapOffer.location.longitude,
           }, {
-            icon: (offer.id === activeOfferId)
-              ? activeCustomIcon
-              : defaultCustomIcon,
+            icon: defaultCustomIcon,
           })
           .addTo(cityMarkersLayer.current);
-      });
+      }
     }
-  }, [map, offers, activeOfferId]);
+  }, [map, activeOfferId, mapOffers, mapOffer]);
 
   return (
     <section
