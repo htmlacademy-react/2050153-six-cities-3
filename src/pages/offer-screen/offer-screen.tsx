@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { reviews } from '../../mocks/reviews';
 import OfferGalleryComponent from './offer-screen-components/offer-gallery-component';
@@ -17,22 +16,12 @@ type OfferScreenProps = {
 
 function OfferScreen({offers, authorizationStatus}: OfferScreenProps): JSX.Element {
   const { id } = useParams();
-  const [activeOffer, setActiveOffer] = useState<CardProps>();
-
-  useEffect(() => {
-    // eslint-disable-next-line no-console
-    console.log(activeOffer);
-  });
 
   const currentOffer: OffersProps | undefined = offers.find((offer: OffersProps) => offer.id === id);
 
   if (!currentOffer) {
     return <NotFoundScreen />;
   }
-
-  const handleHover = (offer?: CardProps) => {
-    setActiveOffer(offer);
-  };
 
   return (
     <main className="page__main page__main--offer">
@@ -104,7 +93,6 @@ function OfferScreen({offers, authorizationStatus}: OfferScreenProps): JSX.Eleme
               <CardComponent
                 key={offer.id}
                 offer={offer}
-                handleHover={handleHover}
               />
             ))}
           </div>

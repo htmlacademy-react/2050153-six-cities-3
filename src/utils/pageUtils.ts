@@ -50,3 +50,15 @@ export const getCardFeatures = (pathname: AppRoute) =>{
 
   return {cardClassName, cardInfoClassName};
 };
+
+export const getMapFeatures = (pathname: AppRoute) =>{
+  let mapClassName = '';
+
+  if (pathname === AppRoute.Main) {
+    mapClassName = 'cities';
+  } else if (pathname === AppRoute.Offer) {
+    mapClassName = 'offer';
+  }
+
+  return {mapClassName};
+};

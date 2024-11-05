@@ -1,10 +1,15 @@
-type LocationProps = {
+export type CoordinateProps = {
+  lat: number;
+  lng: number;
+};
+
+export type LocationProps = {
   latitude: number;
   longitude: number;
   zoom: number;
 };
 
-type CityProps = {
+export type CityProps = {
   name: string;
   location: LocationProps;
 };

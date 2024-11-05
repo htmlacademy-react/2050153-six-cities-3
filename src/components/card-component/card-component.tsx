@@ -5,27 +5,32 @@ import { getCardFeatures } from '../../utils/pageUtils';
 
 type OfferCardProps = {
   offer: CardProps;
-  handleHover: (offer?: CardProps) => void;
+  onCardHover?: (offerId: CardProps['id'] | null) => void;
 };
 
-function CardComponent({offer, handleHover}: OfferCardProps): JSX.Element {
+function CardComponent({offer, onCardHover}: OfferCardProps): JSX.Element {
   const {id, title, type, price, isPremium, isFavorite, rating, previewImage} = offer;
   const pathname = useLocation();
   const {cardClassName, cardInfoClassName} = getCardFeatures(pathname as unknown as AppRoute);
   const activeClassName = 'place-card__bookmark-button--active';
 
   const handleHoverOverCard = () => {
-    handleHover(offer);
+    if (onCardHover) {
+      onCardHover(offer.id);
+    }
   };
+
   const handleAwayFromCard = () => {
-    handleHover();
+    if (onCardHover) {
+      onCardHover(null);
+    }
   };
 
   return (
     <article
       className={`${cardClassName}__card place-card`}
-      onMouseOver={handleHoverOverCard}
-      onMouseOut={handleAwayFromCard}
+      onMouseEnter={handleHoverOverCard}
+      onMouseLeave={handleAwayFromCard}
     >
       {isPremium ?
         (

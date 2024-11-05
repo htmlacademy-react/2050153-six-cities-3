@@ -1,51 +1,59 @@
-import { useEffect, useState } from 'react';
-import CardComponent from '../../components/card-component/card-component';
-import { CardProps, OffersProps } from '../../types/offer';
-import PlaceSortingComponent from './main-screen-components/place-sorting-component';
-import LocationsTabList from './main-screen-components/locations-tab-list';
+import { useState } from 'react';
+import { CardProps, CityProps } from '../../types/offer';
+import OffersListComponent from './main-screen-components/offers-list-component';
+import { Cities } from '../../const';
 
 type MainScreenProps = {
   offersCount: number;
-  offers: OffersProps[];
+  offers: CardProps[];
 }
 
 function MainScreen({offersCount, offers}: MainScreenProps): JSX.Element {
-  const [activeOffer, setActiveOffer] = useState<CardProps>();
-  const handleHover = (offer?: CardProps) => {
-    setActiveOffer(offer);
+  const [currentCityName, setCurrentCityName] = useState<string | null>(null);
+
+  const getCurrentOffers = (): CardProps[] | null => {
+    const currentOffers: CardProps[] | null = [];
+
+    offers.forEach((offer) => {
+      if (offer.city.name === currentCityName) {
+        currentOffers.push(offer);
+      }
+    });
+
+    if (currentOffers !== null) {
+      return currentOffers.splice(offersCount);
+    }
+    return null;
   };
 
-  useEffect(() => {
-    // eslint-disable-next-line no-console
-    console.log(activeOffer);
-  });
+  const currentOffers = getCurrentOffers();
+  const currentCity: CityProps | null = (currentOffers !== null) ? currentOffers[0].city : null;
 
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
-        <LocationsTabList />
+        <section className="locations container">
+          <ul className="locations__list tabs__list">
+            {Cities.map((city: string) => (
+              <li className="locations__item" key={city}>
+                <a
+                  className="locations__item-link tabs__item"
+                  href={`#${city}`}
+                  onClick={() => setCurrentCityName(city)}
+                >
+                  <span>{city}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
       </div>
       <div className="cities">
-        <div className="cities__places-container container">
-          <section className="cities__places places">
-            <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{offersCount} places to stay in Amsterdam</b>
-            <PlaceSortingComponent />
-            <div className="cities__places-list places__list tabs__content">
-              {offers.map((offer: CardProps) => (
-                <CardComponent
-                  key={offer.id}
-                  offer={offer}
-                  handleHover={handleHover}
-                />
-              ))}
-            </div>
-          </section>
-          <div className="cities__right-section">
-            <section className="cities__map map"></section>
-          </div>
-        </div>
+        {(currentOffers !== null && currentCity !== null) ?
+          (
+            <OffersListComponent currentCity={currentCity} currentOffers={currentOffers} />
+          ) : null}
       </div>
     </main>
   );
