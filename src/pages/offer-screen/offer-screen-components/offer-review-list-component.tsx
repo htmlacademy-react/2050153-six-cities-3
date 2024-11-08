@@ -25,7 +25,7 @@ function OfferReviewListComponent({id, date, user, comment, rating}: ReviewsProp
         <p className="reviews__text">
           {comment}
         </p>
-        <time className="reviews__time" dateTime={date}>April 2019</time>
+        <time className="reviews__time" dateTime={date}>{date}</time>
       </div>
     </li>
   );

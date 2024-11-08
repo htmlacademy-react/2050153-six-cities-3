@@ -1,6 +1,12 @@
 import {OfferProps} from '../../../types/offer';
 
-function OfferComponent ({id, title, type, price, isPremium, rating, description, bedrooms, goods, host, maxAdults}: OfferProps): JSX.Element {
+type OfferComponentProps = {
+  offer: OfferProps;
+}
+
+function OfferComponent ({offer}: OfferComponentProps): JSX.Element {
+  const {id, title, type, price, isPremium, rating, description, bedrooms, goods, host, maxAdults} = offer;
+
   return (
     <>
       {isPremium ?

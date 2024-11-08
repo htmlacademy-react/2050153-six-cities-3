@@ -9,7 +9,7 @@ import useMap from './map-hooks/useMap';
 
 type MapProps = {
   city: CityProps;
-  offers: OffersProps | OffersProps[];
+  offers: OffersProps[];
   activeOfferId?: string | null;
 };
 
@@ -32,9 +32,6 @@ function MapComponent({city, offers, activeOfferId}: MapProps): JSX.Element {
   const map = useMap({mapRef: mapRef, city: city.location});
   const cityMarkersLayer = useRef<LayerGroup>(new leaflet.LayerGroup());
 
-  const mapOffers: OffersProps[] = offers as OffersProps[];
-  const mapOffer: OffersProps = offers as OffersProps;
-
   useEffect(() => {
     if(map) {
       map.setView([city.location.latitude, city.location.longitude], city.location.zoom);
@@ -45,32 +42,20 @@ function MapComponent({city, offers, activeOfferId}: MapProps): JSX.Element {
 
   useEffect(() => {
     if (map) {
-      if (mapOffers) {
-        mapOffers.forEach((offer) => {
-          leaflet
-            .marker({
-              lat: offer.location.latitude,
-              lng: offer.location.longitude,
-            }, {
-              icon: (offer.id === activeOfferId)
-                ? activeCustomIcon
-                : defaultCustomIcon,
-            })
-            .addTo(cityMarkersLayer.current);
-        });
-      }
-      if (mapOffer) {
+      offers.forEach((offer) => {
         leaflet
           .marker({
-            lat: mapOffer.location.latitude,
-            lng: mapOffer.location.longitude,
+            lat: offer.location.latitude,
+            lng: offer.location.longitude,
           }, {
-            icon: defaultCustomIcon,
+            icon: (offer.id === activeOfferId)
+              ? activeCustomIcon
+              : defaultCustomIcon,
           })
           .addTo(cityMarkersLayer.current);
-      }
+      });
     }
-  }, [map, activeOfferId, mapOffers, mapOffer]);
+  }, [map, activeOfferId, offers]);
 
   return (
     <section
