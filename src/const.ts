@@ -18,7 +18,7 @@ export const SortOptions: string[] = [
 ];
 
 export const Setting = {
-  OffersCount: 5
+  OffersCount: 20
 };
 
 export const PageType = {
@@ -67,7 +67,7 @@ export const Coordinates = [
   {lat: 52.3809553943508, lng: 4.939309666406198}
 ];
 
-export const ZOOM = 8;
+export const ZOOM = 10;
 
 export const Goods = [
   'Heating',

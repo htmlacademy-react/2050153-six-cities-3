@@ -1,15 +1,15 @@
 import { useState } from 'react';
-import { CityProps, OffersProps } from '../../types/offer';
+import { OffersProps } from '../../types/offer';
 import OffersListComponent from './main-screen-components/offers-list-component';
 import { Cities } from '../../const';
 
 type MainScreenProps = {
-  offersCount: number;
   offers: OffersProps[];
 }
 
-function MainScreen({offersCount, offers}: MainScreenProps): JSX.Element {
-  const [currentCityName, setCurrentCityName] = useState<string | null>(null);
+function MainScreen({offers}: MainScreenProps): JSX.Element {
+  const [currentCityName, setCurrentCityName] = useState<string>('Amsterdam');
+  // const [active, setActive] = useState(false);
 
   const getCurrentOffers = (): OffersProps[] | null => {
     const currentOffers: OffersProps[] | null = [];
@@ -21,13 +21,19 @@ function MainScreen({offersCount, offers}: MainScreenProps): JSX.Element {
     });
 
     if (currentOffers !== null) {
-      return currentOffers.splice(offersCount);
+      return currentOffers;
     }
     return null;
   };
 
   const currentOffers = getCurrentOffers();
-  const currentCity: CityProps | null = (currentOffers !== null) ? currentOffers[0].city : null;
+
+  const handleClick = (city: string) => {
+    setCurrentCityName(city);
+    // setActive(!active);
+  };
+  // const currentCity: CityProps | null = (currentOffers !== null) ? currentOffers[0].city : null;
+  // const currentCity: CityProps = (currentOffers !== null) ? currentOffers[0].city : null;
 
   return (
     <main className="page__main page__main--index">
@@ -38,9 +44,9 @@ function MainScreen({offersCount, offers}: MainScreenProps): JSX.Element {
             {Cities.map((city: string) => (
               <li className="locations__item" key={city}>
                 <a
-                  className="locations__item-link tabs__item"
+                  className={'locations__item-link tabs__item'}
                   href={`#${city}`}
-                  onClick={() => setCurrentCityName(city)}
+                  onClick={() => handleClick(city)}
                 >
                   <span>{city}</span>
                 </a>
@@ -50,10 +56,10 @@ function MainScreen({offersCount, offers}: MainScreenProps): JSX.Element {
         </section>
       </div>
       <div className="cities">
-        {(currentOffers !== null && currentCity !== null) ?
+        {(currentOffers !== null) ?
           (
-            <OffersListComponent currentCity={currentCity} currentOffers={currentOffers} />
-          ) : null}
+            <OffersListComponent currentCity={currentOffers[0].city} currentOffers={currentOffers} />
+          ) : <p>Нет тякущих предложений для этого города</p>}
       </div>
     </main>
   );

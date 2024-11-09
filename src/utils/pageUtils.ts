@@ -1,15 +1,12 @@
 import { AppRoute, PageTitle, AuthorizationStatus } from '../const';
 
-// Приобразование формата отображения текста с первой заглавной буквой.
-// Пример: "Название Города"
-// export const CapitalizeWords = (str: string): string => str.replace(/\b\w/g, (c) => (c).toUpperCase());
-
 export const getAuthorizationStatus = () => AuthorizationStatus.NoAuth;
 
 export const getLayoutState = (pathname: AppRoute) =>{
   let rootClassName = '';
   let pageTitle = '';
   let linkClassName = '';
+  let mapClassName = '';
   let shouldRenderUser = true;
   let shouldRenderFooter = false;
 
@@ -17,6 +14,7 @@ export const getLayoutState = (pathname: AppRoute) =>{
     rootClassName = ' page--gray page--main';
     pageTitle = PageTitle.Main;
     linkClassName = ' header__logo-link--active';
+    mapClassName = 'cities';
   } else if (pathname === AppRoute.Login) {
     rootClassName = ' page--gray page--login';
     pageTitle = PageTitle.Login;
@@ -26,13 +24,10 @@ export const getLayoutState = (pathname: AppRoute) =>{
     shouldRenderFooter = true;
   } else if (pathname === AppRoute.Offer) {
     pageTitle = PageTitle.Offer;
-  } else {
-    shouldRenderUser = false;
-    pageTitle = PageTitle.NotFound;
-    shouldRenderFooter = true;
+    mapClassName = 'offer';
   }
 
-  return {rootClassName, linkClassName, shouldRenderUser, shouldRenderFooter, pageTitle};
+  return {rootClassName, linkClassName, shouldRenderUser, shouldRenderFooter, pageTitle, mapClassName};
 };
 
 export const getCardFeatures = (pathname: AppRoute) =>{
@@ -49,16 +44,4 @@ export const getCardFeatures = (pathname: AppRoute) =>{
   }
 
   return {cardClassName, cardInfoClassName};
-};
-
-export const getMapFeatures = (pathname: AppRoute) =>{
-  let mapClassName = '';
-
-  if (pathname === AppRoute.Main) {
-    mapClassName = 'cities';
-  } else if (pathname === AppRoute.Offer) {
-    mapClassName = 'offer';
-  }
-
-  return {mapClassName};
 };

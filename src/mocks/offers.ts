@@ -1,6 +1,6 @@
 import { OffersProps } from '../types/offer';
 import { Goods, OfferTypes, Urls, OfferDescription, Coordinates} from '../const';
-import { getRandomArrayElement, getArrayFromRandomElements, getRandomInteger } from '../utils/utils';
+import { getRandomArrayElement, getArrayFromRandomElements, getRandomInteger, getRandomArrayBooleanElement } from '../utils/utils';
 import { users } from './users';
 import { getCityLocation, getOfferLocation } from './city-locations';
 
@@ -11,8 +11,8 @@ export const createOffer = (index: number): OffersProps => ({
   price: getRandomInteger(100, 1000),
   city: getCityLocation(Coordinates),
   location: getOfferLocation(Coordinates),
-  isFavorite: false,
-  isPremium: true,
+  isFavorite: getRandomArrayBooleanElement([false, true]),
+  isPremium: getRandomArrayBooleanElement([false, true]),
   rating: getRandomInteger(4, 5),
   description: getArrayFromRandomElements(OfferDescription),
   bedrooms: getRandomInteger(1, 5),

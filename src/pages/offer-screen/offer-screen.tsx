@@ -44,7 +44,7 @@ function OfferScreen({offers, authorizationStatus}: OfferScreenProps): JSX.Eleme
     });
 
     if (currentOffers) {
-      return currentOffers.slice(3);
+      return currentOffers.slice(0, 3);
     }
     return null;
   };
@@ -81,11 +81,11 @@ function OfferScreen({offers, authorizationStatus}: OfferScreenProps): JSX.Eleme
                       />
                     ))}
                   </ul>
-                ) : (<p>У этого предложения нет отзывов</p>)}
+                ) : <p>This offer do not have any reviews.</p>}
               {
                 authorizationStatus === AuthorizationStatus.Auth ?
                   <OfferReviewFormComponent />
-                  : <p>Только авторизированные пользователи могут оставлять коментарий</p>
+                  : <b>Only authorized user could leave a review. Please Sign in</b>
               }
             </section>
           </div>

@@ -3,7 +3,7 @@ import 'leaflet/dist/leaflet.css';
 import { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { CityProps, OffersProps } from '../../types/offer';
-import { getMapFeatures } from '../../utils/pageUtils';
+import { getLayoutState } from '../../utils/pageUtils';
 import { AppRoute, URL_PIN_ACTIVE, URL_PIN_DEFAULT } from '../../const';
 import useMap from './map-hooks/useMap';
 
@@ -27,10 +27,17 @@ const activeCustomIcon = leaflet.icon({
 
 function MapComponent({city, offers, activeOfferId}: MapProps): JSX.Element {
   const pathname = useLocation();
-  const {mapClassName} = getMapFeatures(pathname as unknown as AppRoute);
+  // const {mapClassName} = getLayoutState(pathname as unknown as AppRoute);
   const mapRef = useRef<HTMLElement>(null);
   const map = useMap({mapRef: mapRef, city: city.location});
   const cityMarkersLayer = useRef<LayerGroup>(new leaflet.LayerGroup());
+  let mapClassName = 'offer';
+
+  useEffect(() => {
+    if (pathname === AppRoute.Main) {
+      mapClassName = 'cities';
+    }
+  },[pathname]);
 
   useEffect(() => {
     if(map) {

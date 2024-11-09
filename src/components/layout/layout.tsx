@@ -5,7 +5,6 @@ import {getLayoutState} from '../../utils/pageUtils';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 
-
 function Layout(): JSX.Element {
   const pathname = useLocation();
   const {rootClassName, shouldRenderFooter, pageTitle} = getLayoutState(pathname as unknown as AppRoute);

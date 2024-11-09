@@ -4,7 +4,8 @@ import { AppRoute, AuthorizationStatus } from '../../const';
 
 function Header(): JSX.Element {
   const pathname = useLocation();
-  const {linkClassName, shouldRenderUser} = getLayoutState(pathname as unknown as AppRoute);
+  const linkClassName = ' header__logo-link--active';
+  const {shouldRenderUser} = getLayoutState(pathname as unknown as AppRoute);
   const authorizationStatus = getAuthorizationStatus();
 
   return (
@@ -12,7 +13,7 @@ function Header(): JSX.Element {
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            <Link className={`header__logo-link ${linkClassName}`} to={`${AppRoute.Main}`}>
+            <Link className={`header__logo-link ${pathname === AppRoute.Main ? linkClassName : ''}`} to={`${AppRoute.Main}`}>
               <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
             </Link>
           </div>
@@ -21,7 +22,6 @@ function Header(): JSX.Element {
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
                   {
-                    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
                     authorizationStatus === AuthorizationStatus.Auth ? (
                       <Link className="header__nav-link header__nav-link--profile" to={`${AppRoute.Favorites}`}>
                         <div className="header__avatar-wrapper user__avatar-wrapper">
@@ -40,7 +40,6 @@ function Header(): JSX.Element {
                 </li>
                 <li className="header__nav-item">
                   {
-                    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
                     authorizationStatus === AuthorizationStatus.Auth ? (
                       <Link className="header__nav-link" to={`${AppRoute.Main}`}>
                         <span className="header__signout">Sign out</span>

@@ -15,8 +15,9 @@ export const getOfferLocation = (coordinates: CoordinateProps[]): LocationProps 
 };
 
 export const getCityLocation = (coordinates: CoordinateProps[]): CityProps => {
-  let lat = 52.35514938496378;
-  let lng = 4.673877537499948;
+  let lat = 52.3909553943508;
+  let lng = 4.85309666406198;
+
   const offerCity = getRandomArrayElement(Cities);
 
   if (offerCity !== 'Amsterdam') {

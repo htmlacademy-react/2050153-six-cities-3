@@ -8,11 +8,11 @@ type FavoritesLocationsProps = {
 }
 
 function FavoritesLocationsComponents({offers}: FavoritesLocationsProps): JSX.Element {
+  console.log(offers);
   return (
     <>
       {Cities.map((city: string) => (
-        // eslint-disable-next-line react/jsx-key
-        <li className="favorites__locations-items">
+        <li className="favorites__locations-items" key={city}>
           <div className="favorites__locations locations locations--current">
             <div className="locations__item">
               <Link className="locations__item-link" to={`${AppRoute.Main}`}>
