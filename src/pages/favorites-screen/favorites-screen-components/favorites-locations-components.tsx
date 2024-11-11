@@ -5,28 +5,29 @@ import { OffersProps } from '../../../types/offer';
 
 type FavoritesLocationsProps = {
   offers: OffersProps[];
+  favoritesClassName: string;
 }
 
-function FavoritesLocationsComponents({offers}: FavoritesLocationsProps): JSX.Element {
-  console.log(offers);
+function FavoritesLocationsComponents({offers, favoritesClassName}: FavoritesLocationsProps): JSX.Element {
   return (
     <>
       {Cities.map((city: string) => (
-        <li className="favorites__locations-items" key={city}>
-          <div className="favorites__locations locations locations--current">
+        <li className={`${favoritesClassName}__locations-items`} key={city}>
+          <div className={`${favoritesClassName}__locations locations locations--current`}>
             <div className="locations__item">
               <Link className="locations__item-link" to={`${AppRoute.Main}`}>
                 <span>{city}</span>
               </Link>
             </div>
           </div>
-          <div className="favorites__places">
+          <div className={`${favoritesClassName}__places`}>
             {offers.map((offer) => (
               offer.isFavorite && (offer.city.name === city) ?
                 (
                   <CardComponent
                     key={offer.id}
                     offer={offer}
+                    cardClassName={favoritesClassName}
                   />
                 )
                 : null
