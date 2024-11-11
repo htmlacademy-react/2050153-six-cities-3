@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { OffersProps } from '../../types/offer';
 import OffersListComponent from './main-screen-components/offers-list-component';
 import { Cities } from '../../const';
+import { getCurrentOffers } from '../../utils/pageUtils';
 
 type MainScreenProps = {
   offers: OffersProps[];
@@ -9,31 +10,13 @@ type MainScreenProps = {
 
 function MainScreen({offers}: MainScreenProps): JSX.Element {
   const [currentCityName, setCurrentCityName] = useState<string>('Amsterdam');
-  // const [active, setActive] = useState(false);
+  const mainCityClass: string = 'cities';
 
-  const getCurrentOffers = (): OffersProps[] | null => {
-    const currentOffers: OffersProps[] | null = [];
-
-    offers.forEach((offer) => {
-      if (offer.city.name === currentCityName) {
-        currentOffers.push(offer);
-      }
-    });
-
-    if (currentOffers !== null) {
-      return currentOffers;
-    }
-    return null;
-  };
-
-  const currentOffers = getCurrentOffers();
+  const currentOffers = getCurrentOffers(offers, currentCityName);
 
   const handleClick = (city: string) => {
     setCurrentCityName(city);
-    // setActive(!active);
   };
-  // const currentCity: CityProps | null = (currentOffers !== null) ? currentOffers[0].city : null;
-  // const currentCity: CityProps = (currentOffers !== null) ? currentOffers[0].city : null;
 
   return (
     <main className="page__main page__main--index">
@@ -55,11 +38,11 @@ function MainScreen({offers}: MainScreenProps): JSX.Element {
           </ul>
         </section>
       </div>
-      <div className="cities">
+      <div className={mainCityClass}>
         {(currentOffers !== null) ?
           (
-            <OffersListComponent currentCity={currentOffers[0].city} currentOffers={currentOffers} />
-          ) : <p>Нет тякущих предложений для этого города</p>}
+            <OffersListComponent currentCity={currentOffers[0].city} currentOffers={currentOffers} citiesClassName={mainCityClass} />
+          ) : <p>There is no current offers for this city</p>}
       </div>
     </main>
   );

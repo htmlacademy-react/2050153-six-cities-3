@@ -11,6 +11,7 @@ import { AuthorizationStatus } from '../../const';
 import MapComponent from '../../components/map/map';
 import { ReviewsProps } from '../../types/review';
 import { getRandomInteger } from '../../utils/utils';
+import { getNearOffers } from '../../utils/pageUtils';
 
 type OfferScreenProps = {
   offers: OffersProps[];
@@ -19,6 +20,8 @@ type OfferScreenProps = {
 
 function OfferScreen({offers, authorizationStatus}: OfferScreenProps): JSX.Element {
   const { id } = useParams();
+  const offerPageClassName = 'offer';
+  const nearPlacesClassName = 'near-places';
 
   const currentOffer: OffersProps | undefined = offers.find((offer: OffersProps) => offer.id === id);
 
@@ -31,39 +34,22 @@ function OfferScreen({offers, authorizationStatus}: OfferScreenProps): JSX.Eleme
     () => reviews[getRandomInteger(0, reviews.length - 1)],
   );
 
-  const getNearOffers = () : OffersProps[] | null => {
-    const currentOffers: OffersProps[] | null = [];
-
-    offers.map((offer) => {
-      if (
-        currentOffer.city.name === offer.city.name
-        && currentOffer.id !== offer.id
-      ) {
-        currentOffers.push(offer);
-      }
-    });
-
-    if (currentOffers) {
-      return currentOffers.slice(0, 3);
-    }
-    return null;
-  };
-
-  const nearOffers = getNearOffers();
+  const nearOffers = getNearOffers(offers, currentOffer);
 
   return (
-    <main className="page__main page__main--offer">
-      <section className="offer" key={currentOffer.id}>
+    <main className={`page__main page__main--${offerPageClassName}`}>
+      <section className={offerPageClassName} key={currentOffer.id}>
         {currentOffer.images ?
           <OfferGalleryComponent
             id={currentOffer.id}
             images={currentOffer.images}
           /> : null}
-        <div className="offer__container container">
-          <div className="offer__wrapper">
+        <div className={`${offerPageClassName}__container container`}>
+          <div className={`${offerPageClassName}__wrapper`}>
             <OfferComponent
               key={currentOffer.id}
               offer={currentOffer}
+              offerClassName={offerPageClassName}
             />
             <section className="offer__reviews reviews">
               <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{offerReviews ? offerReviews.length : 0}</span></h2>
@@ -92,7 +78,7 @@ function OfferScreen({offers, authorizationStatus}: OfferScreenProps): JSX.Eleme
         </div>
         {nearOffers ?
           (
-            <MapComponent city={currentOffer.city} offers={nearOffers} activeOfferId={currentOffer.id} />
+            <MapComponent city={currentOffer.city} offers={nearOffers} activeOfferId={currentOffer.id} mapClassName={offerPageClassName} />
           ) : null}
       </section>
       <div className="container">
@@ -105,11 +91,12 @@ function OfferScreen({offers, authorizationStatus}: OfferScreenProps): JSX.Eleme
                   <CardComponent
                     key={offer.id}
                     offer={offer}
+                    cardClassName={nearPlacesClassName}
                   />
                 ))}
               </div>
             </section>
-          ) : <p>Нет других предложений неподалеку от этого предложения</p>}
+          ) : null}
       </div>
     </main>
   );

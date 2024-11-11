@@ -1,4 +1,5 @@
 import { AppRoute, PageTitle, AuthorizationStatus } from '../const';
+import { OffersProps } from '../types/offer';
 
 export const getAuthorizationStatus = () => AuthorizationStatus.NoAuth;
 
@@ -6,7 +7,6 @@ export const getLayoutState = (pathname: AppRoute) =>{
   let rootClassName = '';
   let pageTitle = '';
   let linkClassName = '';
-  let mapClassName = '';
   let shouldRenderUser = true;
   let shouldRenderFooter = false;
 
@@ -14,7 +14,6 @@ export const getLayoutState = (pathname: AppRoute) =>{
     rootClassName = ' page--gray page--main';
     pageTitle = PageTitle.Main;
     linkClassName = ' header__logo-link--active';
-    mapClassName = 'cities';
   } else if (pathname === AppRoute.Login) {
     rootClassName = ' page--gray page--login';
     pageTitle = PageTitle.Login;
@@ -24,24 +23,40 @@ export const getLayoutState = (pathname: AppRoute) =>{
     shouldRenderFooter = true;
   } else if (pathname === AppRoute.Offer) {
     pageTitle = PageTitle.Offer;
-    mapClassName = 'offer';
   }
 
-  return {rootClassName, linkClassName, shouldRenderUser, shouldRenderFooter, pageTitle, mapClassName};
+  return {rootClassName, linkClassName, shouldRenderUser, shouldRenderFooter, pageTitle};
 };
 
-export const getCardFeatures = (pathname: AppRoute) =>{
-  let cardClassName = '';
-  let cardInfoClassName = '';
+export const getCurrentOffers = (offers: OffersProps[], currentCityName: string): OffersProps[] | null => {
+  const currentOffers: OffersProps[] | null = [];
 
-  if (pathname === AppRoute.Main) {
-    cardClassName = 'cities';
-  } else if (pathname === AppRoute.Favorites) {
-    cardClassName = 'favorites';
-    cardInfoClassName = 'favorites__card-info';
-  } else if (pathname === AppRoute.Offer) {
-    cardClassName = 'near-places';
+  offers.forEach((offer) => {
+    if (offer.city.name === currentCityName) {
+      currentOffers.push(offer);
+    }
+  });
+
+  if (currentOffers !== null) {
+    return currentOffers;
   }
+  return null;
+};
 
-  return {cardClassName, cardInfoClassName};
+export const getNearOffers = (offers: OffersProps[], currentOffer: OffersProps) : OffersProps[] | null => {
+  const currentOffers: OffersProps[] | null = [];
+
+  offers.map((offer) => {
+    if (
+      currentOffer.city.name === offer.city.name
+      && currentOffer.id !== offer.id
+    ) {
+      currentOffers.push(offer);
+    }
+  });
+
+  if (currentOffers) {
+    return currentOffers.slice(0, 3);
+  }
+  return null;
 };

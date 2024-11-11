@@ -1,16 +1,15 @@
 import leaflet, { LayerGroup as LayerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useEffect, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
 import { CityProps, OffersProps } from '../../types/offer';
-import { getLayoutState } from '../../utils/pageUtils';
-import { AppRoute, URL_PIN_ACTIVE, URL_PIN_DEFAULT } from '../../const';
+import { URL_PIN_ACTIVE, URL_PIN_DEFAULT } from '../../const';
 import useMap from './map-hooks/useMap';
 
 type MapProps = {
   city: CityProps;
   offers: OffersProps[];
   activeOfferId?: string | null;
+  mapClassName: string;
 };
 
 const defaultCustomIcon = leaflet.icon({
@@ -25,19 +24,10 @@ const activeCustomIcon = leaflet.icon({
   iconAnchor: [20, 40],
 });
 
-function MapComponent({city, offers, activeOfferId}: MapProps): JSX.Element {
-  const pathname = useLocation();
-  // const {mapClassName} = getLayoutState(pathname as unknown as AppRoute);
+function MapComponent({city, offers, activeOfferId, mapClassName}: MapProps): JSX.Element {
   const mapRef = useRef<HTMLElement>(null);
   const map = useMap({mapRef: mapRef, city: city.location});
   const cityMarkersLayer = useRef<LayerGroup>(new leaflet.LayerGroup());
-  let mapClassName = 'offer';
-
-  useEffect(() => {
-    if (pathname === AppRoute.Main) {
-      mapClassName = 'cities';
-    }
-  },[pathname]);
 
   useEffect(() => {
     if(map) {
