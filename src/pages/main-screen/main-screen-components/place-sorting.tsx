@@ -1,6 +1,6 @@
 import { SortOptions } from '../../../const';
 
-function PlaceSortingComponent(): JSX.Element {
+function PlaceSorting(): JSX.Element {
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>
@@ -24,4 +24,4 @@ function PlaceSortingComponent(): JSX.Element {
   );
 }
 
-export default PlaceSortingComponent;
+export default PlaceSorting;

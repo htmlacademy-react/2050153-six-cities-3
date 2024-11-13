@@ -8,7 +8,7 @@ type OfferCardProps = {
   onCardHover?: (offerId: CardProps['id'] | null) => void;
 };
 
-function CardComponent({offer, onCardHover, cardClassName}: OfferCardProps): JSX.Element {
+function OfferCard({offer, onCardHover, cardClassName}: OfferCardProps): JSX.Element {
   const {id, title, type, price, isPremium, isFavorite, rating, previewImage} = offer;
   const favoriteClassName = 'place-card__bookmark-button--active';
   const favoritesInfoClassName = 'favorites__card-info';
@@ -85,4 +85,4 @@ function CardComponent({offer, onCardHover, cardClassName}: OfferCardProps): JSX
   );
 }
 
-export default CardComponent;
+export default OfferCard;

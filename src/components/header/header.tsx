@@ -1,11 +1,10 @@
-import {Link, useLocation} from 'react-router-dom';
-import { getAuthorizationStatus, getLayoutState } from '../../utils/pageUtils';
+import { Link, useLocation } from 'react-router-dom';
+import { getAuthorizationStatus, getLayoutState } from '../../utils/page-utils';
 import { AppRoute, AuthorizationStatus } from '../../const';
 
 function Header(): JSX.Element {
-  const pathname = useLocation();
-  const linkClassName = ' header__logo-link--active';
-  const {shouldRenderUser} = getLayoutState(pathname as unknown as AppRoute);
+  const {pathname} = useLocation();
+  const {linkClassName, shouldRenderUser} = getLayoutState(pathname as AppRoute);
   const authorizationStatus = getAuthorizationStatus();
 
   return (
@@ -13,7 +12,7 @@ function Header(): JSX.Element {
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            <Link className={`header__logo-link ${pathname === AppRoute.Main ? linkClassName : ''}`} to={`${AppRoute.Main}`}>
+            <Link className={`header__logo-link ${linkClassName}`} to={`${AppRoute.Main}`}>
               <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
             </Link>
           </div>

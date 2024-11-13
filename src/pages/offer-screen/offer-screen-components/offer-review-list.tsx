@@ -1,6 +1,6 @@
 import { ReviewsProps } from '../../../types/review';
 
-function OfferReviewListComponent({id, date, user, comment, rating}: ReviewsProps): JSX.Element {
+function OfferReviewList({id, date, user, comment, rating}: ReviewsProps): JSX.Element {
   return (
     <li className="reviews__item" key={id}>
       <div className="reviews__user user">
@@ -31,4 +31,4 @@ function OfferReviewListComponent({id, date, user, comment, rating}: ReviewsProp
   );
 }
 
-export default OfferReviewListComponent;
+export default OfferReviewList;

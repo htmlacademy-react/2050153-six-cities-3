@@ -7,6 +7,7 @@ function NotFoundScreen(): JSX.Element {
       <h1>404. Page not found</h1>
       <Link to={`${AppRoute.Main}`}>
         Вернуться на главную:
+        <br></br>
         <img src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
       </Link>
     </main>

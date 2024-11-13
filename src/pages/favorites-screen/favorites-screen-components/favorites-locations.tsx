@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import CardComponent from '../../../components/card-component/card-component';
+import CardComponent from '../../../components/card/card';
 import { AppRoute, Cities } from '../../../const';
 import { OffersProps } from '../../../types/offer';
 
@@ -8,7 +8,7 @@ type FavoritesLocationsProps = {
   favoritesClassName: string;
 }
 
-function FavoritesLocationsComponents({offers, favoritesClassName}: FavoritesLocationsProps): JSX.Element {
+function FavoritesLocations({offers, favoritesClassName}: FavoritesLocationsProps): JSX.Element {
   return (
     <>
       {Cities.map((city: string) => (
@@ -39,4 +39,4 @@ function FavoritesLocationsComponents({offers, favoritesClassName}: FavoritesLoc
   );
 }
 
-export default FavoritesLocationsComponents;
+export default FavoritesLocations;

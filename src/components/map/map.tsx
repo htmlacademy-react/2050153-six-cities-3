@@ -3,7 +3,7 @@ import 'leaflet/dist/leaflet.css';
 import { useEffect, useRef } from 'react';
 import { CityProps, OffersProps } from '../../types/offer';
 import { URL_PIN_ACTIVE, URL_PIN_DEFAULT } from '../../const';
-import useMap from './map-hooks/useMap';
+import useMap from './map-hooks/use-map';
 
 type MapProps = {
   city: CityProps;
@@ -24,7 +24,7 @@ const activeCustomIcon = leaflet.icon({
   iconAnchor: [20, 40],
 });
 
-function MapComponent({city, offers, activeOfferId, mapClassName}: MapProps): JSX.Element {
+function Map({city, offers, activeOfferId, mapClassName}: MapProps): JSX.Element {
   const mapRef = useRef<HTMLElement>(null);
   const map = useMap({mapRef: mapRef, city: city.location});
   const cityMarkersLayer = useRef<LayerGroup>(new leaflet.LayerGroup());
@@ -63,4 +63,4 @@ function MapComponent({city, offers, activeOfferId, mapClassName}: MapProps): JS
   );
 }
 
-export default MapComponent;
+export default Map;

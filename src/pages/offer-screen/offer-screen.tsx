@@ -1,17 +1,17 @@
 import { useParams } from 'react-router-dom';
 import { reviews } from '../../mocks/reviews';
-import OfferGalleryComponent from './offer-screen-components/offer-gallery-component';
+import OfferGallery from './offer-screen-components/offer-gallery';
 import OfferComponent from './offer-screen-components/offer-component';
-import OfferReviewListComponent from './offer-screen-components/offer-review-list-component';
-import OfferReviewFormComponent from './offer-screen-components/offer-review-form-component';
-import CardComponent from '../../components/card-component/card-component';
+import OfferReviewList from './offer-screen-components/offer-review-list';
+import OfferReviewForm from './offer-screen-components/offer-review-form';
+import OfferCard from '../../components/card/card';
 import { CardProps, OffersProps } from '../../types/offer';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import { AuthorizationStatus } from '../../const';
-import MapComponent from '../../components/map/map';
+import Map from '../../components/map/map';
 import { ReviewsProps } from '../../types/review';
 import { getRandomInteger } from '../../utils/utils';
-import { getNearOffers } from '../../utils/pageUtils';
+import { getNearOffers } from '../../utils/page-utils';
 
 type OfferScreenProps = {
   offers: OffersProps[];
@@ -29,7 +29,7 @@ function OfferScreen({offers, authorizationStatus}: OfferScreenProps): JSX.Eleme
     return <NotFoundScreen />;
   }
 
-  const offerReviews: ReviewsProps[] | null = Array.from(
+  const offerReviews: ReviewsProps[] = Array.from(
     { length: getRandomInteger(0, reviews.length - 1) },
     () => reviews[getRandomInteger(0, reviews.length - 1)],
   );
@@ -40,7 +40,7 @@ function OfferScreen({offers, authorizationStatus}: OfferScreenProps): JSX.Eleme
     <main className={`page__main page__main--${offerPageClassName}`}>
       <section className={offerPageClassName} key={currentOffer.id}>
         {currentOffer.images ?
-          <OfferGalleryComponent
+          <OfferGallery
             id={currentOffer.id}
             images={currentOffer.images}
           /> : null}
@@ -57,7 +57,7 @@ function OfferScreen({offers, authorizationStatus}: OfferScreenProps): JSX.Eleme
                 (
                   <ul className="reviews__list">
                     {offerReviews.map((review: ReviewsProps) => (
-                      <OfferReviewListComponent
+                      <OfferReviewList
                         key={review.id}
                         id={review.id}
                         date={review.date}
@@ -70,7 +70,7 @@ function OfferScreen({offers, authorizationStatus}: OfferScreenProps): JSX.Eleme
                 ) : <p>This offer do not have any reviews.</p>}
               {
                 authorizationStatus === AuthorizationStatus.Auth ?
-                  <OfferReviewFormComponent />
+                  <OfferReviewForm />
                   : <b>Only authorized user could leave a review. Please Sign in</b>
               }
             </section>
@@ -78,7 +78,7 @@ function OfferScreen({offers, authorizationStatus}: OfferScreenProps): JSX.Eleme
         </div>
         {nearOffers ?
           (
-            <MapComponent city={currentOffer.city} offers={nearOffers} activeOfferId={currentOffer.id} mapClassName={offerPageClassName} />
+            <Map city={currentOffer.city} offers={nearOffers} activeOfferId={currentOffer.id} mapClassName={offerPageClassName} />
           ) : null}
       </section>
       <div className="container">
@@ -88,7 +88,7 @@ function OfferScreen({offers, authorizationStatus}: OfferScreenProps): JSX.Eleme
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <div className="near-places__list places__list">
                 {nearOffers.map((offer: CardProps) => (
-                  <CardComponent
+                  <OfferCard
                     key={offer.id}
                     offer={offer}
                     cardClassName={nearPlacesClassName}

@@ -29,7 +29,7 @@ export const getLayoutState = (pathname: AppRoute) =>{
 };
 
 export const getCurrentOffers = (offers: OffersProps[], currentCityName: string): OffersProps[] | null => {
-  const currentOffers: OffersProps[] | null = [];
+  const currentOffers: OffersProps[] = [];
 
   offers.forEach((offer) => {
     if (offer.city.name === currentCityName) {
@@ -37,10 +37,7 @@ export const getCurrentOffers = (offers: OffersProps[], currentCityName: string)
     }
   });
 
-  if (currentOffers !== null) {
-    return currentOffers;
-  }
-  return null;
+  return currentOffers;
 };
 
 export const getNearOffers = (offers: OffersProps[], currentOffer: OffersProps) : OffersProps[] | null => {

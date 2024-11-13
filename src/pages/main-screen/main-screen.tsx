@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { OffersProps } from '../../types/offer';
-import OffersListComponent from './main-screen-components/offers-list-component';
+import OffersList from './main-screen-components/offers-list';
 import { Cities } from '../../const';
-import { getCurrentOffers } from '../../utils/pageUtils';
+import { getCurrentOffers } from '../../utils/page-utils';
 
 type MainScreenProps = {
   offers: OffersProps[];
@@ -41,7 +41,7 @@ function MainScreen({offers}: MainScreenProps): JSX.Element {
       <div className={mainCityClass}>
         {(currentOffers !== null) ?
           (
-            <OffersListComponent currentCity={currentOffers[0].city} currentOffers={currentOffers} citiesClassName={mainCityClass} />
+            <OffersList currentCity={currentOffers[0].city} currentOffers={currentOffers} citiesClassName={mainCityClass} />
           ) : <p>There is no current offers for this city</p>}
       </div>
     </main>

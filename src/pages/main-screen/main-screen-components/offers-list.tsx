@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import CardComponent from '../../../components/card-component/card-component';
+import Card from '../../../components/card/card';
 import { CardProps, CityProps, OffersProps } from '../../../types/offer';
-import PlaceSortingComponent from './place-sorting-component';
-import MapComponent from '../../../components/map/map';
+import PlaceSorting from './place-sorting';
+import Map from '../../../components/map/map';
 
 type OffersListProps = {
   currentCity: CityProps;
@@ -10,7 +10,7 @@ type OffersListProps = {
   citiesClassName: string;
 };
 
-function OffersListComponent ({currentCity, currentOffers, citiesClassName}: OffersListProps): JSX.Element {
+function OffersList ({currentCity, currentOffers, citiesClassName}: OffersListProps): JSX.Element {
   const [activeOfferId, setActiveOfferId] = useState<CardProps['id'] | null>(null);
   const handleCardHover = (offerId: CardProps['id'] | null): void => {
     setActiveOfferId(offerId);
@@ -23,10 +23,10 @@ function OffersListComponent ({currentCity, currentOffers, citiesClassName}: Off
         <b className="places__found">
           {currentOffers.length} places to stay in {currentCity.name}
         </b>
-        <PlaceSortingComponent />
+        <PlaceSorting />
         <div className={`${citiesClassName}__places-list places__list tabs__content`}>
           {currentOffers.map((offer: CardProps) => (
-            <CardComponent
+            <Card
               key={offer.id}
               offer={offer}
               onCardHover={handleCardHover}
@@ -36,10 +36,10 @@ function OffersListComponent ({currentCity, currentOffers, citiesClassName}: Off
         </div>
       </section>
       <div className={`${citiesClassName}__right-section`}>
-        <MapComponent city={currentCity} offers={currentOffers} activeOfferId={activeOfferId} mapClassName={citiesClassName} />
+        <Map city={currentCity} offers={currentOffers} activeOfferId={activeOfferId} mapClassName={citiesClassName} />
       </div>
     </div>
   );
 }
 
-export default OffersListComponent;
+export default OffersList;

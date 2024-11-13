@@ -1,7 +1,7 @@
 import { Outlet, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { AppRoute } from '../../const';
-import { getLayoutState } from '../../utils/pageUtils';
+import { getLayoutState } from '../../utils/page-utils';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 

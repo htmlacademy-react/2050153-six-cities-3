@@ -1,4 +1,4 @@
-import FavoritesLocationsComponents from './favorites-screen-components/favorites-locations-components';
+import FavoritesLocations from './favorites-screen-components/favorites-locations';
 import { OffersProps } from '../../types/offer';
 
 type FavoritesScreenProps = {
@@ -13,7 +13,7 @@ function FavoritesScreen({offers}: FavoritesScreenProps): JSX.Element {
         <section className={favoriteClassName}>
           <h1 className={`${favoriteClassName}__title`}>Saved listing</h1>
           <ul className={`${favoriteClassName}__list`}>
-            <FavoritesLocationsComponents offers={offers} favoritesClassName={favoriteClassName} />
+            <FavoritesLocations offers={offers} favoritesClassName={favoriteClassName} />
           </ul>
         </section>
       </div>
