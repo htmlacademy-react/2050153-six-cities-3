@@ -1,6 +1,6 @@
 import { OfferImagesProps } from '../../../types/offer';
 
-function OfferGalleryComponent({images, id}: OfferImagesProps): JSX.Element {
+function OfferGallery({images, id}: OfferImagesProps): JSX.Element {
   return (
     <div className="offer__gallery-container container">
       <div className="offer__gallery">
@@ -20,4 +20,4 @@ function OfferGalleryComponent({images, id}: OfferImagesProps): JSX.Element {
   );
 }
 
-export default OfferGalleryComponent;
+export default OfferGallery;

@@ -16,6 +16,8 @@ export const getRandomInteger = (a : number, b : number) => {
 // Получение случайного значения из массива данных
 export const getRandomArrayElement = (elements: string[]) : string => elements[getRandomInteger(0, elements.length - 1)];
 
+export const getRandomArrayBooleanElement = (elements: boolean[]) : boolean => elements[getRandomInteger(0, elements.length - 1)];
+
 // получение массива случайной длины из значений
 export const getArrayFromRandomElements = (elements: string[]) : string[] =>
   Array.from(

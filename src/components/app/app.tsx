@@ -9,7 +9,7 @@ import OfferScreen from '../../pages/offer-screen/offer-screen';
 import PrivateRoute from '../private-route/private-route';
 import { generateOffers } from '../../mocks/offers';
 import Layout from '../layout/layout';
-import {getAuthorizationStatus} from '../../utils/pageUtils';
+import {getAuthorizationStatus} from '../../utils/page-utils';
 
 type AppScreenProps = {
   offersCount: number;
@@ -29,7 +29,7 @@ function App({offersCount}: AppScreenProps): JSX.Element {
           >
             <Route
               index
-              element={<MainScreen offers={offers} offersCount={offersCount} />}
+              element={<MainScreen offers={offers} />}
             />
             <Route
               path={AppRoute.Login}

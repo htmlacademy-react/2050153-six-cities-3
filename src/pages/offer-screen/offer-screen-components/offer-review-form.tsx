@@ -3,7 +3,7 @@ import { Fragment, ReactEventHandler, useState } from 'react';
 
 type ChangeHandler = ReactEventHandler<HTMLInputElement | HTMLTextAreaElement>
 
-function OfferReviewFormComponent(): JSX.Element {
+function OfferReviewForm(): JSX.Element {
   const [review, setReview] = useState({rating: 0, review: ''});
 
   const handleChange: ChangeHandler = (event) => {
@@ -61,4 +61,4 @@ function OfferReviewFormComponent(): JSX.Element {
   );
 }
 
-export default OfferReviewFormComponent;
+export default OfferReviewForm;

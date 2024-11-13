@@ -1,31 +1,35 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { CardProps } from '../../types/offer';
 import { AppRoute } from '../../const';
-import { getCardFeatures } from '../../utils/pageUtils';
 
 type OfferCardProps = {
   offer: CardProps;
-  handleHover: (offer?: CardProps) => void;
+  cardClassName: string;
+  onCardHover?: (offerId: CardProps['id'] | null) => void;
 };
 
-function CardComponent({offer, handleHover}: OfferCardProps): JSX.Element {
+function OfferCard({offer, onCardHover, cardClassName}: OfferCardProps): JSX.Element {
   const {id, title, type, price, isPremium, isFavorite, rating, previewImage} = offer;
-  const pathname = useLocation();
-  const {cardClassName, cardInfoClassName} = getCardFeatures(pathname as unknown as AppRoute);
-  const activeClassName = 'place-card__bookmark-button--active';
+  const favoriteClassName = 'place-card__bookmark-button--active';
+  const favoritesInfoClassName = 'favorites__card-info';
 
   const handleHoverOverCard = () => {
-    handleHover(offer);
+    if (onCardHover) {
+      onCardHover(offer.id);
+    }
   };
+
   const handleAwayFromCard = () => {
-    handleHover();
+    if (onCardHover) {
+      onCardHover(null);
+    }
   };
 
   return (
     <article
       className={`${cardClassName}__card place-card`}
-      onMouseOver={handleHoverOverCard}
-      onMouseOut={handleAwayFromCard}
+      onMouseEnter={handleHoverOverCard}
+      onMouseLeave={handleAwayFromCard}
     >
       {isPremium ?
         (
@@ -45,13 +49,13 @@ function CardComponent({offer, handleHover}: OfferCardProps): JSX.Element {
           />
         </Link>
       </div>
-      <div className={`${cardInfoClassName} place-card__info`}>
+      <div className={`${cardClassName === 'favorites' ? favoritesInfoClassName : ''} place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button ${isFavorite ? null : activeClassName}) button`} type="button">
+          <button className={`place-card__bookmark-button ${isFavorite ? favoriteClassName : ''} button`} type="button">
             <svg
               className="place-card__bookmark-icon"
               width="18"
@@ -81,4 +85,4 @@ function CardComponent({offer, handleHover}: OfferCardProps): JSX.Element {
   );
 }
 
-export default CardComponent;
+export default OfferCard;

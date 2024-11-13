@@ -1,8 +1,5 @@
 import { AppRoute, PageTitle, AuthorizationStatus } from '../const';
-
-// Приобразование формата отображения текста с первой заглавной буквой.
-// Пример: "Название Города"
-// export const CapitalizeWords = (str: string): string => str.replace(/\b\w/g, (c) => (c).toUpperCase());
+import { OffersProps } from '../types/offer';
 
 export const getAuthorizationStatus = () => AuthorizationStatus.NoAuth;
 
@@ -26,27 +23,37 @@ export const getLayoutState = (pathname: AppRoute) =>{
     shouldRenderFooter = true;
   } else if (pathname === AppRoute.Offer) {
     pageTitle = PageTitle.Offer;
-  } else {
-    shouldRenderUser = false;
-    pageTitle = PageTitle.NotFound;
-    shouldRenderFooter = true;
   }
 
   return {rootClassName, linkClassName, shouldRenderUser, shouldRenderFooter, pageTitle};
 };
 
-export const getCardFeatures = (pathname: AppRoute) =>{
-  let cardClassName = '';
-  let cardInfoClassName = '';
+export const getCurrentOffers = (offers: OffersProps[], currentCityName: string): OffersProps[] | null => {
+  const currentOffers: OffersProps[] = [];
 
-  if (pathname === AppRoute.Main) {
-    cardClassName = 'cities';
-  } else if (pathname === AppRoute.Favorites) {
-    cardClassName = 'favorites';
-    cardInfoClassName = 'favorites__card-info';
-  } else if (pathname === AppRoute.Offer) {
-    cardClassName = 'near-places';
+  offers.forEach((offer) => {
+    if (offer.city.name === currentCityName) {
+      currentOffers.push(offer);
+    }
+  });
+
+  return currentOffers;
+};
+
+export const getNearOffers = (offers: OffersProps[], currentOffer: OffersProps) : OffersProps[] | null => {
+  const currentOffers: OffersProps[] | null = [];
+
+  offers.map((offer) => {
+    if (
+      currentOffer.city.name === offer.city.name
+      && currentOffer.id !== offer.id
+    ) {
+      currentOffers.push(offer);
+    }
+  });
+
+  if (currentOffers) {
+    return currentOffers.slice(0, 3);
   }
-
-  return {cardClassName, cardInfoClassName};
+  return null;
 };

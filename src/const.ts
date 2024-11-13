@@ -1,3 +1,6 @@
+export const URL_PIN_DEFAULT = '../markup/img/pin.svg';
+export const URL_PIN_ACTIVE = '../markup/img/pin-active.svg';
+
 export const Cities: string[] = [
   'Paris',
   'Cologne',
@@ -15,7 +18,7 @@ export const SortOptions: string[] = [
 ];
 
 export const Setting = {
-  OffersCount: 5
+  OffersCount: 20
 };
 
 export const PageType = {
@@ -57,6 +60,15 @@ export const RatingStars = [
 ];
 
 // константы для моков
+export const Coordinates = [
+  {lat: 52.3909553943508, lng: 4.85309666406198},
+  {lat: 52.3609553943508, lng: 4.85309666406198},
+  {lat: 52.3909553943508, lng: 4.929309666406198},
+  {lat: 52.3809553943508, lng: 4.939309666406198}
+];
+
+export const ZOOM = 10;
+
 export const Goods = [
   'Heating',
   'Wi-Fi',

@@ -1,6 +1,13 @@
 import {OfferProps} from '../../../types/offer';
 
-function OfferComponent ({id, title, type, price, isPremium, rating, description, bedrooms, goods, host, maxAdults}: OfferProps): JSX.Element {
+type OfferComponentProps = {
+  offer: OfferProps;
+  offerClassName: string;
+}
+
+function OfferComponent ({offer, offerClassName}: OfferComponentProps): JSX.Element {
+  const {id, title, type, price, isPremium, rating, description, bedrooms, goods, host, maxAdults} = offer;
+
   return (
     <>
       {isPremium ?
@@ -10,19 +17,19 @@ function OfferComponent ({id, title, type, price, isPremium, rating, description
           </div>
         )
         : null}
-      <div className="offer__name-wrapper">
-        <h1 className="offer__name">
+      <div className={`${offerClassName}__name-wrapper`}>
+        <h1 className={`${offerClassName}__name`}>
           {title}
         </h1>
-        <button className="offer__bookmark-button button" type="button">
-          <svg className="offer__bookmark-icon" width="31" height="33">
+        <button className={`${offerClassName}__bookmark-button button`} type="button">
+          <svg className={`${offerClassName}__bookmark-icon`} width="31" height="33">
             <use xlinkHref="#icon-bookmark"></use>
           </svg>
           <span className="visually-hidden">To bookmarks</span>
         </button>
       </div>
-      <div className="offer__rating rating">
-        <div className="offer__stars rating__stars">
+      <div className={`${offerClassName}__rating rating`}>
+        <div className={`${offerClassName}__stars rating__stars`}>
           <span
             style={{
               width: `${rating / 5 * 100}%`
@@ -31,30 +38,30 @@ function OfferComponent ({id, title, type, price, isPremium, rating, description
           </span>
           <span className="visually-hidden">Rating</span>
         </div>
-        <span className="offer__rating-value rating__value">{rating}</span>
+        <span className={`${offerClassName}__rating-value rating__value`}>{rating}</span>
       </div>
-      <ul className="offer__features">
-        <li className="offer__feature offer__feature--entire">
+      <ul className={`${offerClassName}__features`}>
+        <li className={`${offerClassName}__feature ${offerClassName}__feature--entire`}>
           {type}
         </li>
-        <li className="offer__feature offer__feature--bedrooms">
+        <li className={`${offerClassName}__feature ${offerClassName}__feature--bedrooms`}>
           {bedrooms} Bedrooms
         </li>
-        <li className="offer__feature offer__feature--adults">
+        <li className={`${offerClassName}__feature ${offerClassName}__feature--adults`}>
           Max {maxAdults} adults
         </li>
       </ul>
-      <div className="offer__price">
-        <b className="offer__price-value">&euro;{price}</b>
-        <span className="offer__price-text">&nbsp;night</span>
+      <div className={`${offerClassName}__price`}>
+        <b className={`${offerClassName}__price-value`}>&euro;{price}</b>
+        <span className={`${offerClassName}__price-text`}>&nbsp;night</span>
       </div>
-      <div className="offer__inside">
-        <h2 className="offer__inside-title">What&apos;s inside</h2>
-        <ul className="offer__inside-list">
+      <div className={`${offerClassName}__inside`}>
+        <h2 className={`${offerClassName}__inside-title`}>What&apos;s inside</h2>
+        <ul className={`${offerClassName}__inside-list`}>
           {goods ?
             (
               goods.map((feature: string) => (
-                <li className="offer__inside-item" key={id}>
+                <li className={`${offerClassName}__inside-item`} key={id}>
                   {feature}
                 </li>
               ))
@@ -62,27 +69,27 @@ function OfferComponent ({id, title, type, price, isPremium, rating, description
             : null}
         </ul>
       </div>
-      <div className="offer__host">
-        <h2 className="offer__host-title">Meet the host</h2>
-        <div className="offer__host-user user">
-          <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
-            <img className="offer__avatar user__avatar" src={host.avatarUrl} width="74" height="74" alt="Host avatar" />
+      <div className={`${offerClassName}__host`}>
+        <h2 className={`${offerClassName}__host-title`}>Meet the host</h2>
+        <div className={`${offerClassName}_host-user user`}>
+          <div className={`${offerClassName}__avatar-wrapper ${offerClassName}__avatar-wrapper--pro user__avatar-wrapper`}>
+            <img className={`${offerClassName}__avatar user__avatar`} src={host.avatarUrl} width="74" height="74" alt="Host avatar" />
           </div>
-          <span className="offer__user-name">
+          <span className={`${offerClassName}__user-name`}>
             {host.name}
           </span>
           {host.isPro ?
             (
-              <span className="offer__user-status">
-              Pro
+              <span className={`${offerClassName}__user-status`}>
+                Pro
               </span>
             )
             : null}
         </div>
-        <div className="offer__description">
+        <div className={`${offerClassName}__description`}>
           {description ?
             description.map((str) => (
-              <p className="offer__text" key={id}>
+              <p className={`${offerClassName}__text`} key={id}>
                 {str}
               </p>
             ))
