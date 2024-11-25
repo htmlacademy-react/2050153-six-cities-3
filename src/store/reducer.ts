@@ -1,5 +1,5 @@
 import {createReducer} from '@reduxjs/toolkit';
-import { chosenCity } from './action';
+import { chosenCity, resetOffers } from './action';
 import { generateOffers } from '../mocks/offers';
 import { getCurrentOffers } from '../utils/page-utils';
 import { Setting } from '../const';
@@ -16,6 +16,10 @@ const initialState = {
 const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(chosenCity, (state) => {
+      state.cityOffers = getCurrentOffers(offers, state.city);
+    })
+    .addCase(resetOffers, (state) => {
+      state.city = INITIAL_CITY;
       state.cityOffers = getCurrentOffers(offers, state.city);
     });
 });
