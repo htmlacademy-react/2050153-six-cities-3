@@ -1,15 +1,6 @@
 export const URL_PIN_DEFAULT = '../markup/img/pin.svg';
 export const URL_PIN_ACTIVE = '../markup/img/pin-active.svg';
 
-export const Cities: string[] = [
-  'Paris',
-  'Cologne',
-  'Brussels',
-  'Amsterdam',
-  'Hamburg',
-  'Dusseldorf'
-];
-
 export const SortOptions: string[] = [
   'Popular',
   'Price: low to high',
@@ -18,7 +9,7 @@ export const SortOptions: string[] = [
 ];
 
 export const Setting = {
-  OffersCount: 20
+  OffersCount: 30
 };
 
 export const PageType = {
@@ -67,7 +58,7 @@ export const Coordinates = [
   {lat: 52.3809553943508, lng: 4.939309666406198}
 ];
 
-export const ZOOM = 10;
+export const ZOOM = 13;
 
 export const Goods = [
   'Heating',

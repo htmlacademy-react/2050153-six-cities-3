@@ -1,27 +1,24 @@
-import {createReducer} from '@reduxjs/toolkit';
-import { chosenCity, resetOffers } from './action';
+import { createReducer } from '@reduxjs/toolkit';
+import { chosenCity } from './action';
 import { generateOffers } from '../mocks/offers';
-import { getCurrentOffers } from '../utils/page-utils';
 import { Setting } from '../const';
+import { OfferProps } from '../types/offer';
+import { cities } from '../mocks/city-locations';
 
-const INITIAL_CITY = 'Paris';
+const INITIAL_CITY = cities[0].name;
 const OFFERS_COUNT = Setting.OffersCount;
-const offers = generateOffers(OFFERS_COUNT);
+const offers: OfferProps[] = generateOffers(OFFERS_COUNT);
 
 const initialState = {
   city: INITIAL_CITY,
-  cityOffers: getCurrentOffers(offers, INITIAL_CITY),
+  offers: offers,
 };
 
 const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(chosenCity, (state) => {
-      state.cityOffers = getCurrentOffers(offers, state.city);
-    })
-    .addCase(resetOffers, (state) => {
-      state.city = INITIAL_CITY;
-      state.cityOffers = getCurrentOffers(offers, state.city);
+    .addCase(chosenCity, (state, action) => {
+      state.city = action.payload;
     });
 });
 
-export {reducer};
+export { reducer };

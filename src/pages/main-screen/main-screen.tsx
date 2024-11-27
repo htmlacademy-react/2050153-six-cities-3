@@ -1,45 +1,56 @@
-import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { chosenCity } from '../../store/action';
 import { OffersProps } from '../../types/offer';
 import OffersList from './main-screen-components/offers-list';
-import { Cities } from '../../const';
 import { getCurrentOffers } from '../../utils/page-utils';
+import { cities } from '../../mocks/city-locations';
+import { AppRoute } from '../../const';
 
 type MainScreenProps = {
   offers: OffersProps[];
 }
 
 function MainScreen({offers}: MainScreenProps): JSX.Element {
-  const [currentCityName, setCurrentCityName] = useState<string>('Amsterdam');
+  const currentCityName = useAppSelector((state) => state.city);
+  // const offers = useAppSelector((state) => state.offers);
   const mainCityClass: string = 'cities';
-
-  const currentOffers = getCurrentOffers(offers, currentCityName);
+  const dispatch = useAppDispatch();
 
   const handleClick = (city: string) => {
-    setCurrentCityName(city);
+    dispatch(chosenCity(city));
   };
 
+  const currentOffers = getCurrentOffers(offers, currentCityName);
+  console.log(currentCityName, currentOffers[0]);
+
+  const isEmpty = currentOffers === null;
+
   return (
-    <main className="page__main page__main--index">
+    <main className={`page__main page__main--index ${isEmpty ? 'page__main--index-empty' : ''}`}>
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <section className="locations container">
           <ul className="locations__list tabs__list">
-            {Cities.map((city: string) => (
-              <li className="locations__item" key={city}>
-                <a
-                  className={'locations__item-link tabs__item'}
-                  href={`#${city}`}
-                  onClick={() => handleClick(city)}
+            {cities.map((city) => (
+              <li className="locations__item" key={city.name}>
+                <Link
+                  className={`locations__item-link tabs__item ${currentCityName === city.name ? 'tabs__item--active' : ''}`}
+                  onClick={(evt) => {
+                    evt.preventDefault();
+                    handleClick(city.name);
+                  }}
+                  to={AppRoute.Main}
                 >
-                  <span>{city}</span>
-                </a>
+                  <span>{city.name}</span>
+                </Link>
               </li>
             ))}
           </ul>
         </section>
       </div>
       <div className={mainCityClass}>
-        {(currentOffers !== null) ?
+        {!isEmpty ?
           (
             <OffersList currentCity={currentOffers[0].city} currentOffers={currentOffers} citiesClassName={mainCityClass} />
           ) : <p>There is no current offers for this city</p>}

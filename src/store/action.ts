@@ -1,5 +1,4 @@
-import {createAction} from '@reduxjs/toolkit';
+import { createAction } from '@reduxjs/toolkit';
+import { CityProps } from '../types/offer';
 
-export const chosenCity = createAction('offers/chosenCity');
-
-export const resetOffers = createAction('offers/reset');
+export const chosenCity = createAction<CityProps['name']>('offers/chosenCity');
