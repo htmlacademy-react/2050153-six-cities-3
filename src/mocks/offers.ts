@@ -9,7 +9,7 @@ export const createOffer = (index: number): OffersProps => ({
   title: 'Beautiful & luxurious with a great location',
   type: getRandomArrayElement(OfferTypes),
   price: getRandomInteger(100, 1000),
-  city: cities[getRandomInteger(0, users.length - 1)],
+  city: cities[getRandomInteger(0, cities.length - 1)],
   location: getOfferLocation(Coordinates),
   isFavorite: getRandomArrayBooleanElement([false, true]),
   isPremium: getRandomArrayBooleanElement([false, true]),

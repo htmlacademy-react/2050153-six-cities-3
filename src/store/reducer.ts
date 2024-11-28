@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { chosenCity } from './action';
+import { chosenCity, resetCity } from './action';
 import { generateOffers } from '../mocks/offers';
 import { Setting } from '../const';
 import { OfferProps } from '../types/offer';
@@ -18,6 +18,9 @@ const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(chosenCity, (state, action) => {
       state.city = action.payload;
+    })
+    .addCase(resetCity, (state) => {
+      state.city = INITIAL_CITY;
     });
 });
 

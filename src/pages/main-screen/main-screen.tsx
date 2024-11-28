@@ -1,11 +1,8 @@
-import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { chosenCity } from '../../store/action';
 import { OffersProps } from '../../types/offer';
 import OffersList from './main-screen-components/offers-list';
-import { getCurrentOffers } from '../../utils/page-utils';
 import { cities } from '../../mocks/city-locations';
-import { AppRoute } from '../../const';
 
 type MainScreenProps = {
   offers: OffersProps[];
@@ -13,18 +10,17 @@ type MainScreenProps = {
 
 function MainScreen({offers}: MainScreenProps): JSX.Element {
   const currentCityName = useAppSelector((state) => state.city);
-  // const offers = useAppSelector((state) => state.offers);
-  const mainCityClass: string = 'cities';
   const dispatch = useAppDispatch();
+
+  const mainCityClass: string = 'cities';
 
   const handleClick = (city: string) => {
     dispatch(chosenCity(city));
   };
 
-  const currentOffers = getCurrentOffers(offers, currentCityName);
-  console.log(currentCityName, currentOffers[0]);
+  const currentOffers = offers.filter((offer) => offer.city.name === currentCityName);
 
-  const isEmpty = currentOffers === null;
+  const isEmpty = currentOffers.length === 0;
 
   return (
     <main className={`page__main page__main--index ${isEmpty ? 'page__main--index-empty' : ''}`}>
@@ -34,16 +30,16 @@ function MainScreen({offers}: MainScreenProps): JSX.Element {
           <ul className="locations__list tabs__list">
             {cities.map((city) => (
               <li className="locations__item" key={city.name}>
-                <Link
+                <a
                   className={`locations__item-link tabs__item ${currentCityName === city.name ? 'tabs__item--active' : ''}`}
                   onClick={(evt) => {
                     evt.preventDefault();
                     handleClick(city.name);
                   }}
-                  to={AppRoute.Main}
+                  href={`#${city.name}`}
                 >
                   <span>{city.name}</span>
-                </Link>
+                </a>
               </li>
             ))}
           </ul>

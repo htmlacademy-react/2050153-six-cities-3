@@ -28,18 +28,6 @@ export const getLayoutState = (pathname: AppRoute) =>{
   return {rootClassName, linkClassName, shouldRenderUser, shouldRenderFooter, pageTitle};
 };
 
-export const getCurrentOffers = (offers: OffersProps[], currentCityName: string): OffersProps[] | null => {
-  const currentOffers: OffersProps[] = [];
-
-  offers.forEach((offer) => {
-    if (offer.city.name === currentCityName) {
-      currentOffers.push(offer);
-    }
-  });
-
-  return currentOffers;
-};
-
 export const getNearOffers = (offers: OffersProps[], currentOffer: OffersProps) : OffersProps[] | null => {
   const currentOffers: OffersProps[] | null = [];
 
