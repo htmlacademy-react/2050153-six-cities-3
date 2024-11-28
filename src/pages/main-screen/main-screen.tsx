@@ -1,37 +1,44 @@
-import { useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { chosenCity } from '../../store/action';
 import { OffersProps } from '../../types/offer';
 import OffersList from './main-screen-components/offers-list';
-import { Cities } from '../../const';
-import { getCurrentOffers } from '../../utils/page-utils';
+import { cities } from '../../mocks/city-locations';
 
 type MainScreenProps = {
   offers: OffersProps[];
 }
 
 function MainScreen({offers}: MainScreenProps): JSX.Element {
-  const [currentCityName, setCurrentCityName] = useState<string>('Amsterdam');
+  const currentCityName = useAppSelector((state) => state.city);
+  const dispatch = useAppDispatch();
+
   const mainCityClass: string = 'cities';
 
-  const currentOffers = getCurrentOffers(offers, currentCityName);
-
   const handleClick = (city: string) => {
-    setCurrentCityName(city);
+    dispatch(chosenCity(city));
   };
 
+  const currentOffers = offers.filter((offer) => offer.city.name === currentCityName);
+
+  const isEmpty = currentOffers.length === 0;
+
   return (
-    <main className="page__main page__main--index">
+    <main className={`page__main page__main--index ${isEmpty ? 'page__main--index-empty' : ''}`}>
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <section className="locations container">
           <ul className="locations__list tabs__list">
-            {Cities.map((city: string) => (
-              <li className="locations__item" key={city}>
+            {cities.map((city) => (
+              <li className="locations__item" key={city.name}>
                 <a
-                  className={'locations__item-link tabs__item'}
-                  href={`#${city}`}
-                  onClick={() => handleClick(city)}
+                  className={`locations__item-link tabs__item ${currentCityName === city.name ? 'tabs__item--active' : ''}`}
+                  onClick={(evt) => {
+                    evt.preventDefault();
+                    handleClick(city.name);
+                  }}
+                  href={`#${city.name}`}
                 >
-                  <span>{city}</span>
+                  <span>{city.name}</span>
                 </a>
               </li>
             ))}
@@ -39,7 +46,7 @@ function MainScreen({offers}: MainScreenProps): JSX.Element {
         </section>
       </div>
       <div className={mainCityClass}>
-        {(currentOffers !== null) ?
+        {!isEmpty ?
           (
             <OffersList currentCity={currentOffers[0].city} currentOffers={currentOffers} citiesClassName={mainCityClass} />
           ) : <p>There is no current offers for this city</p>}
