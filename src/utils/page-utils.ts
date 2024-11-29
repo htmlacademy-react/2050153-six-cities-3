@@ -45,3 +45,22 @@ export const getNearOffers = (offers: OffersProps[], currentOffer: OffersProps) 
   }
   return null;
 };
+
+export const getCurrentSortedOffers = (offers: OffersProps[], sortOption: string) => {
+  let sortedOffers = [...offers];
+  switch (sortOption) {
+    case 'Popular':
+      sortedOffers = [...offers];
+      break;
+    case 'Price: low to high':
+      sortedOffers = [...offers].sort((offer1: OffersProps , offer2: OffersProps) => offer1.price - offer2.price);
+      break;
+    case 'Price: high to low':
+      sortedOffers = [...offers].sort((offer1: OffersProps , offer2: OffersProps) => offer1.price > offer2.price ? -1 : 1);
+      break;
+    case 'Top rated first':
+      sortedOffers = [...offers].sort((offer1: OffersProps , offer2: OffersProps) => offer1.rating > offer2.rating ? -1 : 1);
+      break;
+  }
+  return sortedOffers;
+};

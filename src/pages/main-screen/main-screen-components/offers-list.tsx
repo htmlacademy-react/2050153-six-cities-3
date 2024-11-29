@@ -3,6 +3,8 @@ import Card from '../../../components/card/card';
 import { CardProps, CityProps, OffersProps } from '../../../types/offer';
 import PlaceSorting from './place-sorting';
 import Map from '../../../components/map/map';
+import { useAppSelector } from '../../../hooks';
+import { getCurrentSortedOffers } from '../../../utils/page-utils';
 
 type OffersListProps = {
   currentCity: CityProps;
@@ -12,6 +14,10 @@ type OffersListProps = {
 
 function OffersList ({currentCity, currentOffers, citiesClassName}: OffersListProps): JSX.Element {
   const [activeOfferId, setActiveOfferId] = useState<CardProps['id'] | null>(null);
+  const currentSortOption = useAppSelector((state) => state.sortOption);
+
+  const currentSortedOffers = getCurrentSortedOffers(currentOffers, currentSortOption);
+
   const handleCardHover = (offerId: CardProps['id'] | null): void => {
     setActiveOfferId(offerId);
   };
@@ -25,7 +31,7 @@ function OffersList ({currentCity, currentOffers, citiesClassName}: OffersListPr
         </b>
         <PlaceSorting />
         <div className={`${citiesClassName}__places-list places__list tabs__content`}>
-          {currentOffers.map((offer: CardProps) => (
+          {currentSortedOffers.map((offer: CardProps) => (
             <Card
               key={offer.id}
               offer={offer}
