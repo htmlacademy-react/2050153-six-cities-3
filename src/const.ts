@@ -91,6 +91,8 @@ export enum AuthorizationStatus {
 
 export enum APIRoute {
   Offers = '/offers',
+  Login = '/login',
+  Logout = '/logout',
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
