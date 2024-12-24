@@ -5,6 +5,7 @@ export const URL_PIN_ACTIVE = '../markup/img/pin-active.svg';
 export const INITIAL_SORT_TYPE = 'Popular';
 export const INITIAL_CITY = 'Paris';
 export const ZOOM = 13;
+export const TIMEOUT_SHOW_ERROR = 2000;
 
 export const SortOptions: string[] = [
   'Popular',
