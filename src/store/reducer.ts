@@ -1,19 +1,27 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { chosenCity, reset, chosenSortOption } from './action';
-import { generateOffers } from '../mocks/offers';
-import { Setting, SortOptions } from '../const';
-import { OfferProps } from '../types/offer';
-import { cities } from '../mocks/city-locations';
+import { chosenCity, reset, chosenSortOption, loadOffers, setOffersDataLoadingStatus } from './action';
+// import { generateOffers } from '../mocks/offers';
+import { INITIAL_CITY, INITIAL_SORT_TYPE } from '../const';
+import { OffersProps } from '../types/offer';
+// import { cities } from '../mocks/city-locations';
+// import { getCurrentSortedOffers } from '../utils/page-utils';
 
-const INITIAL_CITY = cities[0].name;
-const INITIAL_SORT_TYPE = SortOptions[0];
-const OFFERS_COUNT = Setting.OffersCount;
-const offers: OfferProps[] = generateOffers(OFFERS_COUNT);
+// const OFFERS_COUNT = Setting.OffersCount;
 
-const initialState = {
+type InitalState = {
+  city: string;
+  offers: OffersProps[];
+  sortOption: string;
+  isOffersDataLoading: boolean;
+}
+
+const initialState: InitalState = {
   city: INITIAL_CITY,
+  offers: [],
+  // currentOffers: offers.filter((offer) => offer.city.name === INITIAL_CITY)
   sortOption: INITIAL_SORT_TYPE,
-  offers: offers,
+  isOffersDataLoading: false,
+  // sortedOffers: offers,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -24,10 +32,19 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(chosenSortOption, (state, action) => {
       state.sortOption = action.payload;
     })
+    // .addCase(sortedOffersBySortOption, (state, action) => {
+    //   state.sortedOffers = getCurrentSortedOffers()
+    // })
     .addCase(reset, (state) => {
       state.city = INITIAL_CITY;
       state.sortOption = INITIAL_SORT_TYPE;
+    })
+    .addCase(loadOffers, (state, action) => {
+      state.offers = action.payload;
+    })
+    .addCase(setOffersDataLoadingStatus, (state, action) => {
+      state.isOffersDataLoading = action.payload;
     });
 });
 
-export { reducer, INITIAL_SORT_TYPE };
+export { reducer };

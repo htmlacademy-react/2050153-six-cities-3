@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { SortOptions } from '../../../const';
-import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { chosenSortOption } from '../../../store/action';
+import { SortOptions } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { chosenSortOption } from '../../store/action';
 
 function PlaceSorting(): JSX.Element {
   const currentSortOption = useAppSelector((state) => state.sortOption);

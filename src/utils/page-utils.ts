@@ -1,4 +1,4 @@
-import { AppRoute, PageTitle, AuthorizationStatus } from '../const';
+import { AppRoute, PageTitles, AuthorizationStatus } from '../const';
 import { OffersProps } from '../types/offer';
 
 export const getAuthorizationStatus = () => AuthorizationStatus.NoAuth;
@@ -12,17 +12,17 @@ export const getLayoutState = (pathname: AppRoute) =>{
 
   if (pathname === AppRoute.Main) {
     rootClassName = ' page--gray page--main';
-    pageTitle = PageTitle.Main;
+    pageTitle = PageTitles.Main;
     linkClassName = ' header__logo-link--active';
   } else if (pathname === AppRoute.Login) {
     rootClassName = ' page--gray page--login';
-    pageTitle = PageTitle.Login;
+    pageTitle = PageTitles.Login;
     shouldRenderUser = false;
   } else if (pathname === AppRoute.Favorites) {
-    pageTitle = PageTitle.Favorites;
+    pageTitle = PageTitles.Favorites;
     shouldRenderFooter = true;
   } else if (pathname === AppRoute.Offer) {
-    pageTitle = PageTitle.Offer;
+    pageTitle = PageTitles.Offer;
   }
 
   return {rootClassName, linkClassName, shouldRenderUser, shouldRenderFooter, pageTitle};
