@@ -1,6 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
 import { CityProps, OffersProps } from '../types/offer';
-import { AuthorizationStatus } from '../const';
+import { AppRoute, AuthorizationStatus } from '../const';
 
 export const chosenCity = createAction<CityProps['name']>('offers/chosenCity');
 export const chosenSortOption = createAction<string>('offers/chosenSortOption');
@@ -10,3 +10,4 @@ export const requireAuthorization = createAction<AuthorizationStatus>('user/requ
 export const setError = createAction<string | null>('offers/setError');
 // export const sortedOffersBySortOption = createAction<OffersProps>('offers/sortedOffersBySortOption');
 export const reset = createAction('offers/reset');
+export const redirectToRoute = createAction<AppRoute>('offers/redirectToRoute');

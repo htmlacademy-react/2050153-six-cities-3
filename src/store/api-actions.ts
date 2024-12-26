@@ -4,8 +4,8 @@ import { AppDispatch, State } from '../types/state';
 import { OffersProps } from '../types/offer';
 import { UserData } from '../types/user';
 import { UserAuthData } from '../types/user-auth';
-import { loadOffers, requireAuthorization, setOffersDataLoadingStatus, setError } from './action';
-import { APIRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../const';
+import { loadOffers, requireAuthorization, setOffersDataLoadingStatus, setError, redirectToRoute } from './action';
+import { APIRoute, AuthorizationStatus, AppRoute, TIMEOUT_SHOW_ERROR } from '../const';
 import { saveToken, dropToken } from '../services/token';
 import { store } from './';
 
@@ -59,6 +59,7 @@ export const loginAction = createAsyncThunk<void, UserAuthData, {
     const {data: {token}} = await api.post<UserData>(APIRoute.Login, {email, password});
     saveToken(token);
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
+    dispatch(redirectToRoute(AppRoute.Main));
   },
 );
 

@@ -1,11 +1,14 @@
 import { Link, useLocation } from 'react-router-dom';
-import { getAuthorizationStatus, getLayoutState } from '../../utils/page-utils';
+import { getLayoutState } from '../../utils/page-utils';
 import { AppRoute, AuthorizationStatus } from '../../const';
 
-function Header(): JSX.Element {
+type HeaderProps = {
+  authorizationStatus: AuthorizationStatus;
+}
+
+function Header({authorizationStatus}: HeaderProps): JSX.Element {
   const {pathname} = useLocation();
   const {linkClassName, shouldRenderUser} = getLayoutState(pathname as AppRoute);
-  const authorizationStatus = getAuthorizationStatus();
 
   return (
     <header className="header">
