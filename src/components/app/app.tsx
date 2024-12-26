@@ -9,11 +9,10 @@ import OfferScreen from '../../pages/offer-screen/offer-screen';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
-import { getAuthorizationStatus } from '../../utils/page-utils';
 import { useAppSelector } from '../../hooks';
 
 function App(): JSX.Element {
-  const authorizationStatus = getAuthorizationStatus();
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const offers = useAppSelector((state) => state.offers);
   const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
 
