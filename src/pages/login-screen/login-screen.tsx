@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { useRef, FormEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 
@@ -10,11 +9,11 @@ function LoginScreen(): JSX.Element {
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     if (loginRef.current !== null && passwordRef.current !== null) {
+      console.log(loginRef, passwordRef);
       dispatch(loginAction({
         login: loginRef.current.value,
         password: passwordRef.current.value
@@ -56,7 +55,6 @@ function LoginScreen(): JSX.Element {
               />
             </div>
             <button
-              onClick={() => navigate(AppRoute.Main)}
               className="login__submit form__submit button"
               type="submit"
             >
