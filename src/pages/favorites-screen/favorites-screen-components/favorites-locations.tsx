@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import CardComponent from '../../../components/card/card';
 import { AppRoute } from '../../../const';
 import { OffersProps } from '../../../types/offer';
-import { cities } from '../../../mocks/city-locations';
+import { cities } from '../../../const';
 
 type FavoritesLocationsProps = {
   offers: OffersProps[];

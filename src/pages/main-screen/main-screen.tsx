@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { chosenCity } from '../../store/action';
 import { OffersProps } from '../../types/offer';
 import OffersList from './main-screen-components/offers-list';
-import { cities } from '../../mocks/city-locations';
+import { cities } from '../../const';
 
 type MainScreenProps = {
   offers: OffersProps[];

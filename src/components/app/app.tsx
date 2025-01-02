@@ -1,4 +1,4 @@
-import { Route, BrowserRouter, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import MainScreen from '../../pages/main-screen/main-screen';
@@ -9,11 +9,12 @@ import OfferScreen from '../../pages/offer-screen/offer-screen';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
-import { getAuthorizationStatus } from '../../utils/page-utils';
 import { useAppSelector } from '../../hooks';
+import HistoryRouter from '../history-route/history-route';
+import browserHistory from '../../browser-history';
 
 function App(): JSX.Element {
-  const authorizationStatus = getAuthorizationStatus();
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const offers = useAppSelector((state) => state.offers);
   const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
 
@@ -25,7 +26,7 @@ function App(): JSX.Element {
 
   return (
     <HelmetProvider>
-      <BrowserRouter>
+      <HistoryRouter history={browserHistory}>
         <Routes>
           <Route
             path={AppRoute.Main}
@@ -61,7 +62,7 @@ function App(): JSX.Element {
             />
           </Route>
         </Routes>
-      </BrowserRouter>
+      </HistoryRouter>
     </HelmetProvider>
   );
 }
