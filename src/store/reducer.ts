@@ -56,12 +56,12 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(setOffersDataLoadingStatus, (state, action) => {
       state.isOffersDataLoading = action.payload;
     })
-    // .addCase(loadUser, (state, action) => {
-    //   state.user = action.payload;
-    // })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
     });
+  // .addCase(loadUser, (state, action) => {
+  //   state.user = action.payload;
+  // });
 });
 
 export { reducer };

@@ -1,6 +1,8 @@
 import { Link, useLocation } from 'react-router-dom';
 import { getLayoutState } from '../../utils/page-utils';
 import { AppRoute, AuthorizationStatus } from '../../const';
+import { logoutAction } from '../../store/api-actions';
+import { useAppDispatch } from '../../hooks';
 
 type HeaderProps = {
   authorizationStatus: AuthorizationStatus;
@@ -9,6 +11,7 @@ type HeaderProps = {
 function Header({authorizationStatus}: HeaderProps): JSX.Element {
   const {pathname} = useLocation();
   const {linkClassName, shouldRenderUser} = getLayoutState(pathname as AppRoute);
+  const dispatch = useAppDispatch();
 
   return (
     <header className="header">
@@ -43,7 +46,14 @@ function Header({authorizationStatus}: HeaderProps): JSX.Element {
                 <li className="header__nav-item">
                   {
                     authorizationStatus === AuthorizationStatus.Auth ? (
-                      <Link className="header__nav-link" to={`${AppRoute.Main}`}>
+                      <Link
+                        className="header__nav-link"
+                        onClick={(evt) => {
+                          evt.preventDefault();
+                          dispatch(logoutAction());
+                        }}
+                        to={`${AppRoute.Main}`}
+                      >
                         <span className="header__signout">Sign out</span>
                       </Link>
                     ) : null
