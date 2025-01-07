@@ -16,7 +16,7 @@ export type CityProps = {
 
 type HostProps = {
   name: string;
-  avatarUrl: string;
+  avatarUrl?: string;
   isPro: boolean;
 };
 

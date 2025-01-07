@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
 import { CardProps } from '../../types/offer';
 import { AppRoute } from '../../const';
+import { useAppDispatch } from '../../hooks';
+import { chosenOfferId } from '../../store/action';
+import { fetchCurrentOffer } from '../../store/api-actions';
 
 type OfferCardProps = {
   offer: CardProps;
@@ -12,6 +15,7 @@ function OfferCard({offer, onCardHover, cardClassName}: OfferCardProps): JSX.Ele
   const {id, title, type, price, isPremium, isFavorite, rating, previewImage} = offer;
   const favoriteClassName = 'place-card__bookmark-button--active';
   const favoritesInfoClassName = 'favorites__card-info';
+  const dispatch = useAppDispatch();
 
   const handleHoverOverCard = () => {
     if (onCardHover) {
@@ -25,11 +29,20 @@ function OfferCard({offer, onCardHover, cardClassName}: OfferCardProps): JSX.Ele
     }
   };
 
+  const handleClick = (offerId: CardProps['id']) => {
+    dispatch(chosenOfferId(offerId));
+    dispatch(fetchCurrentOffer(offerId));
+  };
+
   return (
     <article
       className={`${cardClassName}__card place-card`}
       onMouseEnter={handleHoverOverCard}
       onMouseLeave={handleAwayFromCard}
+      onClick={(evt) => {
+        evt.preventDefault();
+        handleClick(offer.id);
+      }}
     >
       {isPremium ?
         (

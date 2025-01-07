@@ -3,9 +3,10 @@ import { chosenCity } from '../../store/action';
 import { OffersProps } from '../../types/offer';
 import OffersList from './main-screen-components/offers-list';
 import { cities } from '../../const';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 type MainScreenProps = {
-  offers: OffersProps[];
+  offers?: OffersProps[];
 }
 
 function MainScreen({offers}: MainScreenProps): JSX.Element {
@@ -13,14 +14,17 @@ function MainScreen({offers}: MainScreenProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   const mainCityClass: string = 'cities';
+  const isEmpty = offers === undefined;
 
   const handleClick = (city: string) => {
     dispatch(chosenCity(city));
   };
 
-  const currentOffers = offers.filter((offer) => offer.city.name === currentCityName);
-
-  const isEmpty = currentOffers.length === 0;
+  if (isEmpty) {
+    return (
+      <NotFoundScreen />
+    );
+  }
 
   return (
     <main className={`page__main page__main--index ${isEmpty ? 'page__main--index-empty' : ''}`}>
@@ -48,7 +52,7 @@ function MainScreen({offers}: MainScreenProps): JSX.Element {
       <div className={mainCityClass}>
         {!isEmpty ?
           (
-            <OffersList currentCity={currentOffers[0].city} currentOffers={currentOffers} citiesClassName={mainCityClass} />
+            <OffersList currentCity={offers[0].city} currentOffers={offers} citiesClassName={mainCityClass} />
           ) : <p>There is no current offers for this city</p>}
       </div>
     </main>

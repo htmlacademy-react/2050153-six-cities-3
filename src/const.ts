@@ -81,7 +81,7 @@ export enum AppRoute {
   Main = '/',
   Login = '/login',
   Favorites = '/favorites',
-  Offer = '/offer'
+  Offer = '/offer',
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -93,6 +93,7 @@ export enum AuthorizationStatus {
 
 export enum APIRoute {
   Offers = '/offers',
+  NearbyOffers = '/nearby',
   Login = '/login',
   Logout = '/logout',
 }

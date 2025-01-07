@@ -1,31 +1,43 @@
-import { useParams } from 'react-router-dom';
 import { reviews } from '../../mocks/reviews';
 import OfferGallery from './offer-screen-components/offer-gallery';
 import OfferComponent from './offer-screen-components/offer-component';
 import OfferReviewList from './offer-screen-components/offer-review-list';
 import OfferReviewForm from './offer-screen-components/offer-review-form';
 import OfferCard from '../../components/card/card';
-import { CardProps, OffersProps } from '../../types/offer';
+import { CardProps } from '../../types/offer';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import { AuthorizationStatus } from '../../const';
 import Map from '../../components/map/map';
 import { ReviewsProps } from '../../types/review';
 import { getRandomInteger } from '../../utils/utils';
-import { getNearOffers } from '../../utils/page-utils';
+import { fetchCurrentOffer, fetchNearOffers } from '../../store/api-actions';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useEffect } from 'react';
 
 type OfferScreenProps = {
-  offers: OffersProps[];
   authorizationStatus: AuthorizationStatus;
 }
 
-function OfferScreen({offers, authorizationStatus}: OfferScreenProps): JSX.Element {
-  const { id } = useParams();
+function OfferScreen({authorizationStatus}: OfferScreenProps): JSX.Element {
   const offerPageClassName = 'offer';
   const nearPlacesClassName = 'near-places';
 
-  const currentOffer: OffersProps | undefined = offers.find((offer: OffersProps) => offer.id === id);
+  const currentOfferId = useAppSelector((state) => state.currentOfferId);
+  const nearOffers = useAppSelector((state) => state.nearOffers);
+  const currentOffer = useAppSelector((state) => state.currentOffer);
 
-  if (!currentOffer) {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (currentOfferId !== null) {
+      dispatch(fetchCurrentOffer(currentOfferId));
+      dispatch(fetchNearOffers(currentOfferId));
+    }
+  }, [currentOfferId]);
+
+  console.log(currentOfferId, currentOffer, nearOffers);
+
+  if (currentOffer === undefined) {
     return <NotFoundScreen />;
   }
 
@@ -33,8 +45,6 @@ function OfferScreen({offers, authorizationStatus}: OfferScreenProps): JSX.Eleme
     { length: getRandomInteger(0, reviews.length - 1) },
     () => reviews[getRandomInteger(0, reviews.length - 1)],
   );
-
-  const nearOffers = getNearOffers(offers, currentOffer);
 
   return (
     <main className={`page__main page__main--${offerPageClassName}`}>
