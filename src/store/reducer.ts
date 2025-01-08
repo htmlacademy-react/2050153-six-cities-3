@@ -5,6 +5,7 @@ import { OfferProps, OffersProps } from '../types/offer';
 import { getCurrentSortedOffers } from '../utils/page-utils';
 import { ReviewsProps } from '../types/review';
 import { UserData } from '../types/user';
+// import { postReviewAction } from './api-actions';
 
 type InitalState = {
   offers: OffersProps[];
@@ -79,6 +80,11 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(loadUser, (state, action) => {
       state.user = action.payload;
     });
+  // .addCase(postReviewAction, (state, action) => {
+  //   if (state.offerReviews) {
+  //     state.offerReviews.push(action.payload);
+  //   }
+  // });
 });
 
 export { reducer };

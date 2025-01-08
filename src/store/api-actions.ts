@@ -10,7 +10,8 @@ import { loadOffers, requireAuthorization, setOffersDataLoadingStatus,
   loadOfferReviews } from './action';
 import { APIRoute, AuthorizationStatus, AppRoute, INITIAL_CITY, INITIAL_SORT_TYPE } from '../const';
 import { saveToken, dropToken } from '../services/token';
-import { ReviewsProps } from '../types/review';
+import { ReviewsFormProps, ReviewsProps } from '../types/review';
+import { useAppSelector } from '../hooks';
 
 const createAppAsyncThunk = createAsyncThunk.withTypes<{
   dispatch: AppDispatch;
@@ -59,10 +60,23 @@ export const fetchNearOffers = createAppAsyncThunk<void, string>(
 );
 
 export const fetchOfferReviews = createAppAsyncThunk<void, string>(
-  'data/fetchOfferReviews',
+  'comments/fetchOfferReviews',
   async (id, {dispatch, extra: api}) => {
     const {data} = await api.get<ReviewsProps[]>(`${APIRoute.Comments}/${id}`);
     dispatch(loadOfferReviews(data));
+  },
+);
+
+export const postReviewAction = createAppAsyncThunk<void, ReviewsFormProps>(
+  'comments/postReviewAction',
+  async ({comment, rating, offerId}, {dispatch, extra: api}) => {
+    const {data} = await api.post<ReviewsProps>(`${APIRoute.Comments}/${offerId}`, {comment, rating});
+    const offerReviews = useAppSelector((state) => state.offerReviews);
+    if (offerReviews !== undefined) {
+      offerReviews.push(data);
+      dispatch(loadOfferReviews(offerReviews));
+      // dispatch(redirectToRoute(`${AppRoute.Offer}/${id}`));
+    }
   },
 );
 

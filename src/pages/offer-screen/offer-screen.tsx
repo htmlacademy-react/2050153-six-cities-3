@@ -22,7 +22,11 @@ function OfferScreen({authorizationStatus}: OfferScreenProps): JSX.Element {
   const nearPlacesClassName = 'near-places';
 
   const currentOfferId = useAppSelector((state) => state.currentOfferId);
+  const nearOffers = useAppSelector((state) => state.nearOffers);
+  const currentOffer = useAppSelector((state) => state.currentOffer);
+  const offerReviews = useAppSelector((state) => state.offerReviews);
   const dispatch = useAppDispatch();
+  // const offerReviews = useActionData(postReviewAction);
 
   useEffect(() => {
     if (currentOfferId !== null) {
@@ -32,11 +36,7 @@ function OfferScreen({authorizationStatus}: OfferScreenProps): JSX.Element {
       dispatch(fetchOfferReviews(currentOfferId));
       dispatch(setOffersDataLoadingStatus(false));
     }
-  }, [currentOfferId]);
-
-  const nearOffers = useAppSelector((state) => state.nearOffers);
-  const currentOffer = useAppSelector((state) => state.currentOffer);
-  const offerReviews = useAppSelector((state) => state.offerReviews);
+  }, [currentOfferId, dispatch]);
 
   if (currentOffer === undefined) {
     return <NotFoundScreen />;
@@ -98,6 +98,7 @@ function OfferScreen({authorizationStatus}: OfferScreenProps): JSX.Element {
                     key={offer.id}
                     offer={offer}
                     cardClassName={nearPlacesClassName}
+                    authorizationStatus={authorizationStatus}
                   />
                 ))}
               </div>

@@ -13,6 +13,7 @@ function Header({authorizationStatus}: HeaderProps): JSX.Element {
   const {linkClassName, shouldRenderUser} = getLayoutState(pathname as AppRoute);
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
+  // const userAvatarStyle: React.CSSProperties = { backgroundImage: url(`${user?.avatarUrl}`)};
 
   return (
     <header className="header">
@@ -28,11 +29,12 @@ function Header({authorizationStatus}: HeaderProps): JSX.Element {
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
                   {
-                    authorizationStatus === AuthorizationStatus.Auth && user !== undefined ? (
+                    authorizationStatus === AuthorizationStatus.Auth ? (
                       <Link className="header__nav-link header__nav-link--profile" to={`${AppRoute.Favorites}`}>
                         <div className="header__avatar-wrapper user__avatar-wrapper">
+                          <img src={`${user?.avatarUrl}`} alt="user-avatar" width="20" height="20" />
                         </div>
-                        <span className="header__user-name user__name">{`${user.email}`}</span>
+                        <span className="header__user-name user__name">{`${user?.email}`}</span>
                         <span className="header__favorite-count">3</span>
                       </Link>
                     ) : (

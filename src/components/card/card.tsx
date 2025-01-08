@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { CardProps } from '../../types/offer';
-import { AppRoute } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { chosenOfferId, redirectToRoute } from '../../store/action';
 
@@ -8,9 +8,10 @@ type OfferCardProps = {
   offer: CardProps;
   cardClassName: string;
   onCardHover?: (offerId: CardProps['id'] | null) => void;
+  authorizationStatus: AuthorizationStatus;
 };
 
-function OfferCard({offer, onCardHover, cardClassName}: OfferCardProps): JSX.Element {
+function OfferCard({offer, onCardHover, cardClassName, authorizationStatus}: OfferCardProps): JSX.Element {
   const {id, title, type, price, isPremium, isFavorite, rating, previewImage} = offer;
   const favoriteClassName = 'place-card__bookmark-button--active';
   const favoritesInfoClassName = 'favorites__card-info';
@@ -68,16 +69,20 @@ function OfferCard({offer, onCardHover, cardClassName}: OfferCardProps): JSX.Ele
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button ${isFavorite ? favoriteClassName : ''} button`} type="button">
-            <svg
-              className="place-card__bookmark-icon"
-              width="18"
-              height="19"
-            >
-              <use xlinkHref="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          {
+            authorizationStatus === AuthorizationStatus.Auth ?
+              <button className={`place-card__bookmark-button ${isFavorite ? favoriteClassName : ''} button`} type="button">
+                <svg
+                  className="place-card__bookmark-icon"
+                  width="18"
+                  height="19"
+                >
+                  <use xlinkHref="#icon-bookmark"></use>
+                </svg>
+                <span className="visually-hidden">To bookmarks</span>
+              </button>
+              : null
+          }
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

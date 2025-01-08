@@ -1,18 +1,39 @@
 import { RatingStars } from '../../../const';
-import { Fragment, ReactEventHandler, useState } from 'react';
+import { FormEvent, Fragment, ReactEventHandler, useState } from 'react';
+import { postReviewAction } from '../../../store/api-actions';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
 
 type ChangeHandler = ReactEventHandler<HTMLInputElement | HTMLTextAreaElement>
 
 function OfferReviewForm(): JSX.Element {
-  const [review, setReview] = useState({rating: 0, review: ''});
+  const [review, setReview] = useState({rating: 0, comment: ''});
+  const currentOfferId = useAppSelector((state) => state.currentOfferId);
 
   const handleChange: ChangeHandler = (event) => {
     const {name, value} = event.currentTarget;
     setReview({...review, [name]: value});
   };
 
+  const dispatch = useAppDispatch();
+
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    if (review.rating !== null && review.comment !== null && currentOfferId !== null) {
+      dispatch(postReviewAction({
+        rating: review.rating,
+        comment: review.comment,
+        offerId: currentOfferId,
+      }));
+    }
+  };
+
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form
+      className="reviews__form form"
+      action="#"
+      method="post"
+      onSubmit={handleSubmit}
+    >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {RatingStars.map(({value, title}) => (
@@ -37,7 +58,7 @@ function OfferReviewForm(): JSX.Element {
       </div>
       <textarea className="reviews__textarea form__textarea"
         id="review"
-        name="review"
+        name="comment"
         placeholder="Tell how was your stay, what you like and what can be improved"
         onChange={handleChange}
         defaultValue={''}
@@ -50,9 +71,10 @@ function OfferReviewForm(): JSX.Element {
           and describe your stay with at least
           <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button"
+        <button
+          className="reviews__submit form__submit button"
           type="submit"
-          disabled={review.review.length < 50 && review.rating === 0}
+          disabled={review.comment.length < 50 && review.rating === 0}
         >
           Submit
         </button>

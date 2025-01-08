@@ -1,6 +1,6 @@
-import { UserProps } from './user';
+import { UserData } from './user';
 
-export type UserReviewProps = Pick<UserProps, 'name' | 'avatarUrl' | 'isPro'>;
+export type UserReviewProps = Pick<UserData, 'name' | 'avatarUrl' | 'isPro'>;
 
 export type ReviewsProps = {
   id: string;
@@ -10,4 +10,6 @@ export type ReviewsProps = {
   rating: number;
 }
 
-export type ReviewsFormProps = Pick<ReviewsProps, 'comment' | 'rating'>;
+export type ReviewsFormProps = Pick<ReviewsProps, 'comment' | 'rating'> & {
+  offerId: string;
+};

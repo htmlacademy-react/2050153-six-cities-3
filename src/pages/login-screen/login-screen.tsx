@@ -1,12 +1,21 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { useRef, FormEvent } from 'react';
+import { useRef, FormEvent, useState, ReactEventHandler } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
+
+type ChangeHandler = ReactEventHandler<HTMLInputElement | HTMLTextAreaElement>
 
 function LoginScreen(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
+
+  const [review, setReview] = useState({email: '', password: ''});
+
+  const handleChange: ChangeHandler = (event) => {
+    const {name, value} = event.currentTarget;
+    setReview({...review, [name]: value});
+  };
 
   const dispatch = useAppDispatch();
 
@@ -39,6 +48,8 @@ function LoginScreen(): JSX.Element {
                 type="email"
                 name="email"
                 placeholder="Email"
+                defaultValue={''}
+                onChange={handleChange}
                 required
               />
             </div>
@@ -50,12 +61,15 @@ function LoginScreen(): JSX.Element {
                 type="password"
                 name="password"
                 placeholder="Password"
+                defaultValue={''}
+                onChange={handleChange}
                 required
               />
             </div>
             <button
               className="login__submit form__submit button"
               type="submit"
+              disabled={review.password.length < 2 && !review.password.match(/^(?=.*[A-Za-z])(?=.*\d){2,}$/)}
             >
               Sign in
             </button>

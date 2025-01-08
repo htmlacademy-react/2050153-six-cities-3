@@ -12,18 +12,11 @@ import Layout from '../layout/layout';
 import { useAppSelector } from '../../hooks';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
-// import { store } from '../../store';
-// import { fetchCurrentOffer } from '../../store/api-actions';
-
-// store.dispatch(fetchCurrentOffer());
 
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const offers = useAppSelector((state) => state.offers);
   const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
-  const offersByCity = useAppSelector((state) => state.offersByCity);
-  // const currentOffer = useAppSelector((state) => state.currentOffer);
-  // const nearOffers = useAppSelector((state) => state.nearOffers);
 
   if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) {
     return (
@@ -41,7 +34,7 @@ function App(): JSX.Element {
           >
             <Route
               index
-              element={<MainScreen offers={offersByCity} />}
+              element={<MainScreen authorizationStatus={authorizationStatus} />}
             />
             <Route
               path={AppRoute.Login}
