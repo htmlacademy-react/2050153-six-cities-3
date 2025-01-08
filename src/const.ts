@@ -94,6 +94,7 @@ export enum AuthorizationStatus {
 export enum APIRoute {
   Offers = '/offers',
   NearbyOffers = '/nearby',
+  Comments = '/comments',
   Login = '/login',
   Logout = '/logout',
 }

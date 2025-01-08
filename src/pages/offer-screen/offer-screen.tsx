@@ -1,4 +1,3 @@
-import { reviews } from '../../mocks/reviews';
 import OfferGallery from './offer-screen-components/offer-gallery';
 import OfferComponent from './offer-screen-components/offer-component';
 import OfferReviewList from './offer-screen-components/offer-review-list';
@@ -9,10 +8,10 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import { AuthorizationStatus } from '../../const';
 import Map from '../../components/map/map';
 import { ReviewsProps } from '../../types/review';
-import { getRandomInteger } from '../../utils/utils';
-import { fetchCurrentOffer, fetchNearOffers } from '../../store/api-actions';
+import { fetchCurrentOffer, fetchNearOffers, fetchOfferReviews } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
+import { setOffersDataLoadingStatus } from '../../store/action';
 
 type OfferScreenProps = {
   authorizationStatus: AuthorizationStatus;
@@ -23,28 +22,25 @@ function OfferScreen({authorizationStatus}: OfferScreenProps): JSX.Element {
   const nearPlacesClassName = 'near-places';
 
   const currentOfferId = useAppSelector((state) => state.currentOfferId);
-  const nearOffers = useAppSelector((state) => state.nearOffers);
-  const currentOffer = useAppSelector((state) => state.currentOffer);
-
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (currentOfferId !== null) {
+      dispatch(setOffersDataLoadingStatus(true));
       dispatch(fetchCurrentOffer(currentOfferId));
       dispatch(fetchNearOffers(currentOfferId));
+      dispatch(fetchOfferReviews(currentOfferId));
+      dispatch(setOffersDataLoadingStatus(false));
     }
   }, [currentOfferId]);
 
-  console.log(currentOfferId, currentOffer, nearOffers);
+  const nearOffers = useAppSelector((state) => state.nearOffers);
+  const currentOffer = useAppSelector((state) => state.currentOffer);
+  const offerReviews = useAppSelector((state) => state.offerReviews);
 
   if (currentOffer === undefined) {
     return <NotFoundScreen />;
   }
-
-  const offerReviews: ReviewsProps[] = Array.from(
-    { length: getRandomInteger(0, reviews.length - 1) },
-    () => reviews[getRandomInteger(0, reviews.length - 1)],
-  );
 
   return (
     <main className={`page__main page__main--${offerPageClassName}`}>

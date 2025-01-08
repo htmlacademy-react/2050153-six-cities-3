@@ -2,8 +2,7 @@ import { Link } from 'react-router-dom';
 import { CardProps } from '../../types/offer';
 import { AppRoute } from '../../const';
 import { useAppDispatch } from '../../hooks';
-import { chosenOfferId } from '../../store/action';
-import { fetchCurrentOffer } from '../../store/api-actions';
+import { chosenOfferId, redirectToRoute } from '../../store/action';
 
 type OfferCardProps = {
   offer: CardProps;
@@ -31,7 +30,8 @@ function OfferCard({offer, onCardHover, cardClassName}: OfferCardProps): JSX.Ele
 
   const handleClick = (offerId: CardProps['id']) => {
     dispatch(chosenOfferId(offerId));
-    dispatch(fetchCurrentOffer(offerId));
+    // dispatch(fetchCurrentOffer(offerId));
+    dispatch(redirectToRoute(`${AppRoute.Offer}/${id}`));
   };
 
   return (

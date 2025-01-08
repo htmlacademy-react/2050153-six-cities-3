@@ -1,9 +1,10 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { chosenCity, reset, chosenSortOption, loadOffers, setOffersDataLoadingStatus, requireAuthorization, chosenOfferId, loadCurrentOffer, loadNearbyOffers } from './action';
+import { chosenCity, reset, chosenSortOption, loadOffers, setOffersDataLoadingStatus, requireAuthorization, chosenOfferId, loadCurrentOffer, loadNearbyOffers, loadOfferReviews, loadUser } from './action';
 import { INITIAL_CITY, INITIAL_SORT_TYPE, AuthorizationStatus } from '../const';
 import { OfferProps, OffersProps } from '../types/offer';
 import { getCurrentSortedOffers } from '../utils/page-utils';
-// import { UserData } from '../types/user';
+import { ReviewsProps } from '../types/review';
+import { UserData } from '../types/user';
 
 type InitalState = {
   offers: OffersProps[];
@@ -16,7 +17,8 @@ type InitalState = {
   currentOfferId: OffersProps['id'] | null;
   currentOffer: OfferProps | undefined;
   nearOffers?: OffersProps[];
-  // user: UserData;
+  offerReviews?: ReviewsProps[];
+  user?: UserData;
 }
 
 const initialState: InitalState = {
@@ -30,13 +32,8 @@ const initialState: InitalState = {
   sortedOffers: [],
   offersByCity: [],
   nearOffers: [],
-// user: {
-  //   name: '',
-  //   avatarUrl: '',
-  //   isPro: false,
-  //   email: '',
-  //   token: ''
-  // },
+  offerReviews: [],
+  user: undefined,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -47,6 +44,7 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(chosenCity, (state, action) => {
       state.city = action.payload;
       state.offersByCity = state.offers.filter((offer) => offer.city.name === state.city);
+      state.sortedOffers = getCurrentSortedOffers(state.offersByCity, state.sortOption);
     })
     .addCase(chosenSortOption, (state, action) => {
       state.sortOption = action.payload;
@@ -62,13 +60,6 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(chosenOfferId, (state, action) => {
       state.currentOfferId = action.payload;
-      // if (state.currentOfferId !== null) {
-      // state.currentOffer = state.offers.find((offer: OffersProps) => offer.id === state.currentOfferId);
-      // dispatch(loadCurrentOffer(state.currentOfferId));
-      // if (state.nearOffers !== undefined && state.currentOffer !== undefined) {
-      //     state.nearOffers = getNearOffers(state.offers, state.currentOffer);
-      //   }
-      // }
     })
     .addCase(loadCurrentOffer, (state, action) => {
       state.currentOffer = action.payload;
@@ -81,10 +72,13 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
+    })
+    .addCase(loadOfferReviews, (state, action) => {
+      state.offerReviews = action.payload;
+    })
+    .addCase(loadUser, (state, action) => {
+      state.user = action.payload;
     });
-  // .addCase(loadUser, (state, action) => {
-  //   state.user = action.payload;
-  // });
 });
 
 export { reducer };

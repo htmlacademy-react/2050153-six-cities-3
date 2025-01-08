@@ -2,7 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { getLayoutState } from '../../utils/page-utils';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { logoutAction } from '../../store/api-actions';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 
 type HeaderProps = {
   authorizationStatus: AuthorizationStatus;
@@ -12,6 +12,7 @@ function Header({authorizationStatus}: HeaderProps): JSX.Element {
   const {pathname} = useLocation();
   const {linkClassName, shouldRenderUser} = getLayoutState(pathname as AppRoute);
   const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.user);
 
   return (
     <header className="header">
@@ -27,11 +28,11 @@ function Header({authorizationStatus}: HeaderProps): JSX.Element {
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
                   {
-                    authorizationStatus === AuthorizationStatus.Auth ? (
+                    authorizationStatus === AuthorizationStatus.Auth && user !== undefined ? (
                       <Link className="header__nav-link header__nav-link--profile" to={`${AppRoute.Favorites}`}>
                         <div className="header__avatar-wrapper user__avatar-wrapper">
                         </div>
-                        <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                        <span className="header__user-name user__name">{`${user.email}`}</span>
                         <span className="header__favorite-count">3</span>
                       </Link>
                     ) : (

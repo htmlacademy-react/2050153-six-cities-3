@@ -88,11 +88,9 @@ function OfferComponent ({offer, offerClassName}: OfferComponentProps): JSX.Elem
         </div>
         <div className={`${offerClassName}__description`}>
           {description ?
-            description.map((str) => (
-              <p className={`${offerClassName}__text`} key={id}>
-                {str}
-              </p>
-            ))
+            <p className={`${offerClassName}__text`} key={id}>
+              {description}
+            </p>
             : null}
         </div>
       </div>
