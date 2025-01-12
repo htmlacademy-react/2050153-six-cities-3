@@ -19,8 +19,9 @@ function OfferReviewForm(): JSX.Element {
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     if (review.rating !== null && review.comment !== null && currentOfferId !== null) {
+      const ratingNumber = Number(review.rating);
       dispatch(postReviewAction({
-        rating: review.rating,
+        rating: ratingNumber,
         comment: review.comment,
         offerId: currentOfferId,
       }));
@@ -74,7 +75,7 @@ function OfferReviewForm(): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={review.comment.length < 50 && review.rating === 0}
+          disabled={(review.comment.length < 50) && (Number(review.rating) === 0)}
         >
           Submit
         </button>

@@ -11,7 +11,7 @@ import { ReviewsProps } from '../../types/review';
 import { fetchCurrentOffer, fetchNearOffers, fetchOfferReviews } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
-import { setOffersDataLoadingStatus } from '../../store/action';
+// import { setOffersDataLoadingStatus } from '../../store/action';
 import { useParams } from 'react-router-dom';
 
 type OfferScreenProps = {
@@ -30,7 +30,7 @@ function OfferScreen({authorizationStatus}: OfferScreenProps): JSX.Element {
   const dispatch = useAppDispatch();
   // const offerReviews = useActionData(postReviewAction);
 
-  dispatch(setOffersDataLoadingStatus(true));
+  // dispatch(setOffersDataLoadingStatus(true));
   useEffect(() => {
     if (id !== undefined) {
       // dispatch(setOffersDataLoadingStatus(true));
@@ -40,7 +40,7 @@ function OfferScreen({authorizationStatus}: OfferScreenProps): JSX.Element {
       // dispatch(setOffersDataLoadingStatus(false));
     }
   }, [dispatch, id]);
-  dispatch(setOffersDataLoadingStatus(false));
+  // dispatch(setOffersDataLoadingStatus(false));
 
   if (currentOffer === undefined) {
     return <NotFoundScreen />;

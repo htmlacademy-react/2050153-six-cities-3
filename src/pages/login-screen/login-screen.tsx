@@ -69,7 +69,7 @@ function LoginScreen(): JSX.Element {
             <button
               className="login__submit form__submit button"
               type="submit"
-              disabled={review.password.length < 2 && !review.password.match(/^(?=.*[A-Za-z])(?=.*\d){2,}$/)}
+              disabled={review.password.length < 2 && !review.password.match(/(?=.*[A-Za-z]){1,}(?=.*\d){1,}/g)}
             >
               Sign in
             </button>
