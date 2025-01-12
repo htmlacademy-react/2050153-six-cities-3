@@ -1,9 +1,7 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { chosenCity } from '../../store/action';
-// import { OffersProps } from '../../types/offer';
 import OffersList from './main-screen-components/offers-list';
 import { AuthorizationStatus, cities } from '../../const';
-import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 type MainScreenProps = {
   authorizationStatus: AuthorizationStatus;
@@ -20,12 +18,6 @@ function MainScreen({authorizationStatus}: MainScreenProps): JSX.Element {
   const handleClick = (city: string) => {
     dispatch(chosenCity(city));
   };
-
-  if (isEmpty) {
-    return (
-      <NotFoundScreen />
-    );
-  }
 
   return (
     <main className={`page__main page__main--index ${isEmpty ? 'page__main--index-empty' : ''}`}>

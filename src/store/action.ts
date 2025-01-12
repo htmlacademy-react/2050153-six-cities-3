@@ -15,4 +15,5 @@ export const loadUser = createAction<UserData>('user/loadUser');
 export const reset = createAction('offers/reset');
 export const redirectToRoute = createAction<AppRoute | string > ('offers/redirectToRoute');
 export const chosenOfferId = createAction<OffersProps['id']>('offers/chosenOfferId');
-export const loadOfferReviews = createAction<ReviewsProps[]>('data/loadOfferReviews');
+export const loadOfferReviews = createAction<ReviewsProps[]>('comments/loadOfferReviews');
+export const loadNewReview = createAction<ReviewsProps>('comments/loadNewReview');

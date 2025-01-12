@@ -1,15 +1,16 @@
 import { Link } from 'react-router-dom';
 import CardComponent from '../../../components/card/card';
-import { AppRoute } from '../../../const';
+import { AppRoute, AuthorizationStatus } from '../../../const';
 import { OffersProps } from '../../../types/offer';
 import { cities } from '../../../const';
 
 type FavoritesLocationsProps = {
   offers: OffersProps[];
   favoritesClassName: string;
+  authorizationStatus: AuthorizationStatus;
 }
 
-function FavoritesLocations({offers, favoritesClassName}: FavoritesLocationsProps): JSX.Element {
+function FavoritesLocations({offers, favoritesClassName, authorizationStatus}: FavoritesLocationsProps): JSX.Element {
   return (
     <>
       {cities.map((city) => (
@@ -29,6 +30,7 @@ function FavoritesLocations({offers, favoritesClassName}: FavoritesLocationsProp
                     key={offer.id}
                     offer={offer}
                     cardClassName={favoritesClassName}
+                    authorizationStatus={authorizationStatus}
                   />
                 )
                 : null

@@ -11,5 +11,5 @@ export type ReviewsProps = {
 }
 
 export type ReviewsFormProps = Pick<ReviewsProps, 'comment' | 'rating'> & {
-  offerId: string;
+    offerId: string;
 };

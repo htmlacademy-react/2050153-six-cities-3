@@ -13,7 +13,6 @@ function Header({authorizationStatus}: HeaderProps): JSX.Element {
   const {linkClassName, shouldRenderUser} = getLayoutState(pathname as AppRoute);
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
-  // const userAvatarStyle: React.CSSProperties = { backgroundImage: url(`${user?.avatarUrl}`)};
 
   return (
     <header className="header">

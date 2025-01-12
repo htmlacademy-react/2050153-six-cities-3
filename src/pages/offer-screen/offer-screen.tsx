@@ -12,6 +12,7 @@ import { fetchCurrentOffer, fetchNearOffers, fetchOfferReviews } from '../../sto
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import { setOffersDataLoadingStatus } from '../../store/action';
+import { useParams } from 'react-router-dom';
 
 type OfferScreenProps = {
   authorizationStatus: AuthorizationStatus;
@@ -20,23 +21,26 @@ type OfferScreenProps = {
 function OfferScreen({authorizationStatus}: OfferScreenProps): JSX.Element {
   const offerPageClassName = 'offer';
   const nearPlacesClassName = 'near-places';
+  const {id} = useParams();
 
-  const currentOfferId = useAppSelector((state) => state.currentOfferId);
+  // const currentOfferId = useAppSelector((state) => state.currentOfferId);
   const nearOffers = useAppSelector((state) => state.nearOffers);
   const currentOffer = useAppSelector((state) => state.currentOffer);
   const offerReviews = useAppSelector((state) => state.offerReviews);
   const dispatch = useAppDispatch();
   // const offerReviews = useActionData(postReviewAction);
 
+  dispatch(setOffersDataLoadingStatus(true));
   useEffect(() => {
-    if (currentOfferId !== null) {
-      dispatch(setOffersDataLoadingStatus(true));
-      dispatch(fetchCurrentOffer(currentOfferId));
-      dispatch(fetchNearOffers(currentOfferId));
-      dispatch(fetchOfferReviews(currentOfferId));
-      dispatch(setOffersDataLoadingStatus(false));
+    if (id !== undefined) {
+      // dispatch(setOffersDataLoadingStatus(true));
+      dispatch(fetchCurrentOffer(id));
+      dispatch(fetchNearOffers(id));
+      dispatch(fetchOfferReviews(id));
+      // dispatch(setOffersDataLoadingStatus(false));
     }
-  }, [currentOfferId, dispatch]);
+  }, [dispatch, id]);
+  dispatch(setOffersDataLoadingStatus(false));
 
   if (currentOffer === undefined) {
     return <NotFoundScreen />;
@@ -44,7 +48,7 @@ function OfferScreen({authorizationStatus}: OfferScreenProps): JSX.Element {
 
   return (
     <main className={`page__main page__main--${offerPageClassName}`}>
-      <section className={offerPageClassName} key={currentOffer.id}>
+      <section className={offerPageClassName}>
         {currentOffer.images ?
           <OfferGallery
             id={currentOffer.id}
