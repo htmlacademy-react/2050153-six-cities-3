@@ -28,7 +28,7 @@ export const getLayoutState = (pathname: AppRoute) =>{
   return {rootClassName, linkClassName, shouldRenderUser, shouldRenderFooter, pageTitle};
 };
 
-export const getNearOffers = (offers: OffersProps[], currentOffer: OffersProps) : OffersProps[] | null => {
+export const getNearOffers = (offers: OffersProps[], currentOffer: OffersProps) : OffersProps[] | undefined => {
   const currentOffers: OffersProps[] | null = [];
 
   offers.map((offer) => {
@@ -43,7 +43,6 @@ export const getNearOffers = (offers: OffersProps[], currentOffer: OffersProps) 
   if (currentOffers) {
     return currentOffers.slice(0, 3);
   }
-  return null;
 };
 
 export const getCurrentSortedOffers = (offers: OffersProps[], sortOption: string) => {

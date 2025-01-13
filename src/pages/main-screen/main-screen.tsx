@@ -1,26 +1,23 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { chosenCity } from '../../store/action';
-import { OffersProps } from '../../types/offer';
 import OffersList from './main-screen-components/offers-list';
-import { cities } from '../../const';
+import { AuthorizationStatus, cities } from '../../const';
 
 type MainScreenProps = {
-  offers: OffersProps[];
+  authorizationStatus: AuthorizationStatus;
 }
 
-function MainScreen({offers}: MainScreenProps): JSX.Element {
+function MainScreen({authorizationStatus}: MainScreenProps): JSX.Element {
   const currentCityName = useAppSelector((state) => state.city);
+  const offersByCity = useAppSelector((state) => state.offersByCity);
   const dispatch = useAppDispatch();
 
   const mainCityClass: string = 'cities';
+  const isEmpty = offersByCity === undefined;
 
   const handleClick = (city: string) => {
     dispatch(chosenCity(city));
   };
-
-  const currentOffers = offers.filter((offer) => offer.city.name === currentCityName);
-
-  const isEmpty = currentOffers.length === 0;
 
   return (
     <main className={`page__main page__main--index ${isEmpty ? 'page__main--index-empty' : ''}`}>
@@ -48,7 +45,7 @@ function MainScreen({offers}: MainScreenProps): JSX.Element {
       <div className={mainCityClass}>
         {!isEmpty ?
           (
-            <OffersList currentCity={currentOffers[0].city} currentOffers={currentOffers} citiesClassName={mainCityClass} />
+            <OffersList currentCity={offersByCity[0].city} currentOffers={offersByCity} citiesClassName={mainCityClass} authorizationStatus={authorizationStatus} />
           ) : <p>There is no current offers for this city</p>}
       </div>
     </main>

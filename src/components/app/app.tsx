@@ -34,7 +34,7 @@ function App(): JSX.Element {
           >
             <Route
               index
-              element={<MainScreen offers={offers} />}
+              element={<MainScreen authorizationStatus={authorizationStatus} />}
             />
             <Route
               path={AppRoute.Login}
@@ -48,13 +48,13 @@ function App(): JSX.Element {
               path={AppRoute.Favorites}
               element={
                 <PrivateRoute authorizationStatus={authorizationStatus}>
-                  <FavoritesScreen offers={offers} />
+                  <FavoritesScreen offers={offers} authorizationStatus={authorizationStatus} />
                 </PrivateRoute>
               }
             />
             <Route
               path={`${AppRoute.Offer}/:id`}
-              element={<OfferScreen offers={offers} authorizationStatus={authorizationStatus}/>}
+              element={<OfferScreen authorizationStatus={authorizationStatus}/>}
             />
             <Route
               path='*'
