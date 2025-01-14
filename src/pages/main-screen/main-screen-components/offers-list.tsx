@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import Card from '../../../components/card/card';
 import { CardProps, CityProps, OffersProps } from '../../../types/offer';
 import PlaceSorting from '../../../components/places-sorting/place-sorting';
@@ -17,9 +17,9 @@ function OffersList ({currentCity, currentOffers, citiesClassName, authorization
   const [activeOfferId, setActiveOfferId] = useState<CardProps['id'] | null>(null);
   const currentSortedOffers = useAppSelector((state) => state.sortedOffers);
 
-  const handleCardHover = (offerId: CardProps['id'] | null): void => {
+  const handleCardHover = useCallback((offerId: CardProps['id'] | null): void => {
     setActiveOfferId(offerId);
-  };
+  },[]);
 
   return (
     <div className={`${citiesClassName}__places-container container`}>

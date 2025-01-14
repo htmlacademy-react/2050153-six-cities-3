@@ -3,6 +3,7 @@ import { getLayoutState } from '../../utils/page-utils';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { logoutAction } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
+import { memo } from 'react';
 
 type HeaderProps = {
   authorizationStatus: AuthorizationStatus;
@@ -69,4 +70,4 @@ function Header({authorizationStatus}: HeaderProps): JSX.Element {
   );
 }
 
-export default Header;
+export const MemoizedHeader = memo(Header);
