@@ -66,17 +66,19 @@ export const cities: CityProps[] = [
   }
 ];
 
-// export const Setting = {
-//   OffersCount: 30
-// };
-
 export const PageType = {
   Main: 'cities',
   Favorites: 'favorites',
   Offer: 'near-places'
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
+export enum NameSpace {
+  Data = 'DATA',
+  Offers = 'OFFERS',
+  User = 'USER',
+  Comments = 'COMMENTS',
+}
+
 export enum AppRoute {
   Main = '/',
   Login = '/login',
@@ -84,7 +86,6 @@ export enum AppRoute {
   Offer = '/offer',
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
@@ -99,7 +100,6 @@ export enum APIRoute {
   Logout = '/logout',
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
 export enum PageTitles {
   Main = '6 cities',
   Login = '6 cities: authorization',
@@ -115,44 +115,3 @@ export const RatingStars = [
   {value: '2', title: 'badly'},
   {value: '1', title: 'terribly'}
 ];
-
-// константы для моков
-// export const Coordinates = [
-//   {lat: 52.3909553943508, lng: 4.85309666406198},
-//   {lat: 52.3609553943508, lng: 4.85309666406198},
-//   {lat: 52.3909553943508, lng: 4.929309666406198},
-//   {lat: 52.3809553943508, lng: 4.939309666406198}
-// ];
-
-// export const Goods = [
-//   'Heating',
-//   'Wi-Fi',
-//   'Washing machine',
-//   'Towels',
-//   'Coffee machine',
-//   'Baby seat',
-//   'Kitchen',
-//   'Dishwasher',
-//   'Cabel TV',
-//   'Fridge'
-// ];
-
-// export const Urls = [
-//   'img/room.jpg',
-//   'img/apartment-01.jpg',
-//   'img/apartment-02.jpg',
-//   'img/apartment-03.jpg',
-//   'img/studio-01.jpg'
-// ];
-
-// export const OfferTypes = [
-//   'apartment',
-//   'room',
-//   'house',
-//   'hotel'
-// ];
-
-// export const OfferDescription = [
-//   'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
-//   'An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.'
-// ];

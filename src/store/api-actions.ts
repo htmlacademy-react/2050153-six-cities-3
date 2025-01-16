@@ -4,12 +4,12 @@ import { AppDispatch, State } from '../types/state';
 import { OfferProps, OffersProps } from '../types/offer';
 import { UserData } from '../types/user';
 import { UserAuthData } from '../types/user-auth';
-import { loadOffers, requireAuthorization, setOffersDataLoadingStatus,
+import { loadOffers, setOffersDataLoadingStatus,
   redirectToRoute, loadUser, chosenCity,
   chosenSortOption, loadCurrentOffer, loadNearbyOffers,
   loadOfferReviews,
   loadNewReview} from './action';
-import { APIRoute, AuthorizationStatus, AppRoute, INITIAL_CITY, INITIAL_SORT_TYPE } from '../const';
+import { APIRoute, AppRoute, INITIAL_CITY, INITIAL_SORT_TYPE } from '../const';
 import { saveToken, dropToken } from '../services/token';
 import { ReviewsFormProps, ReviewsProps } from '../types/review';
 
@@ -33,14 +33,9 @@ export const fetchOffers = createAppAsyncThunk<void, undefined>(
 
 export const checkAuthAction = createAppAsyncThunk<void, undefined>(
   'user/checkAuth',
-  async (_arg, {dispatch, extra: api}) => {
-    try {
-      await api.get(APIRoute.Login);
-      dispatch(requireAuthorization(AuthorizationStatus.Auth));
-    } catch {
-      dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
-    }
-  },
+  async (_arg, {extra: api}) => {
+    await api.get(APIRoute.Login);
+  }
 );
 
 export const fetchCurrentOffer = createAppAsyncThunk<void, string>(
@@ -81,7 +76,6 @@ export const loginAction = createAppAsyncThunk<void, UserAuthData>(
     const {data} = await api.post<UserData>(APIRoute.Login, {email, password});
     saveToken(data.token);
     dispatch(loadUser(data));
-    dispatch(requireAuthorization(AuthorizationStatus.Auth));
     dispatch(redirectToRoute(AppRoute.Main));
   },
 );
@@ -91,7 +85,6 @@ export const logoutAction = createAppAsyncThunk<void, undefined>(
   async (_arg, {dispatch, extra: api}) => {
     await api.delete(APIRoute.Logout);
     dropToken();
-    dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
     dispatch(redirectToRoute(AppRoute.Main));
   },
 );
