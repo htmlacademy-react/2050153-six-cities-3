@@ -1,12 +1,12 @@
 import { OfferImagesProps } from '../../../types/offer';
 
-function OfferGallery({images, id}: OfferImagesProps): JSX.Element {
+function OfferGallery({images}: OfferImagesProps): JSX.Element {
   return (
     <div className="offer__gallery-container container">
       <div className="offer__gallery">
         {images ?
           images.map((image: string) => (
-            <div className="offer__image-wrapper" key={id}>
+            <div className="offer__image-wrapper" key={image}>
               <img
                 className="offer__image"
                 src={image}

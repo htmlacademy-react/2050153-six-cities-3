@@ -11,7 +11,6 @@ import { ReviewsProps } from '../../types/review';
 import { fetchCurrentOffer, fetchNearOffers, fetchOfferReviews } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
-// import { setOffersDataLoadingStatus } from '../../store/action';
 import { useParams } from 'react-router-dom';
 
 type OfferScreenProps = {
@@ -23,21 +22,17 @@ function OfferScreen({authorizationStatus}: OfferScreenProps): JSX.Element {
   const nearPlacesClassName = 'near-places';
   const {id} = useParams();
 
-  // const currentOfferId = useAppSelector((state) => state.currentOfferId);
   const nearOffers = useAppSelector((state) => state.nearOffers);
   const currentOffer = useAppSelector((state) => state.currentOffer);
   const offerReviews = useAppSelector((state) => state.offerReviews);
   const dispatch = useAppDispatch();
-  // const offerReviews = useActionData(postReviewAction);
 
   // dispatch(setOffersDataLoadingStatus(true));
   useEffect(() => {
     if (id !== undefined) {
-      // dispatch(setOffersDataLoadingStatus(true));
       dispatch(fetchCurrentOffer(id));
       dispatch(fetchNearOffers(id));
       dispatch(fetchOfferReviews(id));
-      // dispatch(setOffersDataLoadingStatus(false));
     }
   }, [dispatch, id]);
   // dispatch(setOffersDataLoadingStatus(false));
@@ -51,7 +46,6 @@ function OfferScreen({authorizationStatus}: OfferScreenProps): JSX.Element {
       <section className={offerPageClassName}>
         {currentOffer.images ?
           <OfferGallery
-            id={currentOffer.id}
             images={currentOffer.images}
           /> : null}
         <div className={`${offerPageClassName}__container container`}>
@@ -80,7 +74,7 @@ function OfferScreen({authorizationStatus}: OfferScreenProps): JSX.Element {
                 ) : <p>This offer do not have any reviews.</p>}
               {
                 authorizationStatus === AuthorizationStatus.Auth ?
-                  <OfferReviewForm />
+                  <OfferReviewForm id={id} />
                   : <b>Only authorized user could leave a review. Please Sign in</b>
               }
             </section>

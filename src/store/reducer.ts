@@ -1,5 +1,5 @@
 import { createReducer} from '@reduxjs/toolkit';
-import { chosenCity, reset, chosenSortOption, loadOffers, setOffersDataLoadingStatus, requireAuthorization, chosenOfferId, loadCurrentOffer, loadNearbyOffers, loadOfferReviews, loadUser, loadNewReview } from './action';
+import { chosenCity, reset, chosenSortOption, loadOffers, setOffersDataLoadingStatus, requireAuthorization, loadCurrentOffer, loadNearbyOffers, loadOfferReviews, loadUser, loadNewReview } from './action';
 import { INITIAL_CITY, INITIAL_SORT_TYPE, AuthorizationStatus } from '../const';
 import { OfferProps, OffersProps } from '../types/offer';
 import { getCurrentSortedOffers } from '../utils/page-utils';
@@ -14,7 +14,6 @@ type InitalState = {
   sortOption: string;
   sortedOffers: OffersProps[];
   authorizationStatus: AuthorizationStatus;
-  currentOfferId: OffersProps['id'] | null;
   currentOffer: OfferProps | undefined;
   nearOffers?: OffersProps[];
   offerReviews: ReviewsProps[];
@@ -27,7 +26,6 @@ const initialState: InitalState = {
   sortOption: INITIAL_SORT_TYPE,
   isOffersDataLoading: false,
   authorizationStatus: AuthorizationStatus.Unknown,
-  currentOfferId: null,
   currentOffer: undefined,
   sortedOffers: [],
   offersByCity: [],
@@ -47,13 +45,10 @@ const reducer = createReducer(initialState, (builder) => {
       state.sortedOffers = getCurrentSortedOffers(state.offersByCity, state.sortOption);
     })
     .addCase(chosenSortOption, (state, action) => {
-      state.sortOption = action.payload;
-      if (state.offersByCity !== undefined) {
+      if (state.sortOption !== action.payload, state.offersByCity !== undefined) {
+        state.sortOption = action.payload;
         state.sortedOffers = getCurrentSortedOffers(state.offersByCity, state.sortOption);
       }
-    })
-    .addCase(chosenOfferId, (state, action) => {
-      state.currentOfferId = action.payload;
     })
     .addCase(loadCurrentOffer, (state, action) => {
       state.currentOffer = action.payload;
