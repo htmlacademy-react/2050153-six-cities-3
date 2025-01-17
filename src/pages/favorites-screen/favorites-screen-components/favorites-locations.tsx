@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
-import CardComponent from '../../../components/card/card';
+import { MemoizedOfferCard } from '../../../components/card/card';
 import { AppRoute, AuthorizationStatus } from '../../../const';
 import { OffersProps } from '../../../types/offer';
 import { cities } from '../../../const';
+import { memo } from 'react';
 
 type FavoritesLocationsProps = {
   offers: OffersProps[];
@@ -26,7 +27,7 @@ function FavoritesLocations({offers, favoritesClassName, authorizationStatus}: F
             {offers.map((offer) => (
               offer.isFavorite && (offer.city === city) ?
                 (
-                  <CardComponent
+                  <MemoizedOfferCard
                     key={offer.id}
                     offer={offer}
                     cardClassName={favoritesClassName}
@@ -42,4 +43,4 @@ function FavoritesLocations({offers, favoritesClassName, authorizationStatus}: F
   );
 }
 
-export default FavoritesLocations;
+export const MemoizedFavoritesLocations = memo(FavoritesLocations);

@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { AppRoute } from '../../const';
 import { getLayoutState } from '../../utils/page-utils';
 import { MemoizedHeader } from '../../components/header/header';
-import Footer from '../../components/footer/footer';
+import { MemoizedFooter } from '../../components/footer/footer';
 
 function Layout(): JSX.Element {
   const {pathname} = useLocation();
@@ -19,7 +19,7 @@ function Layout(): JSX.Element {
         <MemoizedHeader />
         <Outlet />
         {shouldRenderFooter ? (
-          <Footer />
+          <MemoizedFooter />
         ) : null}
       </div>
     </>

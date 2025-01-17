@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { CardProps } from '../../types/offer';
 import { AppRoute, AuthorizationStatus } from '../../const';
+import { memo } from 'react';
 
 type OfferCardProps = {
   offer: CardProps;
@@ -90,4 +91,4 @@ function OfferCard({offer, onCardHover, cardClassName, authorizationStatus}: Off
   );
 }
 
-export default OfferCard;
+export const MemoizedOfferCard = memo(OfferCard, (prevProps, nextProps) => prevProps.offer === nextProps.offer);

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { SortOptions } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { chosenSortOption } from '../../store/offers-process/offers-process';
@@ -53,4 +53,4 @@ function PlaceSorting(): JSX.Element {
   );
 }
 
-export default PlaceSorting;
+export const MemoizedPlaceSorting = memo(PlaceSorting);

@@ -1,8 +1,8 @@
 import { useCallback, useState } from 'react';
-import Card from '../../../components/card/card';
+import { MemoizedOfferCard } from '../../../components/card/card';
 import { CardProps, CityProps } from '../../../types/offer';
-import PlaceSorting from '../../../components/places-sorting/place-sorting';
-import Map from '../../../components/map/map';
+import { MemoizedPlaceSorting } from '../../../components/places-sorting/place-sorting';
+import { MemoizedMap } from '../../../components/map/map';
 import { useAppSelector } from '../../../hooks';
 import { AuthorizationStatus } from '../../../const';
 import { getSortedOffers } from '../../../store/offers-process/selectors';
@@ -28,10 +28,10 @@ function OffersList ({currentCity, citiesClassName, authorizationStatus}: Offers
         <b className="places__found">
           {currentSortedOffers.length} places to stay in {currentCity.name}
         </b>
-        <PlaceSorting />
+        <MemoizedPlaceSorting />
         <div className={`${citiesClassName}__places-list places__list tabs__content`}>
           {currentSortedOffers.map((offer: CardProps) => (
-            <Card
+            <MemoizedOfferCard
               key={offer.id}
               offer={offer}
               onCardHover={handleCardHover}
@@ -42,7 +42,7 @@ function OffersList ({currentCity, citiesClassName, authorizationStatus}: Offers
         </div>
       </section>
       <div className={`${citiesClassName}__right-section`}>
-        <Map city={currentCity} offers={currentSortedOffers} activeOfferId={activeOfferId} mapClassName={citiesClassName} />
+        <MemoizedMap city={currentCity} offers={currentSortedOffers} activeOfferId={activeOfferId} mapClassName={citiesClassName} />
       </div>
     </div>
   );

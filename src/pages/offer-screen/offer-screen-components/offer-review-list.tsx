@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { ReviewsProps } from '../../../types/review';
 
 type OfferReviewListProps = {
@@ -37,4 +38,4 @@ function OfferReviewList({offerReview}: OfferReviewListProps): JSX.Element {
   );
 }
 
-export default OfferReviewList;
+export const MemoizedOfferReviewList = memo(OfferReviewList);

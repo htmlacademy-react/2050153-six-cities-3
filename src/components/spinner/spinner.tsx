@@ -1,5 +1,6 @@
 import { BounceLoader } from 'react-spinners';
 import './spinner.css';
+import { memo } from 'react';
 
 function Spinner(): JSX.Element {
   return (
@@ -15,4 +16,4 @@ function Spinner(): JSX.Element {
   );
 }
 
-export default Spinner;
+export const MemoizedSpinner = memo(Spinner);

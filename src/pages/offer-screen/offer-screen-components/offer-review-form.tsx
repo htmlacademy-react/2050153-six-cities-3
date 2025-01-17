@@ -1,5 +1,5 @@
 import { RatingStars } from '../../../const';
-import { FormEvent, Fragment, ReactEventHandler, useState } from 'react';
+import { FormEvent, Fragment, memo, ReactEventHandler, useState } from 'react';
 import { postReviewAction } from '../../../store/api-actions';
 import { useAppDispatch } from '../../../hooks';
 
@@ -87,4 +87,4 @@ function OfferReviewForm({id}: ReviewFormProps): JSX.Element {
   );
 }
 
-export default OfferReviewForm;
+export const MemoizedOfferReviewForm = memo(OfferReviewForm);
