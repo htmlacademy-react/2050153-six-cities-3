@@ -4,12 +4,8 @@ import { AppDispatch, State } from '../types/state';
 import { OfferProps, OffersProps } from '../types/offer';
 import { UserData } from '../types/user';
 import { UserAuthData } from '../types/user-auth';
-import { loadOffers, setOffersDataLoadingStatus,
-  redirectToRoute, loadUser, chosenCity,
-  chosenSortOption, loadCurrentOffer, loadNearbyOffers,
-  loadOfferReviews,
-  loadNewReview} from './action';
-import { APIRoute, AppRoute, INITIAL_CITY, INITIAL_SORT_TYPE } from '../const';
+import { redirectToRoute } from './action';
+import { APIRoute, AppRoute } from '../const';
 import { saveToken, dropToken } from '../services/token';
 import { ReviewsFormProps, ReviewsProps } from '../types/review';
 
@@ -19,15 +15,13 @@ const createAppAsyncThunk = createAsyncThunk.withTypes<{
   extra: AxiosInstance;
 }>();
 
-export const fetchOffers = createAppAsyncThunk<void, undefined>(
+export const fetchOffers = createAppAsyncThunk<OffersProps[], undefined>(
   'data/fetchOffers',
-  async (_arg, {dispatch, extra: api}) => {
-    dispatch(setOffersDataLoadingStatus(true));
+  async (_arg, {extra: api}) => {
     const {data} = await api.get<OffersProps[]>(APIRoute.Offers);
-    dispatch(setOffersDataLoadingStatus(false));
-    dispatch(loadOffers(data));
-    dispatch(chosenCity(INITIAL_CITY));
-    dispatch(chosenSortOption(INITIAL_SORT_TYPE));
+    return data;
+    // dispatch(chosenCity(INITIAL_CITY));
+    // dispatch(chosenSortOption(INITIAL_SORT_TYPE));
   },
 );
 
@@ -38,45 +32,45 @@ export const checkAuthAction = createAppAsyncThunk<void, undefined>(
   }
 );
 
-export const fetchCurrentOffer = createAppAsyncThunk<void, string>(
+export const fetchCurrentOffer = createAppAsyncThunk<OfferProps, string>(
   'data/fetchCurrentOffers',
-  async (id, {dispatch, extra: api}) => {
+  async (id, {extra: api}) => {
     const {data} = await api.get<OfferProps>(`${APIRoute.Offers}/${id}`);
-    dispatch(loadCurrentOffer(data));
+    return data;
   },
 );
 
-export const fetchNearOffers = createAppAsyncThunk<void, string>(
+export const fetchNearOffers = createAppAsyncThunk<OffersProps[], string>(
   'data/fetchNearOffers',
-  async (id, {dispatch, extra: api}) => {
+  async (id, {extra: api}) => {
     const {data} = await api.get<OffersProps[]>(`${APIRoute.Offers}/${id}/nearby`);
-    dispatch(loadNearbyOffers(data));
+    return data;
   },
 );
 
-export const fetchOfferReviews = createAppAsyncThunk<void, string>(
+export const fetchOfferReviews = createAppAsyncThunk<ReviewsProps[], string>(
   'comments/fetchOfferReviews',
-  async (id, {dispatch, extra: api}) => {
+  async (id, {extra: api}) => {
     const {data} = await api.get<ReviewsProps[]>(`${APIRoute.Comments}/${id}`);
-    dispatch(loadOfferReviews(data));
+    return data;
   },
 );
 
-export const postReviewAction = createAppAsyncThunk<void, ReviewsFormProps>(
+export const postReviewAction = createAppAsyncThunk<ReviewsProps, ReviewsFormProps>(
   'comments/postReviewAction',
-  async ({comment, rating, offerId}, {dispatch, extra: api}) => {
+  async ({comment, rating, offerId}, {extra: api}) => {
     const {data} = await api.post<ReviewsProps>(`${APIRoute.Comments}/${offerId}`, {comment, rating});
-    dispatch(loadNewReview(data));
+    return data;
   },
 );
 
-export const loginAction = createAppAsyncThunk<void, UserAuthData>(
+export const loginAction = createAppAsyncThunk<UserData, UserAuthData>(
   'user/login',
   async ({login: email, password}, {dispatch, extra: api}) => {
     const {data} = await api.post<UserData>(APIRoute.Login, {email, password});
     saveToken(data.token);
-    dispatch(loadUser(data));
     dispatch(redirectToRoute(AppRoute.Main));
+    return data;
   },
 );
 

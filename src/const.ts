@@ -76,7 +76,8 @@ export enum NameSpace {
   Data = 'DATA',
   Offers = 'OFFERS',
   User = 'USER',
-  Comments = 'COMMENTS',
+  CurrentOffer = 'OFFER',
+  CurrentOfferReviews = 'OFFER_REVIEWS',
 }
 
 export enum AppRoute {
