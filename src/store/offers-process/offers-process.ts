@@ -15,8 +15,8 @@ export const offersProcess = createSlice({
   name: NameSpace.Offers,
   initialState,
   reducers: {
-    chosenCity: (state, action: PayloadAction<{offers: OffersProps[]; city: string}>) => {
-      const {offers, city} = action.payload;
+    chosenCity: (state, action: PayloadAction<{city: string; offers: OffersProps[]}>) => {
+      const {city, offers} = action.payload;
 
       state.city = city;
       state.offersByCity = offers.filter((offer) => offer.city.name === city);
@@ -30,12 +30,6 @@ export const offersProcess = createSlice({
         state.sortedOffers = getCurrentSortedOffers(state.offersByCity, sortOption);
       }
     },
-    // reset: (state) => {
-    //   state.city = INITIAL_CITY;
-    //   state.sortOption = INITIAL_SORT_TYPE;
-    //   state.offersByCity = offers.filter((offer) => offer.city.name === city);
-    //   state.sortedOffers = getCurrentSortedOffers(state.offersByCity, state.sortOption);
-    // },
   },
 });
 

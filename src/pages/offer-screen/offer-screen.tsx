@@ -12,6 +12,9 @@ import { fetchCurrentOffer, fetchNearOffers, fetchOfferReviews } from '../../sto
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { getCurrentOffer, getNearOffers, getOfferLoadingStatus } from '../../store/current-offer/selectors';
+import { getOfferReviews, getReviewsLoadingStatus } from '../../store/current-offer-reviews/selectors';
+import LoadingScreen from '../loading-screen/loading-screen';
 
 type OfferScreenProps = {
   authorizationStatus: AuthorizationStatus;
@@ -22,12 +25,13 @@ function OfferScreen({authorizationStatus}: OfferScreenProps): JSX.Element {
   const nearPlacesClassName = 'near-places';
   const {id} = useParams();
 
-  const nearOffers = useAppSelector((state) => state.nearOffers);
-  const currentOffer = useAppSelector((state) => state.currentOffer);
-  const offerReviews = useAppSelector((state) => state.offerReviews);
+  const nearOffers = useAppSelector(getNearOffers);
+  const currentOffer = useAppSelector(getCurrentOffer);
+  const offerReviews = useAppSelector(getOfferReviews);
+  const isOfferDataLoading = useAppSelector(getOfferLoadingStatus);
+  const isReviewsDataLoading = useAppSelector(getReviewsLoadingStatus);
   const dispatch = useAppDispatch();
 
-  // dispatch(setOffersDataLoadingStatus(true));
   useEffect(() => {
     if (id !== undefined) {
       dispatch(fetchCurrentOffer(id));
@@ -35,7 +39,12 @@ function OfferScreen({authorizationStatus}: OfferScreenProps): JSX.Element {
       dispatch(fetchOfferReviews(id));
     }
   }, [dispatch, id]);
-  // dispatch(setOffersDataLoadingStatus(false));
+
+  if (isOfferDataLoading || isReviewsDataLoading) {
+    return (
+      <LoadingScreen />
+    );
+  }
 
   if (currentOffer === undefined) {
     return <NotFoundScreen />;
@@ -63,11 +72,7 @@ function OfferScreen({authorizationStatus}: OfferScreenProps): JSX.Element {
                     {offerReviews.map((review: ReviewsProps) => (
                       <OfferReviewList
                         key={review.id}
-                        id={review.id}
-                        date={review.date}
-                        user={review.user}
-                        comment={review.comment}
-                        rating={review.rating}
+                        offerReview={review}
                       />
                     ))}
                   </ul>

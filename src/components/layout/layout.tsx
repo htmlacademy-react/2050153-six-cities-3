@@ -2,14 +2,12 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { AppRoute } from '../../const';
 import { getLayoutState } from '../../utils/page-utils';
-import { MemoizedHeader} from '../../components/header/header';
+import { MemoizedHeader } from '../../components/header/header';
 import Footer from '../../components/footer/footer';
-import { useAppSelector } from '../../hooks';
 
 function Layout(): JSX.Element {
   const {pathname} = useLocation();
   const {rootClassName, shouldRenderFooter, pageTitle} = getLayoutState(pathname as AppRoute);
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
   return (
     <>
@@ -18,7 +16,7 @@ function Layout(): JSX.Element {
       </Helmet>
 
       <div className={`page${rootClassName}`}>
-        <MemoizedHeader authorizationStatus={authorizationStatus}/>
+        <MemoizedHeader />
         <Outlet />
         {shouldRenderFooter ? (
           <Footer />
