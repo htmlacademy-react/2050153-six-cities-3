@@ -1,6 +1,13 @@
+import { memo } from 'react';
 import { ReviewsProps } from '../../../types/review';
 
-function OfferReviewList({id, date, user, comment, rating}: ReviewsProps): JSX.Element {
+type OfferReviewListProps = {
+  offerReview: ReviewsProps;
+}
+
+function OfferReviewList({offerReview}: OfferReviewListProps): JSX.Element {
+  const {id, date, user, comment, rating} = offerReview;
+
   return (
     <li className="reviews__item" key={id}>
       <div className="reviews__user user">
@@ -31,4 +38,4 @@ function OfferReviewList({id, date, user, comment, rating}: ReviewsProps): JSX.E
   );
 }
 
-export default OfferReviewList;
+export const MemoizedOfferReviewList = memo(OfferReviewList);

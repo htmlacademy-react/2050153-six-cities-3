@@ -1,6 +1,6 @@
 import leaflet, { LayerGroup as LayerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { useEffect, useRef } from 'react';
+import { memo, useEffect, useRef } from 'react';
 import { CityProps, OffersProps } from '../../types/offer';
 import { URL_PIN_ACTIVE, URL_PIN_DEFAULT } from '../../const';
 import useMap from './map-hooks/use-map';
@@ -63,4 +63,4 @@ function Map({city, offers, activeOfferId, mapClassName}: MapProps): JSX.Element
   );
 }
 
-export default Map;
+export const MemoizedMap = memo(Map);

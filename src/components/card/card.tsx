@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom';
 import { CardProps } from '../../types/offer';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { useAppDispatch } from '../../hooks';
-import { chosenOfferId } from '../../store/action';
+import { memo } from 'react';
 
 type OfferCardProps = {
   offer: CardProps;
@@ -15,7 +14,6 @@ function OfferCard({offer, onCardHover, cardClassName, authorizationStatus}: Off
   const {id, title, type, price, isPremium, isFavorite, rating, previewImage} = offer;
   const favoriteClassName = 'place-card__bookmark-button--active';
   const favoritesInfoClassName = 'favorites__card-info';
-  const dispatch = useAppDispatch();
 
   const handleHoverOverCard = () => {
     if (onCardHover) {
@@ -29,19 +27,11 @@ function OfferCard({offer, onCardHover, cardClassName, authorizationStatus}: Off
     }
   };
 
-  const handleClick = (offerId: CardProps['id']) => {
-    dispatch(chosenOfferId(offerId));
-  };
-
   return (
     <article
       className={`${cardClassName}__card place-card`}
       onMouseEnter={handleHoverOverCard}
       onMouseLeave={handleAwayFromCard}
-      onClick={(evt) => {
-        evt.preventDefault();
-        handleClick(offer.id);
-      }}
     >
       {isPremium ?
         (
@@ -101,4 +91,4 @@ function OfferCard({offer, onCardHover, cardClassName, authorizationStatus}: Off
   );
 }
 
-export default OfferCard;
+export const MemoizedOfferCard = memo(OfferCard, (prevProps, nextProps) => prevProps.offer === nextProps.offer);

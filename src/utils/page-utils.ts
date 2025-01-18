@@ -1,7 +1,7 @@
-import { AppRoute, PageTitles, AuthorizationStatus } from '../const';
+import { AppRoute, PageTitles } from '../const';
 import { OffersProps } from '../types/offer';
 
-export const getAuthorizationStatus = () => AuthorizationStatus.NoAuth;
+// export const getAuthorizationStatus = () => AuthorizationStatus.NoAuth;
 
 export const getLayoutState = (pathname: AppRoute) =>{
   let rootClassName = '';
@@ -28,22 +28,22 @@ export const getLayoutState = (pathname: AppRoute) =>{
   return {rootClassName, linkClassName, shouldRenderUser, shouldRenderFooter, pageTitle};
 };
 
-export const getNearOffers = (offers: OffersProps[], currentOffer: OffersProps) : OffersProps[] | undefined => {
-  const currentOffers: OffersProps[] | null = [];
+// export const getNearOffers = (offers: OffersProps[], currentOffer: OffersProps) : OffersProps[] | undefined => {
+//   const currentOffers: OffersProps[] | null = [];
 
-  offers.map((offer) => {
-    if (
-      currentOffer.city.name === offer.city.name
-      && currentOffer.id !== offer.id
-    ) {
-      currentOffers.push(offer);
-    }
-  });
+//   offers.map((offer) => {
+//     if (
+//       currentOffer.city.name === offer.city.name
+//       && currentOffer.id !== offer.id
+//     ) {
+//       currentOffers.push(offer);
+//     }
+//   });
 
-  if (currentOffers) {
-    return currentOffers.slice(0, 3);
-  }
-};
+//   if (currentOffers) {
+//     return currentOffers.slice(0, 3);
+//   }
+// };
 
 export const getCurrentSortedOffers = (offers: OffersProps[], sortOption: string) => {
   let sortedOffers = [...offers];

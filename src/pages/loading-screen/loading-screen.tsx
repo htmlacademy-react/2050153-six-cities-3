@@ -1,8 +1,8 @@
-import Spinner from '../../components/spinner/spinner';
+import { MemoizedSpinner } from '../../components/spinner/spinner';
 
 function LoadingScreen(): JSX.Element {
   return (
-    <Spinner />
+    <MemoizedSpinner />
   );
 }
 export default LoadingScreen;

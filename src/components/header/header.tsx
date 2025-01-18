@@ -3,16 +3,28 @@ import { getLayoutState } from '../../utils/page-utils';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { logoutAction } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
+import { memo } from 'react';
+import LoadingScreen from '../../pages/loading-screen/loading-screen';
+import { getUser, getAuthCheckedStatus, getAuthorizationStatus } from '../../store/user-process/selectors';
 
-type HeaderProps = {
-  authorizationStatus: AuthorizationStatus;
-}
-
-function Header({authorizationStatus}: HeaderProps): JSX.Element {
+function Header(): JSX.Element {
   const {pathname} = useLocation();
   const {linkClassName, shouldRenderUser} = getLayoutState(pathname as AppRoute);
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.user);
+
+  const isAuthChecked = useAppSelector(getAuthCheckedStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const user = useAppSelector(getUser);
+
+  if (!isAuthChecked) {
+    return (
+      <LoadingScreen />
+    );
+  }
+
+  const handleClick = () => {
+    dispatch(logoutAction());
+  };
 
   return (
     <header className="header">
@@ -52,7 +64,7 @@ function Header({authorizationStatus}: HeaderProps): JSX.Element {
                         className="header__nav-link"
                         onClick={(evt) => {
                           evt.preventDefault();
-                          dispatch(logoutAction());
+                          handleClick();
                         }}
                         to={`${AppRoute.Main}`}
                       >
@@ -69,4 +81,4 @@ function Header({authorizationStatus}: HeaderProps): JSX.Element {
   );
 }
 
-export default Header;
+export const MemoizedHeader = memo(Header);

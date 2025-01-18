@@ -1,16 +1,17 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { SortOptions } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { chosenSortOption } from '../../store/action';
+import { chosenSortOption } from '../../store/offers-process/offers-process';
+import { getSortOption } from '../../store/offers-process/selectors';
 
 function PlaceSorting(): JSX.Element {
-  const currentSortOption = useAppSelector((state) => state.sortOption);
+  const currentSortOption = useAppSelector(getSortOption);
   const dispatch = useAppDispatch();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleOnOptionClick = (sortOption: string) => {
-    dispatch(chosenSortOption(sortOption));
+    dispatch(chosenSortOption({sortOption: sortOption}));
     setIsMenuOpen(false);
   };
 
@@ -52,4 +53,4 @@ function PlaceSorting(): JSX.Element {
   );
 }
 
-export default PlaceSorting;
+export const MemoizedPlaceSorting = memo(PlaceSorting);

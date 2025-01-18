@@ -1,13 +1,16 @@
 import { RatingStars } from '../../../const';
-import { FormEvent, Fragment, ReactEventHandler, useState } from 'react';
+import { FormEvent, Fragment, memo, ReactEventHandler, useState } from 'react';
 import { postReviewAction } from '../../../store/api-actions';
-import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { useAppDispatch } from '../../../hooks';
 
 type ChangeHandler = ReactEventHandler<HTMLInputElement | HTMLTextAreaElement>
 
-function OfferReviewForm(): JSX.Element {
+type ReviewFormProps = {
+  id?: string;
+}
+
+function OfferReviewForm({id}: ReviewFormProps): JSX.Element {
   const [review, setReview] = useState({rating: 0, comment: ''});
-  const currentOfferId = useAppSelector((state) => state.currentOfferId);
 
   const handleChange: ChangeHandler = (event) => {
     const {name, value} = event.currentTarget;
@@ -18,12 +21,12 @@ function OfferReviewForm(): JSX.Element {
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    if (review.rating !== null && review.comment !== null && currentOfferId !== null) {
+    if (review.rating !== null && review.comment !== null && id !== undefined) {
       const ratingNumber = Number(review.rating);
       dispatch(postReviewAction({
         rating: ratingNumber,
         comment: review.comment,
-        offerId: currentOfferId,
+        offerId: id,
       }));
     }
   };
@@ -84,4 +87,4 @@ function OfferReviewForm(): JSX.Element {
   );
 }
 
-export default OfferReviewForm;
+export const MemoizedOfferReviewForm = memo(OfferReviewForm);

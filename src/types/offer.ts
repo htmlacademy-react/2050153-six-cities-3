@@ -42,6 +42,6 @@ export type OfferProps = Omit<CardProps, 'previewImage'> & {
   maxAdults: number;
 };
 
-export type OfferImagesProps = Pick<OfferProps, 'id' | 'images'>;
+export type OfferImagesProps = Pick<OfferProps, 'images'>;
 
 export type OffersProps = CardProps & OfferProps;

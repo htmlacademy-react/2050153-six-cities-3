@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import {OfferProps} from '../../../types/offer';
 
 type OfferComponentProps = {
@@ -98,4 +99,4 @@ function OfferComponent ({offer, offerClassName}: OfferComponentProps): JSX.Elem
   );
 }
 
-export default OfferComponent;
+export const MemoizedOfferComponent = memo(OfferComponent);
