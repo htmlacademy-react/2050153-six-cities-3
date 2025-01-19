@@ -15,6 +15,7 @@ import { useParams } from 'react-router-dom';
 import { getCurrentOffer, getNearOffers, getOfferLoadingStatus } from '../../store/current-offer/selectors';
 import { getOfferReviews, getReviewsLoadingStatus } from '../../store/current-offer-reviews/selectors';
 import LoadingScreen from '../loading-screen/loading-screen';
+import { getNearOffersLoadingStatus } from '../../store/near-offers/selectors';
 
 type OfferScreenProps = {
   authorizationStatus: AuthorizationStatus;
@@ -30,6 +31,7 @@ function OfferScreen({authorizationStatus}: OfferScreenProps): JSX.Element {
   const offerReviews = useAppSelector(getOfferReviews);
   const isOfferDataLoading = useAppSelector(getOfferLoadingStatus);
   const isReviewsDataLoading = useAppSelector(getReviewsLoadingStatus);
+  const isNearOffersDataLoading = useAppSelector(getNearOffersLoadingStatus);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -40,7 +42,7 @@ function OfferScreen({authorizationStatus}: OfferScreenProps): JSX.Element {
     }
   }, [dispatch, id]);
 
-  if (isOfferDataLoading || isReviewsDataLoading) {
+  if (isOfferDataLoading || isReviewsDataLoading || isNearOffersDataLoading) {
     return (
       <LoadingScreen />
     );

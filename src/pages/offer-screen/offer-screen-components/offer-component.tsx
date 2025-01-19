@@ -1,13 +1,23 @@
 import { memo } from 'react';
-import {OfferProps} from '../../../types/offer';
+import { OfferProps } from '../../../types/offer';
+import { AppRoute, AuthorizationStatus } from '../../../const';
+import { useAppDispatch } from '../../../hooks';
+import { addFavoriteOffer } from '../../../store/api-actions';
+import { redirectToRoute } from '../../../store/action';
 
 type OfferComponentProps = {
   offer: OfferProps;
   offerClassName: string;
+  authorizationStatus: AuthorizationStatus;
 }
 
-function OfferComponent ({offer, offerClassName}: OfferComponentProps): JSX.Element {
-  const {id, title, type, price, isPremium, rating, description, bedrooms, goods, host, maxAdults} = offer;
+function OfferComponent ({offer, offerClassName, authorizationStatus}: OfferComponentProps): JSX.Element {
+  const {id, title, type, price, isPremium, isFavorite, rating, description, bedrooms, goods, host, maxAdults} = offer;
+  const dispatch = useAppDispatch();
+
+  const onActiveButtonClick = () => {
+    dispatch(addFavoriteOffer({id: id, isFavorite: isFavorite}));
+  };
 
   return (
     <>
@@ -22,6 +32,36 @@ function OfferComponent ({offer, offerClassName}: OfferComponentProps): JSX.Elem
         <h1 className={`${offerClassName}__name`}>
           {title}
         </h1>
+        {authorizationStatus === AuthorizationStatus.Auth ?
+          (
+            <button
+              className={`${offerClassName}__bookmark-button ${isFavorite ? `${offerClassName}__bookmark-button--active` : ''} button`}
+              onClick = {(evt) => {
+                evt.preventDefault();
+                onActiveButtonClick();
+              }}
+              type="button"
+            >
+              <svg className={`${offerClassName}__bookmark-icon`} width="31" height="33">
+                <use xlinkHref="#icon-bookmark"></use>
+              </svg>
+              <span className="visually-hidden">To bookmarks</span>
+            </button>
+          ) : (
+            <button
+              className={`${offerClassName}__bookmark-button button`}
+              onClick = {(evt) => {
+                evt.preventDefault();
+                dispatch(redirectToRoute(AppRoute.Login));
+              }}
+              type="button"
+            >
+              <svg className={`${offerClassName}__bookmark-icon`} width="31" height="33">
+                <use xlinkHref="#icon-bookmark"></use>
+              </svg>
+              <span className="visually-hidden">To bookmarks</span>
+            </button>
+          )}
         <button className={`${offerClassName}__bookmark-button button`} type="button">
           <svg className={`${offerClassName}__bookmark-icon`} width="31" height="33">
             <use xlinkHref="#icon-bookmark"></use>

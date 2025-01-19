@@ -78,6 +78,9 @@ export enum NameSpace {
   User = 'USER',
   CurrentOffer = 'OFFER',
   CurrentOfferReviews = 'OFFER_REVIEWS',
+  NearOffers = 'NEAR_OFFERS',
+  FavoritesData = 'FAVORITES_DATA',
+  Favorites = 'FAVORITES',
 }
 
 export enum AppRoute {
@@ -97,6 +100,7 @@ export enum APIRoute {
   Offers = '/offers',
   NearbyOffers = '/nearby',
   Comments = '/comments',
+  Favorites = '/favorite',
   Login = '/login',
   Logout = '/logout',
 }

@@ -2,6 +2,9 @@ import { Link } from 'react-router-dom';
 import { CardProps } from '../../types/offer';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { memo } from 'react';
+import { redirectToRoute } from '../../store/action';
+import { useAppDispatch } from '../../hooks';
+import { addFavoriteOffer } from '../../store/api-actions';
 
 type OfferCardProps = {
   offer: CardProps;
@@ -14,6 +17,7 @@ function OfferCard({offer, onCardHover, cardClassName, authorizationStatus}: Off
   const {id, title, type, price, isPremium, isFavorite, rating, previewImage} = offer;
   const favoriteClassName = 'place-card__bookmark-button--active';
   const favoritesInfoClassName = 'favorites__card-info';
+  const dispatch = useAppDispatch();
 
   const handleHoverOverCard = () => {
     if (onCardHover) {
@@ -25,6 +29,10 @@ function OfferCard({offer, onCardHover, cardClassName, authorizationStatus}: Off
     if (onCardHover) {
       onCardHover(null);
     }
+  };
+
+  const onActiveButtonClick = () => {
+    dispatch(addFavoriteOffer({id: id, isFavorite: isFavorite}));
   };
 
   return (
@@ -59,7 +67,14 @@ function OfferCard({offer, onCardHover, cardClassName, authorizationStatus}: Off
           </div>
           {
             authorizationStatus === AuthorizationStatus.Auth ?
-              <button className={`place-card__bookmark-button ${isFavorite ? favoriteClassName : ''} button`} type="button">
+              <button
+                className={`place-card__bookmark-button ${isFavorite ? favoriteClassName : ''} button`}
+                onClick = {(evt) => {
+                  evt.preventDefault();
+                  onActiveButtonClick();
+                }}
+                type="button"
+              >
                 <svg
                   className="place-card__bookmark-icon"
                   width="18"
@@ -69,7 +84,24 @@ function OfferCard({offer, onCardHover, cardClassName, authorizationStatus}: Off
                 </svg>
                 <span className="visually-hidden">To bookmarks</span>
               </button>
-              : null
+              :
+              <button
+                className={'place-card__bookmark-button button'}
+                onClick = {(evt) => {
+                  evt.preventDefault();
+                  dispatch(redirectToRoute(AppRoute.Login));
+                }}
+                type="button"
+              >
+                <svg
+                  className="place-card__bookmark-icon"
+                  width="18"
+                  height="19"
+                >
+                  <use xlinkHref="#icon-bookmark"></use>
+                </svg>
+                <span className="visually-hidden">To bookmarks</span>
+              </button>
           }
         </div>
         <div className="place-card__rating rating">
