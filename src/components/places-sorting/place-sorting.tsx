@@ -1,8 +1,8 @@
 import { memo, useState } from 'react';
 import { SortOptions } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { chosenSortOption } from '../../store/offers-process/offers-process';
-import { getSortOption } from '../../store/offers-process/selectors';
+import { chosenSortOption } from '../../store/offers/offers';
+import { getSortOption } from '../../store/offers/selectors';
 
 function PlaceSorting(): JSX.Element {
   const currentSortOption = useAppSelector(getSortOption);

@@ -8,7 +8,7 @@ import { redirectToRoute } from './action';
 import { APIRoute, AppRoute, INITIAL_CITY } from '../const';
 import { saveToken, dropToken } from '../services/token';
 import { ReviewsFormProps, ReviewsProps } from '../types/review';
-import { chosenCity } from './offers-process/offers-process';
+import { chosenCity } from './offers/offers';
 import { FavoriteData } from '../types/favorite-data';
 
 const createAppAsyncThunk = createAsyncThunk.withTypes<{
@@ -21,7 +21,7 @@ export const fetchOffers = createAppAsyncThunk<OffersProps[], undefined>(
   'data/fetchOffers',
   async (_arg, {dispatch, extra: api}) => {
     const {data} = await api.get<OffersProps[]>(APIRoute.Offers);
-    dispatch(chosenCity({city: INITIAL_CITY, offers: data}));
+    dispatch(chosenCity({city: INITIAL_CITY, allOffers: data}));
     return data;
   },
 );

@@ -1,9 +1,10 @@
-import { memo } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { OfferProps } from '../../../types/offer';
-import { AppRoute, AuthorizationStatus } from '../../../const';
+import { AuthorizationStatus } from '../../../const';
 import { useAppDispatch } from '../../../hooks';
 import { addFavoriteOffer } from '../../../store/api-actions';
-import { redirectToRoute } from '../../../store/action';
+import MemoizedButtonFavorite from '../../../components/button-favorite/button-favorite';
+import { refreshedOfferFavorite } from '../../../store/offers/offers';
 
 type OfferComponentProps = {
   offer: OfferProps;
@@ -13,11 +14,14 @@ type OfferComponentProps = {
 
 function OfferComponent ({offer, offerClassName, authorizationStatus}: OfferComponentProps): JSX.Element {
   const {id, title, type, price, isPremium, isFavorite, rating, description, bedrooms, goods, host, maxAdults} = offer;
+  const [favoriteStatus, setFavoriteStatus] = useState<boolean>(isFavorite);
   const dispatch = useAppDispatch();
 
-  const onActiveButtonClick = () => {
-    dispatch(addFavoriteOffer({id: id, isFavorite: isFavorite}));
-  };
+  const onActiveButtonClick = useCallback(() => {
+    setFavoriteStatus(!favoriteStatus);
+    dispatch(addFavoriteOffer({id: id, isFavorite: !favoriteStatus}));
+    dispatch(refreshedOfferFavorite({offerId: id, favoriteStatus: !favoriteStatus}));
+  },[dispatch, favoriteStatus, id]);
 
   return (
     <>
@@ -32,42 +36,7 @@ function OfferComponent ({offer, offerClassName, authorizationStatus}: OfferComp
         <h1 className={`${offerClassName}__name`}>
           {title}
         </h1>
-        {authorizationStatus === AuthorizationStatus.Auth ?
-          (
-            <button
-              className={`${offerClassName}__bookmark-button ${isFavorite ? `${offerClassName}__bookmark-button--active` : ''} button`}
-              onClick = {(evt) => {
-                evt.preventDefault();
-                onActiveButtonClick();
-              }}
-              type="button"
-            >
-              <svg className={`${offerClassName}__bookmark-icon`} width="31" height="33">
-                <use xlinkHref="#icon-bookmark"></use>
-              </svg>
-              <span className="visually-hidden">To bookmarks</span>
-            </button>
-          ) : (
-            <button
-              className={`${offerClassName}__bookmark-button button`}
-              onClick = {(evt) => {
-                evt.preventDefault();
-                dispatch(redirectToRoute(AppRoute.Login));
-              }}
-              type="button"
-            >
-              <svg className={`${offerClassName}__bookmark-icon`} width="31" height="33">
-                <use xlinkHref="#icon-bookmark"></use>
-              </svg>
-              <span className="visually-hidden">To bookmarks</span>
-            </button>
-          )}
-        <button className={`${offerClassName}__bookmark-button button`} type="button">
-          <svg className={`${offerClassName}__bookmark-icon`} width="31" height="33">
-            <use xlinkHref="#icon-bookmark"></use>
-          </svg>
-          <span className="visually-hidden">To bookmarks</span>
-        </button>
+        <MemoizedButtonFavorite isFavorite={favoriteStatus} buttonClassName={offerClassName} onButtonClick={onActiveButtonClick} authorizationStatus={authorizationStatus} />
       </div>
       <div className={`${offerClassName}__rating rating`}>
         <div className={`${offerClassName}__stars rating__stars`}>
@@ -102,7 +71,7 @@ function OfferComponent ({offer, offerClassName, authorizationStatus}: OfferComp
           {goods ?
             (
               goods.map((feature: string) => (
-                <li className={`${offerClassName}__inside-item`} key={id}>
+                <li className={`${offerClassName}__inside-item`} key={feature}>
                   {feature}
                 </li>
               ))
@@ -129,7 +98,7 @@ function OfferComponent ({offer, offerClassName, authorizationStatus}: OfferComp
         </div>
         <div className={`${offerClassName}__description`}>
           {description ?
-            <p className={`${offerClassName}__text`} key={id}>
+            <p className={`${offerClassName}__text`} key={host.name}>
               {description}
             </p>
             : null}

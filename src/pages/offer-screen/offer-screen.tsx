@@ -2,7 +2,7 @@ import { MemoizedOfferGallery } from './offer-screen-components/offer-gallery';
 import { MemoizedOfferComponent } from './offer-screen-components/offer-component';
 import { MemoizedOfferReviewList } from './offer-screen-components/offer-review-list';
 import { MemoizedOfferReviewForm } from './offer-screen-components/offer-review-form';
-import { MemoizedOfferCard } from '../../components/card/card';
+import MemoizedOfferCard from '../../components/card/card';
 import { CardProps } from '../../types/offer';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import { AuthorizationStatus } from '../../const';
@@ -65,6 +65,7 @@ function OfferScreen({authorizationStatus}: OfferScreenProps): JSX.Element {
               key={currentOffer.id}
               offer={currentOffer}
               offerClassName={offerPageClassName}
+              authorizationStatus={authorizationStatus}
             />
             <section className="offer__reviews reviews">
               <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{offerReviews ? offerReviews.length : 0}</span></h2>

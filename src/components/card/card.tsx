@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
 import { CardProps } from '../../types/offer';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { memo } from 'react';
-import { redirectToRoute } from '../../store/action';
+import { memo, useCallback, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { addFavoriteOffer } from '../../store/api-actions';
+import MemoizedButtonFavorite from '../button-favorite/button-favorite';
+import { refreshedOfferFavorite } from '../../store/offers/offers';
 
 type OfferCardProps = {
   offer: CardProps;
@@ -15,9 +16,9 @@ type OfferCardProps = {
 
 function OfferCard({offer, onCardHover, cardClassName, authorizationStatus}: OfferCardProps): JSX.Element {
   const {id, title, type, price, isPremium, isFavorite, rating, previewImage} = offer;
-  const favoriteClassName = 'place-card__bookmark-button--active';
   const favoritesInfoClassName = 'favorites__card-info';
   const dispatch = useAppDispatch();
+  const [favoriteStatus, setFavoriteStatus] = useState<boolean>(isFavorite);
 
   const handleHoverOverCard = () => {
     if (onCardHover) {
@@ -31,9 +32,16 @@ function OfferCard({offer, onCardHover, cardClassName, authorizationStatus}: Off
     }
   };
 
-  const onActiveButtonClick = () => {
-    dispatch(addFavoriteOffer({id: id, isFavorite: isFavorite}));
-  };
+  // useEffect(() => {
+  //   setFavoriteStatus(!favoriteStatus);
+  // },[favoriteStatus]);
+
+  const onActiveButtonClick = useCallback(() => {
+    setFavoriteStatus(!favoriteStatus);
+    console.log(favoriteStatus);
+    dispatch(addFavoriteOffer({id: id, isFavorite: !favoriteStatus}));
+    dispatch(refreshedOfferFavorite({offerId: id, favoriteStatus: !favoriteStatus}));
+  },[dispatch, favoriteStatus, id]);
 
   return (
     <article
@@ -65,44 +73,7 @@ function OfferCard({offer, onCardHover, cardClassName, authorizationStatus}: Off
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          {
-            authorizationStatus === AuthorizationStatus.Auth ?
-              <button
-                className={`place-card__bookmark-button ${isFavorite ? favoriteClassName : ''} button`}
-                onClick = {(evt) => {
-                  evt.preventDefault();
-                  onActiveButtonClick();
-                }}
-                type="button"
-              >
-                <svg
-                  className="place-card__bookmark-icon"
-                  width="18"
-                  height="19"
-                >
-                  <use xlinkHref="#icon-bookmark"></use>
-                </svg>
-                <span className="visually-hidden">To bookmarks</span>
-              </button>
-              :
-              <button
-                className={'place-card__bookmark-button button'}
-                onClick = {(evt) => {
-                  evt.preventDefault();
-                  dispatch(redirectToRoute(AppRoute.Login));
-                }}
-                type="button"
-              >
-                <svg
-                  className="place-card__bookmark-icon"
-                  width="18"
-                  height="19"
-                >
-                  <use xlinkHref="#icon-bookmark"></use>
-                </svg>
-                <span className="visually-hidden">To bookmarks</span>
-              </button>
-          }
+          <MemoizedButtonFavorite isFavorite={favoriteStatus} buttonClassName='place-card' onButtonClick={onActiveButtonClick} authorizationStatus={authorizationStatus} />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
@@ -123,4 +94,6 @@ function OfferCard({offer, onCardHover, cardClassName, authorizationStatus}: Off
   );
 }
 
-export const MemoizedOfferCard = memo(OfferCard, (prevProps, nextProps) => prevProps.offer === nextProps.offer);
+const MemoizedOfferCard = memo(OfferCard);
+
+export default MemoizedOfferCard;

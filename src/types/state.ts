@@ -9,12 +9,9 @@ export type UserProcess = {
   user?: UserData;
 };
 
-export type OffersData = {
+export type Offers = {
   offers: OffersProps[];
   isOffersDataLoading: boolean;
-};
-
-export type OffersProcess = {
   city: string;
   sortOption: string;
   sortedOffers: OffersProps[];
@@ -40,13 +37,6 @@ export type FavoriteOffersData = {
   favoriteOffers: OffersProps[];
   isFavoriteOffersDataLoading: boolean;
   isfavoriteOfferAdding: boolean;
-};
-
-export type FavoriteOffersProcess = {
-  city: string;
-  sortOption: string;
-  sortedOffers: OffersProps[];
-  offersByCity: OffersProps[];
 };
 
 export type State = ReturnType<typeof store.getState>;

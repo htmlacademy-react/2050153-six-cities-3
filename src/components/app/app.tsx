@@ -13,7 +13,7 @@ import { useAppSelector } from '../../hooks';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
 import { getAuthorizationStatus, getAuthCheckedStatus } from '../../store/user-process/selectors';
-import { getOffersDataLoadingStatus, getOffers } from '../../store/offers-data/selectors';
+import { getOffersDataLoadingStatus, getOffers } from '../../store/offers/selectors';
 
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
@@ -51,7 +51,7 @@ function App(): JSX.Element {
               path={AppRoute.Favorites}
               element={
                 <PrivateRoute authorizationStatus={authorizationStatus}>
-                  <FavoritesScreen offers={offers} authorizationStatus={authorizationStatus} />
+                  <FavoritesScreen authorizationStatus={authorizationStatus} />
                 </PrivateRoute>
               }
             />

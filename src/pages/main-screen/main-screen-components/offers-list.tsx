@@ -1,11 +1,11 @@
-import { useCallback, useState } from 'react';
-import { MemoizedOfferCard } from '../../../components/card/card';
+import { memo, useCallback, useState } from 'react';
+import MemoizedOfferCard from '../../../components/card/card';
 import { CardProps, CityProps } from '../../../types/offer';
 import { MemoizedPlaceSorting } from '../../../components/places-sorting/place-sorting';
 import { MemoizedMap } from '../../../components/map/map';
 import { useAppSelector } from '../../../hooks';
 import { AuthorizationStatus } from '../../../const';
-import { getSortedOffers } from '../../../store/offers-process/selectors';
+import { getSortedOffers } from '../../../store/offers/selectors';
 
 type OffersListProps = {
   currentCity: CityProps;
@@ -48,4 +48,6 @@ function OffersList ({currentCity, citiesClassName, authorizationStatus}: Offers
   );
 }
 
-export default OffersList;
+const MemoizedOffersList = memo(OffersList);
+
+export default MemoizedOffersList;
