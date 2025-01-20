@@ -12,10 +12,10 @@ import { fetchCurrentOffer, fetchNearOffers, fetchOfferReviews } from '../../sto
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getCurrentOffer, getNearOffers, getOfferLoadingStatus } from '../../store/current-offer/selectors';
+import { getCurrentOffer, getOfferLoadingStatus } from '../../store/current-offer/selectors';
 import { getOfferReviews, getReviewsLoadingStatus } from '../../store/current-offer-reviews/selectors';
 import LoadingScreen from '../loading-screen/loading-screen';
-import { getNearOffersLoadingStatus } from '../../store/near-offers/selectors';
+import { getNearOffers, getNearOffersLoadingStatus } from '../../store/near-offers/selectors';
 
 type OfferScreenProps = {
   authorizationStatus: AuthorizationStatus;

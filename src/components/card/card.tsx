@@ -32,13 +32,8 @@ function OfferCard({offer, onCardHover, cardClassName, authorizationStatus}: Off
     }
   };
 
-  // useEffect(() => {
-  //   setFavoriteStatus(!favoriteStatus);
-  // },[favoriteStatus]);
-
   const onActiveButtonClick = useCallback(() => {
     setFavoriteStatus(!favoriteStatus);
-    console.log(favoriteStatus);
     dispatch(addFavoriteOffer({id: id, isFavorite: !favoriteStatus}));
     dispatch(refreshedOfferFavorite({offerId: id, favoriteStatus: !favoriteStatus}));
   },[dispatch, favoriteStatus, id]);
