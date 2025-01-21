@@ -1,13 +1,15 @@
-import { MemoizedFavoritesLocations } from './favorites-screen-components/favorites-locations';
-import { OffersProps } from '../../types/offer';
+import MemoizedFavoritesLocations from './favorites-screen-components/favorites-locations';
 import { AuthorizationStatus } from '../../const';
+import { getFavoriteOffers } from '../../store/favorite-offers-data/selectors';
+import { useAppSelector } from '../../hooks';
 
 type FavoritesScreenProps = {
-  offers: OffersProps[];
   authorizationStatus: AuthorizationStatus;
 }
 
-function FavoritesScreen({offers, authorizationStatus}: FavoritesScreenProps): JSX.Element {
+function FavoritesScreen({authorizationStatus}: FavoritesScreenProps): JSX.Element {
+  const favoriteOffers = useAppSelector(getFavoriteOffers);
+
   const favoriteClassName = 'favorites';
   return (
     <main className={`page__main page__main--${favoriteClassName}`}>
@@ -15,7 +17,7 @@ function FavoritesScreen({offers, authorizationStatus}: FavoritesScreenProps): J
         <section className={favoriteClassName}>
           <h1 className={`${favoriteClassName}__title`}>Saved listing</h1>
           <ul className={`${favoriteClassName}__list`}>
-            <MemoizedFavoritesLocations offers={offers} favoritesClassName={favoriteClassName} authorizationStatus={authorizationStatus} />
+            <MemoizedFavoritesLocations offers={favoriteOffers} favoritesClassName={favoriteClassName} authorizationStatus={authorizationStatus} />
           </ul>
         </section>
       </div>

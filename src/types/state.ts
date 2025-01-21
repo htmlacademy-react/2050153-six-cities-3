@@ -9,12 +9,9 @@ export type UserProcess = {
   user?: UserData;
 };
 
-export type OffersData = {
+export type Offers = {
   offers: OffersProps[];
   isOffersDataLoading: boolean;
-};
-
-export type OffersProcess = {
   city: string;
   sortOption: string;
   sortedOffers: OffersProps[];
@@ -23,13 +20,23 @@ export type OffersProcess = {
 
 export type CurrentOfferData = {
   currentOffer?: OfferProps;
-  nearOffers?: OffersProps[];
   isOfferDataLoading: boolean;
+};
+
+export type NearOffersData = {
+  nearOffers?: OffersProps[];
+  isNearOffersDataLoading: boolean;
 };
 
 export type CurrentOfferReviews = {
   offerReviews: ReviewsProps[];
   isReviewsDataLoading: boolean;
+};
+
+export type FavoriteOffersData = {
+  favoriteOffers: OffersProps[];
+  isFavoriteOffersDataLoading: boolean;
+  isfavoriteOfferAdding: boolean;
 };
 
 export type State = ReturnType<typeof store.getState>;

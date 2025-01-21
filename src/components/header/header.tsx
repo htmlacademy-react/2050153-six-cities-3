@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { memo } from 'react';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import { getUser, getAuthCheckedStatus, getAuthorizationStatus } from '../../store/user-process/selectors';
+import { getFavoriteOffers } from '../../store/favorite-offers-data/selectors';
 
 function Header(): JSX.Element {
   const {pathname} = useLocation();
@@ -15,6 +16,7 @@ function Header(): JSX.Element {
   const isAuthChecked = useAppSelector(getAuthCheckedStatus);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const user = useAppSelector(getUser);
+  const favouriteOffers = useAppSelector(getFavoriteOffers);
 
   if (!isAuthChecked) {
     return (
@@ -46,7 +48,7 @@ function Header(): JSX.Element {
                           <img src={`${user?.avatarUrl}`} alt="user-avatar" width="20" height="20" />
                         </div>
                         <span className="header__user-name user__name">{`${user?.email}`}</span>
-                        <span className="header__favorite-count">3</span>
+                        <span className="header__favorite-count">{`${favouriteOffers.length}`}</span>
                       </Link>
                     ) : (
                       <Link className="header__nav-link header__nav-link--profile" to={`${AppRoute.Login}`}>

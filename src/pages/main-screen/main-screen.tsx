@@ -1,8 +1,8 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { chosenCity } from '../../store/offers-process/offers-process';
-import OffersList from './main-screen-components/offers-list';
+import { chosenCity } from '../../store/offers/offers';
+import MemoizedOffersList from './main-screen-components/offers-list';
 import { AuthorizationStatus, cities } from '../../const';
-import { getCity, getOffersByCity } from '../../store/offers-process/selectors';
+import { getCity, getOffersByCity } from '../../store/offers/selectors';
 import { OffersProps } from '../../types/offer';
 
 type MainScreenProps = {
@@ -16,11 +16,11 @@ function MainScreen({authorizationStatus, offers}: MainScreenProps): JSX.Element
   const dispatch = useAppDispatch();
 
   const mainCityClass: string = 'cities';
-  const isEmpty = offersByCity === undefined;
+  const isEmpty = offersByCity === undefined || offersByCity.length === 0;
 
   const handleClick = (city: string) => {
     if (currentCityName !== city) {
-      dispatch(chosenCity({city: city, offers: offers}));
+      dispatch(chosenCity({city: city, allOffers: offers}));
     }
   };
 
@@ -49,9 +49,17 @@ function MainScreen({authorizationStatus, offers}: MainScreenProps): JSX.Element
       </div>
       <div className={mainCityClass}>
         {!isEmpty ?
-          (
-            <OffersList currentCity={offersByCity[0].city} citiesClassName={mainCityClass} authorizationStatus={authorizationStatus} />
-          ) : <p>There is no current offers for this city</p>}
+          <MemoizedOffersList currentCity={offersByCity[0].city} citiesClassName={mainCityClass} authorizationStatus={authorizationStatus} />
+          :
+          <div className="cities__places-container cities__places-container--empty container">
+            <section className="cities__no-places">
+              <div className="cities__status-wrapper tabs__content">
+                <b className="cities__status">No places to stay available</b>
+                <p className="cities__status-description">We could not find any property available at the moment in {currentCityName}</p>
+              </div>
+            </section>
+            <div className="cities__right-section"></div>
+          </div>}
       </div>
     </main>
   );

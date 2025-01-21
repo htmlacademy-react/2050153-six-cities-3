@@ -2,7 +2,7 @@ import { MemoizedOfferGallery } from './offer-screen-components/offer-gallery';
 import { MemoizedOfferComponent } from './offer-screen-components/offer-component';
 import { MemoizedOfferReviewList } from './offer-screen-components/offer-review-list';
 import { MemoizedOfferReviewForm } from './offer-screen-components/offer-review-form';
-import { MemoizedOfferCard } from '../../components/card/card';
+import MemoizedOfferCard from '../../components/card/card';
 import { CardProps } from '../../types/offer';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import { AuthorizationStatus } from '../../const';
@@ -12,9 +12,10 @@ import { fetchCurrentOffer, fetchNearOffers, fetchOfferReviews } from '../../sto
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getCurrentOffer, getNearOffers, getOfferLoadingStatus } from '../../store/current-offer/selectors';
+import { getCurrentOffer, getOfferLoadingStatus } from '../../store/current-offer/selectors';
 import { getOfferReviews, getReviewsLoadingStatus } from '../../store/current-offer-reviews/selectors';
 import LoadingScreen from '../loading-screen/loading-screen';
+import { getNearOffers, getNearOffersLoadingStatus } from '../../store/near-offers/selectors';
 
 type OfferScreenProps = {
   authorizationStatus: AuthorizationStatus;
@@ -30,6 +31,7 @@ function OfferScreen({authorizationStatus}: OfferScreenProps): JSX.Element {
   const offerReviews = useAppSelector(getOfferReviews);
   const isOfferDataLoading = useAppSelector(getOfferLoadingStatus);
   const isReviewsDataLoading = useAppSelector(getReviewsLoadingStatus);
+  const isNearOffersDataLoading = useAppSelector(getNearOffersLoadingStatus);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -40,7 +42,7 @@ function OfferScreen({authorizationStatus}: OfferScreenProps): JSX.Element {
     }
   }, [dispatch, id]);
 
-  if (isOfferDataLoading || isReviewsDataLoading) {
+  if (isOfferDataLoading || isReviewsDataLoading || isNearOffersDataLoading) {
     return (
       <LoadingScreen />
     );
@@ -63,6 +65,7 @@ function OfferScreen({authorizationStatus}: OfferScreenProps): JSX.Element {
               key={currentOffer.id}
               offer={currentOffer}
               offerClassName={offerPageClassName}
+              authorizationStatus={authorizationStatus}
             />
             <section className="offer__reviews reviews">
               <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{offerReviews ? offerReviews.length : 0}</span></h2>

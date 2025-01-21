@@ -8,7 +8,8 @@ import { redirectToRoute } from './action';
 import { APIRoute, AppRoute, INITIAL_CITY } from '../const';
 import { saveToken, dropToken } from '../services/token';
 import { ReviewsFormProps, ReviewsProps } from '../types/review';
-import { chosenCity } from './offers-process/offers-process';
+import { chosenCity } from './offers/offers';
+import { FavoriteData } from '../types/favorite-data';
 
 const createAppAsyncThunk = createAsyncThunk.withTypes<{
   dispatch: AppDispatch;
@@ -20,7 +21,7 @@ export const fetchOffers = createAppAsyncThunk<OffersProps[], undefined>(
   'data/fetchOffers',
   async (_arg, {dispatch, extra: api}) => {
     const {data} = await api.get<OffersProps[]>(APIRoute.Offers);
-    dispatch(chosenCity({city: INITIAL_CITY, offers: data}));
+    dispatch(chosenCity({city: INITIAL_CITY, allOffers: data}));
     return data;
   },
 );
@@ -64,9 +65,26 @@ export const postReviewAction = createAppAsyncThunk<ReviewsProps, ReviewsFormPro
   },
 );
 
+export const fetchFavoriteOffers = createAppAsyncThunk<OffersProps[], undefined>(
+  'favorites/fetchFavoriteOffers',
+  async (_arg, {extra: api}) => {
+    const {data} = await api.get<OffersProps[]>(APIRoute.Favorites);
+    return data;
+  },
+);
+
+export const addFavoriteOffer = createAppAsyncThunk<OffersProps, FavoriteData>(
+  'favorites/addFavoriteOffer',
+  async ({id, isFavorite}, {extra: api}) => {
+    const statusNumber = Number(isFavorite);
+    const {data} = await api.post<OffersProps>(`${APIRoute.Favorites}/${id}/${statusNumber}`, {statusNumber});
+    return data;
+  },
+);
+
 export const loginAction = createAppAsyncThunk<UserData, UserAuthData>(
   'user/login',
-  async ({login: email, password}, { extra: api}) => {
+  async ({login: email, password}, {extra: api}) => {
     const {data} = await api.post<UserData>(APIRoute.Login, {email, password});
     saveToken(data.token);
     // dispatch(redirectToRoute(AppRoute.Main));
