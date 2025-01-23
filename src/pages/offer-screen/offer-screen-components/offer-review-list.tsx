@@ -38,4 +38,6 @@ function OfferReviewList({offerReview}: OfferReviewListProps): JSX.Element {
   );
 }
 
-export const MemoizedOfferReviewList = memo(OfferReviewList);
+const MemoizedOfferReviewList = memo(OfferReviewList);
+
+export default MemoizedOfferReviewList;

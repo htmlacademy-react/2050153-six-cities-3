@@ -4,7 +4,7 @@ import { AuthorizationStatus } from '../../../const';
 import { useAppDispatch } from '../../../hooks';
 import { addFavoriteOffer } from '../../../store/api-actions';
 import MemoizedButtonFavorite from '../../../components/button-favorite/button-favorite';
-import { refreshedOfferFavorite } from '../../../store/offers/offers';
+import { updateOffersFavorite} from '../../../store/offers/offers';
 
 type OfferComponentProps = {
   offer: OfferProps;
@@ -20,7 +20,7 @@ function OfferComponent ({offer, offerClassName, authorizationStatus}: OfferComp
   const onActiveButtonClick = useCallback(() => {
     setFavoriteStatus(!favoriteStatus);
     dispatch(addFavoriteOffer({id: id, isFavorite: !favoriteStatus}));
-    dispatch(refreshedOfferFavorite({offerId: id, favoriteStatus: !favoriteStatus}));
+    dispatch(updateOffersFavorite({offerId: id, favoriteStatus: !favoriteStatus}));
   },[dispatch, favoriteStatus, id]);
 
   return (
@@ -98,7 +98,7 @@ function OfferComponent ({offer, offerClassName, authorizationStatus}: OfferComp
         </div>
         <div className={`${offerClassName}__description`}>
           {description ?
-            <p className={`${offerClassName}__text`} key={host.name}>
+            <p className={`${offerClassName}__text`}>
               {description}
             </p>
             : null}
@@ -108,4 +108,6 @@ function OfferComponent ({offer, offerClassName, authorizationStatus}: OfferComp
   );
 }
 
-export const MemoizedOfferComponent = memo(OfferComponent);
+const MemoizedOfferComponent = memo(OfferComponent);
+
+export default MemoizedOfferComponent;

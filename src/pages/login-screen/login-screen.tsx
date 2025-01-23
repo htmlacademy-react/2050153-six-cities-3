@@ -1,5 +1,5 @@
 import LoginForm from '../../components/login-form/login-form';
-import { MemoizedLoginLocation } from '../../components/login-location/login-location';
+import MemoizedLoginLocation from '../../components/login-location/login-location';
 
 
 function LoginScreen(): JSX.Element {

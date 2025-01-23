@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { memo } from 'react';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import { getUser, getAuthCheckedStatus, getAuthorizationStatus } from '../../store/user-process/selectors';
-import { getFavoriteOffers } from '../../store/favorite-offers-data/selectors';
+import { getFavoriteOffers } from '../../store/favorite-offers/selectors';
 
 function Header(): JSX.Element {
   const {pathname} = useLocation();
@@ -83,4 +83,6 @@ function Header(): JSX.Element {
   );
 }
 
-export const MemoizedHeader = memo(Header);
+const MemoizedHeader = memo(Header);
+
+export default MemoizedHeader;

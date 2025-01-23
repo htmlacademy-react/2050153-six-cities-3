@@ -1,12 +1,12 @@
-import { MemoizedOfferGallery } from './offer-screen-components/offer-gallery';
-import { MemoizedOfferComponent } from './offer-screen-components/offer-component';
-import { MemoizedOfferReviewList } from './offer-screen-components/offer-review-list';
-import { MemoizedOfferReviewForm } from './offer-screen-components/offer-review-form';
+import MemoizedOfferGallery from './offer-screen-components/offer-gallery';
+import MemoizedOfferComponent from './offer-screen-components/offer-component';
+import MemoizedOfferReviewList from './offer-screen-components/offer-review-list';
+import MemoizedOfferReviewForm from './offer-screen-components/offer-review-form';
 import MemoizedOfferCard from '../../components/card/card';
 import { CardProps } from '../../types/offer';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import { AuthorizationStatus } from '../../const';
-import { MemoizedMap } from '../../components/map/map';
+import MemoizedMap from '../../components/map/map';
 import { ReviewsProps } from '../../types/review';
 import { fetchCurrentOffer, fetchNearOffers, fetchOfferReviews } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';

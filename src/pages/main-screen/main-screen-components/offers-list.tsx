@@ -1,8 +1,8 @@
 import { memo, useCallback, useState } from 'react';
 import MemoizedOfferCard from '../../../components/card/card';
 import { CardProps, CityProps } from '../../../types/offer';
-import { MemoizedPlaceSorting } from '../../../components/places-sorting/place-sorting';
-import { MemoizedMap } from '../../../components/map/map';
+import MemoizedPlaceSorting from '../../../components/places-sorting/place-sorting';
+import MemoizedMap from '../../../components/map/map';
 import { useAppSelector } from '../../../hooks';
 import { AuthorizationStatus } from '../../../const';
 import { getSortedOffers } from '../../../store/offers/selectors';

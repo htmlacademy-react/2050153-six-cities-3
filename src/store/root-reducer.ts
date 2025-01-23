@@ -5,7 +5,7 @@ import { currentOffer } from './current-offer/current-offer';
 import { offerReviews } from './current-offer-reviews/current-offer-reviews';
 import { userProcess } from './user-process/user-process';
 import { nearOffers } from './near-offers/near-offers';
-import { favoriteOffersData } from './favorite-offers-data/favorite-offers-data';
+import { favoriteOffersData } from './favorite-offers/favorite-offers';
 
 export const rootReducer = combineReducers({
   [NameSpace.Offers]: offers.reducer,

@@ -1,6 +1,6 @@
 import MemoizedFavoritesLocations from './favorites-screen-components/favorites-locations';
 import { AuthorizationStatus } from '../../const';
-import { getFavoriteOffers } from '../../store/favorite-offers-data/selectors';
+import { getFavoriteOffers } from '../../store/favorite-offers/selectors';
 import { useAppSelector } from '../../hooks';
 
 type FavoritesScreenProps = {

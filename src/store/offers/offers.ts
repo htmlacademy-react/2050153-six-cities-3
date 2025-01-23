@@ -33,7 +33,7 @@ export const offers = createSlice({
         state.sortedOffers = getCurrentSortedOffers(state.offersByCity, sortOption);
       }
     },
-    refreshedOfferFavorite: (state, action: PayloadAction<{favoriteStatus: boolean; offerId: string}>) => {
+    updateOffersFavorite: (state, action: PayloadAction<{favoriteStatus: boolean; offerId: string}>) => {
       const{favoriteStatus, offerId} = action.payload;
       const renewedOffers: OffersProps[] = [];
 
@@ -62,4 +62,4 @@ export const offers = createSlice({
   }
 });
 
-export const {chosenCity, chosenSortOption, refreshedOfferFavorite} = offers.actions;
+export const {chosenCity, chosenSortOption, updateOffersFavorite} = offers.actions;

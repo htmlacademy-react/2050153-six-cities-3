@@ -5,7 +5,7 @@ import { memo, useCallback, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { addFavoriteOffer } from '../../store/api-actions';
 import MemoizedButtonFavorite from '../button-favorite/button-favorite';
-import { refreshedOfferFavorite } from '../../store/offers/offers';
+import { updateOffersFavorite } from '../../store/offers/offers';
 
 type OfferCardProps = {
   offer: CardProps;
@@ -35,7 +35,7 @@ function OfferCard({offer, onCardHover, cardClassName, authorizationStatus}: Off
   const onActiveButtonClick = useCallback(() => {
     setFavoriteStatus(!favoriteStatus);
     dispatch(addFavoriteOffer({id: id, isFavorite: !favoriteStatus}));
-    dispatch(refreshedOfferFavorite({offerId: id, favoriteStatus: !favoriteStatus}));
+    dispatch(updateOffersFavorite({offerId: id, favoriteStatus: !favoriteStatus}));
   },[dispatch, favoriteStatus, id]);
 
   return (

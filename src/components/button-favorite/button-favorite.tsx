@@ -11,21 +11,13 @@ type FavoriteButtonProps = {
   authorizationStatus: AuthorizationStatus;
 };
 
-function buttonFavorite({isFavorite, buttonClassName, onButtonClick, authorizationStatus}: FavoriteButtonProps): JSX.Element {
+function ButtonFavorite({isFavorite, buttonClassName, onButtonClick, authorizationStatus}: FavoriteButtonProps): JSX.Element {
   const dispatch = useAppDispatch();
-
-  const isActive = () => {
-    if(isFavorite) {
-      return (`${buttonClassName}__bookmark-button ${buttonClassName}__bookmark-button--active button`);
-    } else {
-      return (`${buttonClassName}__bookmark-button button`);
-    }
-  };
 
   return (
     authorizationStatus === AuthorizationStatus.Auth ?
       <button
-        className={isActive()}
+        className={`${buttonClassName}__bookmark-button ${isFavorite ? `${buttonClassName}__bookmark-button--active` : ''} button`}
         onClick={onButtonClick}
         type="button"
       >
@@ -59,6 +51,6 @@ function buttonFavorite({isFavorite, buttonClassName, onButtonClick, authorizati
   );
 }
 
-const MemoizedButtonFavorite = memo(buttonFavorite);
+const MemoizedButtonFavorite = memo(ButtonFavorite);
 
 export default MemoizedButtonFavorite;

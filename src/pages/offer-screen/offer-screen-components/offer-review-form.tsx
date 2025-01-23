@@ -87,4 +87,6 @@ function OfferReviewForm({id}: ReviewFormProps): JSX.Element {
   );
 }
 
-export const MemoizedOfferReviewForm = memo(OfferReviewForm);
+const MemoizedOfferReviewForm = memo(OfferReviewForm);
+
+export default MemoizedOfferReviewForm ;
