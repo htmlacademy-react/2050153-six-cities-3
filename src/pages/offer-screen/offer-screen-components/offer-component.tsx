@@ -1,10 +1,12 @@
 import { memo, useCallback, useState } from 'react';
 import { OfferProps } from '../../../types/offer';
 import { AuthorizationStatus } from '../../../const';
-import { useAppDispatch } from '../../../hooks';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { addFavoriteOffer } from '../../../store/api-actions';
 import MemoizedButtonFavorite from '../../../components/button-favorite/button-favorite';
 import { updateOffersFavorite} from '../../../store/offers/offers';
+import { getFavoriteOfferAddStatus, getFavoriteOffersDataLoadingStatus } from '../../../store/favorite-offers/selectors';
+import LoadingScreen from '../../loading-screen/loading-screen';
 
 type OfferComponentProps = {
   offer: OfferProps;
@@ -17,11 +19,20 @@ function OfferComponent ({offer, offerClassName, authorizationStatus}: OfferComp
   const [favoriteStatus, setFavoriteStatus] = useState<boolean>(isFavorite);
   const dispatch = useAppDispatch();
 
+  const isFavoriteOffersDataLoading = useAppSelector(getFavoriteOffersDataLoadingStatus);
+  const isFavoriteOfferAdding = useAppSelector(getFavoriteOfferAddStatus);
+
   const onActiveButtonClick = useCallback(() => {
     setFavoriteStatus(!favoriteStatus);
     dispatch(addFavoriteOffer({id: id, isFavorite: !favoriteStatus}));
-    dispatch(updateOffersFavorite({offerId: id, favoriteStatus: !favoriteStatus}));
+    dispatch(updateOffersFavorite({offerId: id, favoriteStatus: favoriteStatus}));
   },[dispatch, favoriteStatus, id]);
+
+  if (isFavoriteOffersDataLoading || isFavoriteOfferAdding) {
+    return (
+      <LoadingScreen />
+    );
+  }
 
   return (
     <>

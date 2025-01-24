@@ -45,6 +45,22 @@ export const offers = createSlice({
       });
 
       state.offers = renewedOffers;
+      state.offersByCity = state.offers.filter((offer) => offer.city.name === state.city);
+      state.sortedOffers = getCurrentSortedOffers(state.offersByCity, state.sortOption);
+    },
+    resetOffersFavorite: (state) => {
+      const renewedOffers: OffersProps[] = [];
+
+      state.offers.forEach((offer) => {
+        if (offer.isFavorite) {
+          offer.isFavorite = false;
+        }
+        renewedOffers.push(offer);
+      });
+
+      state.offers = renewedOffers;
+      state.offersByCity = state.offers.filter((offer) => offer.city.name === state.city);
+      state.sortedOffers = getCurrentSortedOffers(state.offersByCity, state.sortOption);
     },
   },
   extraReducers(builder) {
@@ -62,4 +78,4 @@ export const offers = createSlice({
   }
 });
 
-export const {chosenCity, chosenSortOption, updateOffersFavorite} = offers.actions;
+export const {chosenCity, chosenSortOption, updateOffersFavorite, resetOffersFavorite} = offers.actions;

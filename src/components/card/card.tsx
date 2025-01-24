@@ -2,10 +2,12 @@ import { Link } from 'react-router-dom';
 import { CardProps } from '../../types/offer';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { memo, useCallback, useState } from 'react';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { addFavoriteOffer } from '../../store/api-actions';
 import MemoizedButtonFavorite from '../button-favorite/button-favorite';
 import { updateOffersFavorite } from '../../store/offers/offers';
+import { getFavoriteOfferAddStatus, getFavoriteOffersDataLoadingStatus } from '../../store/favorite-offers/selectors';
+import LoadingScreen from '../../pages/loading-screen/loading-screen';
 
 type OfferCardProps = {
   offer: CardProps;
@@ -19,6 +21,9 @@ function OfferCard({offer, onCardHover, cardClassName, authorizationStatus}: Off
   const favoritesInfoClassName = 'favorites__card-info';
   const dispatch = useAppDispatch();
   const [favoriteStatus, setFavoriteStatus] = useState<boolean>(isFavorite);
+
+  const isFavoriteOffersDataLoading = useAppSelector(getFavoriteOffersDataLoadingStatus);
+  const isFavoriteOfferAdding = useAppSelector(getFavoriteOfferAddStatus);
 
   const handleHoverOverCard = () => {
     if (onCardHover) {
@@ -37,6 +42,12 @@ function OfferCard({offer, onCardHover, cardClassName, authorizationStatus}: Off
     dispatch(addFavoriteOffer({id: id, isFavorite: !favoriteStatus}));
     dispatch(updateOffersFavorite({offerId: id, favoriteStatus: !favoriteStatus}));
   },[dispatch, favoriteStatus, id]);
+
+  if (isFavoriteOffersDataLoading || isFavoriteOfferAdding) {
+    return (
+      <LoadingScreen />
+    );
+  }
 
   return (
     <article

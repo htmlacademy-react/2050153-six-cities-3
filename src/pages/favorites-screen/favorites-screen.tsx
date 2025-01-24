@@ -1,7 +1,8 @@
 import MemoizedFavoritesLocations from './favorites-screen-components/favorites-locations';
 import { AuthorizationStatus } from '../../const';
-import { getFavoriteOffers } from '../../store/favorite-offers/selectors';
+import { getFavoriteOffers, getFavoriteOffersDataLoadingStatus } from '../../store/favorite-offers/selectors';
 import { useAppSelector } from '../../hooks';
+import LoadingScreen from '../loading-screen/loading-screen';
 
 type FavoritesScreenProps = {
   authorizationStatus: AuthorizationStatus;
@@ -9,6 +10,13 @@ type FavoritesScreenProps = {
 
 function FavoritesScreen({authorizationStatus}: FavoritesScreenProps): JSX.Element {
   const favoriteOffers = useAppSelector(getFavoriteOffers);
+  const isFavoriteOffersDataLoading = useAppSelector(getFavoriteOffersDataLoadingStatus);
+
+  if (isFavoriteOffersDataLoading) {
+    return (
+      <LoadingScreen />
+    );
+  }
 
   const favoriteClassName = 'favorites';
   return (
