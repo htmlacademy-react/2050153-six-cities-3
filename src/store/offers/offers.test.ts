@@ -44,14 +44,7 @@ describe('Offers Slice', () => {
 
   it('should return default initial state with empty action', () => {
     const emptyAction = { type: '' };
-    const expectedState = {
-      offers: [],
-      isOffersDataLoading: false,
-      city: INITIAL_CITY,
-      sortOption: INITIAL_SORT_TYPE,
-      sortedOffers: [],
-      offersByCity: [],
-    };
+    const expectedState = defaultInitialState;
 
     const result = offers.reducer(undefined, emptyAction);
     expect(result).toEqual(expectedState);
