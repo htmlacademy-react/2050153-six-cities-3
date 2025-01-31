@@ -12,13 +12,6 @@ export const currentOffer = createSlice({
   name: NameSpace.CurrentOffer,
   initialState,
   reducers: {
-    // updateCurrentOfferFavorite: (state, action: PayloadAction<{favoriteStatus: boolean; offerId: string}>) => {
-    //   const{favoriteStatus, offerId} = action.payload;
-
-    //   if (state.currentOffer && state.currentOffer.id === offerId) {
-    //     state.currentOffer.isFavorite = favoriteStatus;
-    //   }
-    // },
     resetCurrentOfferFavorite: (state) => {
       if (state.currentOffer) {
         state.currentOffer.isFavorite = false;

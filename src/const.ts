@@ -73,14 +73,12 @@ export const PageType = {
 };
 
 export enum NameSpace {
-  Data = 'DATA',
   Offers = 'OFFERS',
   User = 'USER',
   CurrentOffer = 'OFFER',
   CurrentOfferReviews = 'OFFER_REVIEWS',
   NearOffers = 'NEAR_OFFERS',
   FavoritesData = 'FAVORITES_DATA',
-  Favorites = 'FAVORITES',
 }
 
 export enum AppRoute {
