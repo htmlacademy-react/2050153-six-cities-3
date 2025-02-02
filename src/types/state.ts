@@ -36,7 +36,7 @@ export type CurrentOfferReviews = {
 export type FavoriteOffersData = {
   favoriteOffers: OffersProps[];
   isFavoriteOffersDataLoading: boolean;
-  isfavoriteOfferAdding: boolean;
+  isFavoriteOfferAdding: boolean;
 };
 
 export type State = ReturnType<typeof store.getState>;

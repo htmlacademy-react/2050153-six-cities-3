@@ -1,13 +1,10 @@
-import { useRef, FormEvent, useState, ReactEventHandler } from 'react';
+import { FormEvent, useState, ReactEventHandler } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 
 type ChangeHandler = ReactEventHandler<HTMLInputElement | HTMLTextAreaElement>
 
 function LoginForm(): JSX.Element {
-  const loginRef = useRef<HTMLInputElement | null>(null);
-  const passwordRef = useRef<HTMLInputElement | null>(null);
-
   const [review, setReview] = useState({email: '', password: ''});
 
   const handleChange: ChangeHandler = (event) => {
@@ -19,10 +16,10 @@ function LoginForm(): JSX.Element {
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    if (loginRef.current !== null && passwordRef.current !== null) {
+    if (review.email !== null && review.password !== null) {
       dispatch(loginAction({
-        login: loginRef.current.value,
-        password: passwordRef.current.value
+        login: review.email,
+        password: review.password
       }));
     }
   };
@@ -37,7 +34,6 @@ function LoginForm(): JSX.Element {
       <div className="login__input-wrapper form__input-wrapper">
         <label className="visually-hidden">E-mail</label>
         <input
-          ref={loginRef}
           className="login__input form__input"
           type="email"
           name="email"
@@ -50,7 +46,6 @@ function LoginForm(): JSX.Element {
       <div className="login__input-wrapper form__input-wrapper">
         <label className="visually-hidden">Password</label>
         <input
-          ref={passwordRef}
           className="login__input form__input"
           type="password"
           name="password"

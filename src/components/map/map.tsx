@@ -63,4 +63,6 @@ function Map({city, offers, activeOfferId, mapClassName}: MapProps): JSX.Element
   );
 }
 
-export const MemoizedMap = memo(Map);
+const MemoizedMap = memo(Map);
+
+export default MemoizedMap;

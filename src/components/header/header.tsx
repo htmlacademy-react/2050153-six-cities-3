@@ -6,7 +6,10 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { memo } from 'react';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import { getUser, getAuthCheckedStatus, getAuthorizationStatus } from '../../store/user-process/selectors';
-import { getFavoriteOffers } from '../../store/favorite-offers-data/selectors';
+import { getFavoriteOffers } from '../../store/favorite-offers/selectors';
+import { resetFavoriteOffers } from '../../store/favorite-offers/favorite-offers';
+import { resetOffersFavorite } from '../../store/offers/offers';
+import { resetCurrentOfferFavorite } from '../../store/current-offer/current-offer';
 
 function Header(): JSX.Element {
   const {pathname} = useLocation();
@@ -24,16 +27,15 @@ function Header(): JSX.Element {
     );
   }
 
-  const handleClick = () => {
-    dispatch(logoutAction());
-  };
-
   return (
     <header className="header">
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            <Link className={`header__logo-link ${linkClassName}`} to={`${AppRoute.Main}`}>
+            <Link
+              className={`header__logo-link ${linkClassName}`}
+              to={`${AppRoute.Main}`}
+            >
               <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
             </Link>
           </div>
@@ -66,7 +68,10 @@ function Header(): JSX.Element {
                         className="header__nav-link"
                         onClick={(evt) => {
                           evt.preventDefault();
-                          handleClick();
+                          dispatch(logoutAction());
+                          dispatch(resetFavoriteOffers());
+                          dispatch(resetOffersFavorite());
+                          dispatch(resetCurrentOfferFavorite());
                         }}
                         to={`${AppRoute.Main}`}
                       >
@@ -83,4 +88,6 @@ function Header(): JSX.Element {
   );
 }
 
-export const MemoizedHeader = memo(Header);
+const MemoizedHeader = memo(Header);
+
+export default MemoizedHeader;

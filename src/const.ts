@@ -3,7 +3,7 @@ import { CityProps } from './types/offer';
 export const URL_PIN_DEFAULT = '../markup/img/pin.svg';
 export const URL_PIN_ACTIVE = '../markup/img/pin-active.svg';
 export const INITIAL_SORT_TYPE = 'Popular';
-export const INITIAL_CITY = 'Paris';
+export const INITIAL_CITY = 'Amsterdam';
 export const ZOOM = 13;
 export const BACKEND_URL = 'https://15.design.htmlacademy.pro/six-cities';
 export const REQUEST_TIMEOUT = 5000;
@@ -73,14 +73,12 @@ export const PageType = {
 };
 
 export enum NameSpace {
-  Data = 'DATA',
   Offers = 'OFFERS',
   User = 'USER',
   CurrentOffer = 'OFFER',
   CurrentOfferReviews = 'OFFER_REVIEWS',
   NearOffers = 'NEAR_OFFERS',
   FavoritesData = 'FAVORITES_DATA',
-  Favorites = 'FAVORITES',
 }
 
 export enum AppRoute {

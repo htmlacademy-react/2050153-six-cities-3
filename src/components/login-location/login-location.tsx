@@ -15,4 +15,6 @@ function LoginLocation(): JSX.Element {
   );
 }
 
-export const MemoizedLoginLocation = memo(LoginLocation);
+const MemoizedLoginLocation = memo(LoginLocation);
+
+export default MemoizedLoginLocation;

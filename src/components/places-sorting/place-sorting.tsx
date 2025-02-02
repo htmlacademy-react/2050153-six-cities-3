@@ -53,4 +53,6 @@ function PlaceSorting(): JSX.Element {
   );
 }
 
-export const MemoizedPlaceSorting = memo(PlaceSorting);
+const MemoizedPlaceSorting = memo(PlaceSorting);
+
+export default MemoizedPlaceSorting;

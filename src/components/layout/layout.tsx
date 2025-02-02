@@ -2,8 +2,8 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { AppRoute } from '../../const';
 import { getLayoutState } from '../../utils/page-utils';
-import { MemoizedHeader } from '../../components/header/header';
-import { MemoizedFooter } from '../../components/footer/footer';
+import MemoizedHeader from '../../components/header/header';
+import MemoizedFooter from '../../components/footer/footer';
 
 function Layout(): JSX.Element {
   const {pathname} = useLocation();

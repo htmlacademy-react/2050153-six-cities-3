@@ -6,13 +6,17 @@ import { addFavoriteOffer, fetchFavoriteOffers } from '../api-actions';
 const initialState: FavoriteOffersData = {
   favoriteOffers: [],
   isFavoriteOffersDataLoading: false,
-  isfavoriteOfferAdding: false,
+  isFavoriteOfferAdding: false,
 };
 
 export const favoriteOffersData = createSlice({
   name: NameSpace.FavoritesData,
   initialState,
-  reducers: {},
+  reducers: {
+    resetFavoriteOffers: (state) => {
+      state.favoriteOffers = [];
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchFavoriteOffers.pending, (state) => {
@@ -26,13 +30,13 @@ export const favoriteOffersData = createSlice({
         state.isFavoriteOffersDataLoading = false;
       })
       .addCase(addFavoriteOffer.pending, (state) => {
-        state.isfavoriteOfferAdding = true;
+        state.isFavoriteOfferAdding = true;
       })
       .addCase(addFavoriteOffer.rejected, (state) => {
-        state.isfavoriteOfferAdding = false;
+        state.isFavoriteOfferAdding = false;
       })
       .addCase(addFavoriteOffer.fulfilled, (state, action) => {
-        state.isfavoriteOfferAdding = false;
+        state.isFavoriteOfferAdding = false;
         if (action.payload.isFavorite) {
           state.favoriteOffers = [...state.favoriteOffers, action.payload];
         } else {
@@ -41,3 +45,5 @@ export const favoriteOffersData = createSlice({
       });
   }
 });
+
+export const { resetFavoriteOffers } = favoriteOffersData.actions;
