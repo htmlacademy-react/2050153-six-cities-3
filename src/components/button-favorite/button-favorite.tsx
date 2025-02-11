@@ -14,11 +14,15 @@ type FavoriteButtonProps = {
 function ButtonFavorite({isFavorite, buttonClassName, onButtonClick, authorizationStatus}: FavoriteButtonProps): JSX.Element {
   const dispatch = useAppDispatch();
 
+  const handleFavoriteButtonClick = () => {
+    onButtonClick();
+  };
+
   return (
     authorizationStatus === AuthorizationStatus.Auth ?
       <button
         className={`${buttonClassName}__bookmark-button ${isFavorite ? `${buttonClassName}__bookmark-button--active` : ''} button`}
-        onClick={onButtonClick}
+        onClick={handleFavoriteButtonClick}
         type="button"
       >
         <svg

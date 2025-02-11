@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { CurrentOfferData } from '../../types/state';
 import { fetchCurrentOffer } from '../api-actions';
@@ -12,9 +12,17 @@ export const currentOffer = createSlice({
   name: NameSpace.CurrentOffer,
   initialState,
   reducers: {
-    resetCurrentOfferFavorite: (state) => {
+    updateCurrentOfferFavoriteStatus: (state, action: PayloadAction<{favoriteStatus: boolean; offerId: string}>) => {
+      const{favoriteStatus, offerId} = action.payload;
+
+      if (state.currentOffer && state.currentOffer.id === offerId) {
+        state.currentOffer.isFavorite = favoriteStatus;
+      }
+    },
+    resetCurrentOffer: (state) => {
       if (state.currentOffer) {
         state.currentOffer.isFavorite = false;
+        state = initialState;
       }
     },
   },
@@ -35,4 +43,4 @@ export const currentOffer = createSlice({
   }
 });
 
-export const { resetCurrentOfferFavorite } = currentOffer.actions;
+export const { resetCurrentOffer, updateCurrentOfferFavoriteStatus } = currentOffer.actions;

@@ -10,12 +10,12 @@ function PlaceSorting(): JSX.Element {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const handleOnOptionClick = (sortOption: string) => {
+  const handleSortOptionClick = (sortOption: string) => {
     dispatch(chosenSortOption({sortOption: sortOption}));
     setIsMenuOpen(false);
   };
 
-  const handleOnSortManuClick = () => {
+  const handleSortMenuClick = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
@@ -27,7 +27,7 @@ function PlaceSorting(): JSX.Element {
         tabIndex={0}
         onClick = {(evt) => {
           evt.preventDefault();
-          handleOnSortManuClick();
+          handleSortMenuClick();
         }}
       >
         {currentSortOption}
@@ -42,7 +42,7 @@ function PlaceSorting(): JSX.Element {
             key={option}
             onClick = {(evt) => {
               evt.preventDefault();
-              handleOnOptionClick(option);
+              handleSortOptionClick(option);
             }}
           >
             {option}

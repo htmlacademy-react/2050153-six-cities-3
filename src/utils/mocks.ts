@@ -3,6 +3,12 @@ import { cities } from '../const';
 import { UserData } from '../types/user';
 import { OffersProps } from '../types/offer';
 import { ReviewsProps } from '../types/review';
+import { Action } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
+import { createAPI } from '../services/api';
+import { State } from '../types/state';
+
+export type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createAPI>, Action>;
 
 const city = random.arrayElement(cities);
 
@@ -79,3 +85,5 @@ export const makeFakeOfferReview = (): ReviewsProps => ({
   comment: datatype.string(),
   rating: datatype.number({ min: 1, max: 5, precision: 1 }),
 } as ReviewsProps);
+
+export const extractActionsTypes = (actions: Action<string>[]) => actions.map(({ type }) => type);

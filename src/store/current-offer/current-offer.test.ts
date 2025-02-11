@@ -55,16 +55,16 @@ describe('CurrentOffer Slice', () => {
     expect(result).toEqual(expectedState);
   });
 
-  it('should set offer - isFavorite to "false" with "resetCurrentOfferFavorite" action', () => {
+  it('should set offer to default initial state with "resetCurrentOffer" action', () => {
     const initialState = state;
 
     if (state.currentOffer) {
       state.currentOffer.isFavorite = false;
     }
 
-    const expectedState = state.currentOffer.isFavorite = false;
+    const expectedState = defaultInitialState;
 
-    const result = currentOffer.reducer(initialState, currentOffer.actions.resetCurrentOfferFavorite());
+    const result = currentOffer.reducer(initialState, currentOffer.actions.resetCurrentOffer());
     expect(result).toEqual(expectedState);
   });
 });
