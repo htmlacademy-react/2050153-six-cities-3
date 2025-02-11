@@ -9,7 +9,6 @@ type FavoritesScreenProps = {
 }
 
 function FavoritesScreen({authorizationStatus}: FavoritesScreenProps): JSX.Element {
-  // store.dispatch(fetchFavoriteOffers());
   const favoriteOffers = useAppSelector(getFavoriteOffers);
   const isFavoriteOffersDataLoading = useAppSelector(getFavoriteOffersDataLoadingStatus);
   const favoriteClassName = 'favorites';

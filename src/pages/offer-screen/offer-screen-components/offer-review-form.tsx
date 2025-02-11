@@ -11,8 +11,9 @@ type ReviewFormProps = {
 }
 
 function OfferReviewForm({id}: ReviewFormProps): JSX.Element {
-  const [review, setReview] = useState({rating: 0, comment: ''});
-  const isReviewsDataLoading = useAppSelector(getReviewsLoadingStatus);
+  const initialState = {rating: 0, comment: ''};
+  const [review, setReview] = useState(initialState);
+  const isReviewSubmiting = useAppSelector(getReviewsLoadingStatus);
 
   const handleChange: ChangeHandler = (event) => {
     const {name, value} = event.currentTarget;
@@ -25,6 +26,7 @@ function OfferReviewForm({id}: ReviewFormProps): JSX.Element {
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
+
     if (review.rating !== null && review.comment !== null && id !== undefined && isValid) {
       const ratingNumber = Number(review.rating);
       dispatch(postReviewAction({
@@ -32,7 +34,7 @@ function OfferReviewForm({id}: ReviewFormProps): JSX.Element {
         comment: review.comment,
         offerId: id,
       }));
-      setReview({rating: 0, comment: ''});
+      evt.currentTarget.reset();
     }
   };
 
@@ -83,7 +85,7 @@ function OfferReviewForm({id}: ReviewFormProps): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={!isValid}
+          disabled={!isValid || isReviewSubmiting}
         >
           Submit
         </button>
