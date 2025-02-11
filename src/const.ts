@@ -1,7 +1,7 @@
 import { CityProps } from './types/offer';
 
-export const URL_PIN_DEFAULT = '../markup/img/pin.svg';
-export const URL_PIN_ACTIVE = '../markup/img/pin-active.svg';
+export const URL_PIN_DEFAULT = '../public/img/pin.svg';
+export const URL_PIN_ACTIVE = '../public/img/pin-active.svg';
 export const INITIAL_SORT_TYPE = 'Popular';
 export const INITIAL_CITY = 'Amsterdam';
 export const ZOOM = 13;

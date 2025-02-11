@@ -5,7 +5,6 @@ import { memo, useCallback, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { addFavoriteOffer } from '../../store/api-actions';
 import MemoizedButtonFavorite from '../button-favorite/button-favorite';
-import { updateOffersFavorite } from '../../store/offers/offers';
 import { getFavoriteOfferAddStatus, getFavoriteOffersDataLoadingStatus } from '../../store/favorite-offers/selectors';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 
@@ -37,10 +36,9 @@ function OfferCard({offer, onCardHover, cardClassName, authorizationStatus}: Off
     }
   };
 
-  const onActiveButtonClick = useCallback(() => {
+  const onFavoriteButtonClick = useCallback(() => {
     setFavoriteStatus(!favoriteStatus);
     dispatch(addFavoriteOffer({id: id, isFavorite: !favoriteStatus}));
-    dispatch(updateOffersFavorite({offerId: id, favoriteStatus: !favoriteStatus}));
   },[dispatch, favoriteStatus, id]);
 
   if (isFavoriteOffersDataLoading || isFavoriteOfferAdding) {
@@ -79,7 +77,7 @@ function OfferCard({offer, onCardHover, cardClassName, authorizationStatus}: Off
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <MemoizedButtonFavorite isFavorite={favoriteStatus} buttonClassName='place-card' onButtonClick={onActiveButtonClick} authorizationStatus={authorizationStatus} />
+          <MemoizedButtonFavorite isFavorite={favoriteStatus} buttonClassName='place-card' onButtonClick={onFavoriteButtonClick} authorizationStatus={authorizationStatus} />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

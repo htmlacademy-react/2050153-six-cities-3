@@ -1,40 +1,39 @@
-import { memo } from 'react';
+import MemoizedOfferReview from './offer-review';
+import MemoizedOfferReviewForm from './offer-review-form';
+import { AuthorizationStatus } from '../../../const';
 import { ReviewsProps } from '../../../types/review';
+import { useAppSelector } from '../../../hooks';
+import { getOfferReviews } from '../../../store/current-offer-reviews/selectors';
+import { memo } from 'react';
 
 type OfferReviewListProps = {
-  offerReview: ReviewsProps;
+  authorizationStatus: AuthorizationStatus;
+  id: string;
 }
 
-function OfferReviewList({offerReview}: OfferReviewListProps): JSX.Element {
-  const {id, date, user, comment, rating} = offerReview;
+function OfferReviewList({authorizationStatus, id}: OfferReviewListProps): JSX.Element {
+  const offerReviews = useAppSelector(getOfferReviews);
 
   return (
-    <li className="reviews__item" key={id}>
-      <div className="reviews__user user">
-        <div className="reviews__avatar-wrapper user__avatar-wrapper">
-          <img className="reviews__avatar user__avatar" src={user.avatarUrl} width="54" height="54" alt="Reviews avatar" />
-        </div>
-        <span className="reviews__user-name">
-          {user.name}
-        </span>
-      </div>
-      <div className="reviews__info">
-        <div className="reviews__rating rating">
-          <div className="reviews__stars rating__stars">
-            <span style={{
-              width: `${rating / 5 * 100}%`
-            }}
-            >
-            </span>
-            <span className="visually-hidden">Rating</span>
-          </div>
-        </div>
-        <p className="reviews__text">
-          {comment}
-        </p>
-        <time className="reviews__time" dateTime={date}>{date}</time>
-      </div>
-    </li>
+    <section className="offer__reviews reviews">
+      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{offerReviews ? offerReviews.length : 0}</span></h2>
+      {offerReviews ?
+        (
+          <ul className="reviews__list">
+            {offerReviews.map((review: ReviewsProps) => (
+              <MemoizedOfferReview
+                key={review.id}
+                offerReview={review}
+              />
+            ))}
+          </ul>
+        ) : <p>This offer do not have any reviews.</p>}
+      {
+        authorizationStatus === AuthorizationStatus.Auth ?
+          <MemoizedOfferReviewForm id={id} />
+          : <b>Only authorized user could leave a review. Please Sign in</b>
+      }
+    </section>
   );
 }
 

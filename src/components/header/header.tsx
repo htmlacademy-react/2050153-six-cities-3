@@ -9,7 +9,7 @@ import { getUser, getAuthCheckedStatus, getAuthorizationStatus } from '../../sto
 import { getFavoriteOffers } from '../../store/favorite-offers/selectors';
 import { resetFavoriteOffers } from '../../store/favorite-offers/favorite-offers';
 import { resetOffersFavorite } from '../../store/offers/offers';
-import { resetCurrentOfferFavorite } from '../../store/current-offer/current-offer';
+import { resetCurrentOffer } from '../../store/current-offer/current-offer';
 
 function Header(): JSX.Element {
   const {pathname} = useLocation();
@@ -71,7 +71,7 @@ function Header(): JSX.Element {
                           dispatch(logoutAction());
                           dispatch(resetFavoriteOffers());
                           dispatch(resetOffersFavorite());
-                          dispatch(resetCurrentOfferFavorite());
+                          dispatch(resetCurrentOffer());
                         }}
                         to={`${AppRoute.Main}`}
                       >

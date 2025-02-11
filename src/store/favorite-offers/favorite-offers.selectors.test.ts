@@ -15,7 +15,7 @@ describe('FavoritesOffers selectors', () => {
     }
   };
 
-  it('getFavoriteOffers should return offer reviews from state', () => {
+  it('getFavoriteOffers should return favorite offers from state', () => {
     const { favoriteOffers } = state[NameSpace.FavoritesData];
     const result = getFavoriteOffers(state);
     expect(result).toEqual(favoriteOffers);

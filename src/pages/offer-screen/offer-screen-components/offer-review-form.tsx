@@ -1,33 +1,38 @@
 import { RatingStars } from '../../../const';
 import { FormEvent, Fragment, memo, ReactEventHandler, useState } from 'react';
 import { postReviewAction } from '../../../store/api-actions';
-import { useAppDispatch } from '../../../hooks';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { getReviewsLoadingStatus } from '../../../store/current-offer-reviews/selectors';
 
 type ChangeHandler = ReactEventHandler<HTMLInputElement | HTMLTextAreaElement>
 
 type ReviewFormProps = {
-  id?: string;
+  id: string;
 }
 
 function OfferReviewForm({id}: ReviewFormProps): JSX.Element {
   const [review, setReview] = useState({rating: 0, comment: ''});
+  const isReviewsDataLoading = useAppSelector(getReviewsLoadingStatus);
 
   const handleChange: ChangeHandler = (event) => {
     const {name, value} = event.currentTarget;
     setReview({...review, [name]: value});
   };
 
+  const isValid = (Number(review.rating) !== 0) && (review.comment.length > 50 && review.comment.length < 300);
+
   const dispatch = useAppDispatch();
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    if (review.rating !== null && review.comment !== null && id !== undefined) {
+    if (review.rating !== null && review.comment !== null && id !== undefined && isValid) {
       const ratingNumber = Number(review.rating);
       dispatch(postReviewAction({
         rating: ratingNumber,
         comment: review.comment,
         offerId: id,
       }));
+      setReview({rating: 0, comment: ''});
     }
   };
 
@@ -78,7 +83,7 @@ function OfferReviewForm({id}: ReviewFormProps): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={(review.comment.length < 50) && (Number(review.rating) === 0)}
+          disabled={!isValid}
         >
           Submit
         </button>
