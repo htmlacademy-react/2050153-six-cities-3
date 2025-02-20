@@ -56,7 +56,7 @@ function Header(): JSX.Element {
                       <Link className="header__nav-link header__nav-link--profile" to={`${AppRoute.Login}`}>
                         <div className="header__avatar-wrapper user__avatar-wrapper">
                         </div>
-                        <span className="header_login">Sign in</span>
+                        <span className="header__login">Sign in</span>
                       </Link>
                     )
                   }

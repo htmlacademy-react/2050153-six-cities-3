@@ -1,10 +1,11 @@
 import MemoizedOfferReview from './offer-review';
 import MemoizedOfferReviewForm from './offer-review-form';
-import { AuthorizationStatus } from '../../../const';
+import { AuthorizationStatus, MAX_REVIEWS } from '../../../const';
 import { ReviewsProps } from '../../../types/review';
 import { useAppSelector } from '../../../hooks';
 import { getOfferReviews } from '../../../store/current-offer-reviews/selectors';
 import { memo } from 'react';
+import { getArrayWithSpecificLengthFromRandomElements } from '../../../utils/utils';
 
 type OfferReviewListProps = {
   authorizationStatus: AuthorizationStatus;
@@ -12,7 +13,11 @@ type OfferReviewListProps = {
 }
 
 function OfferReviewList({authorizationStatus, id}: OfferReviewListProps): JSX.Element {
-  const offerReviews = useAppSelector(getOfferReviews);
+  let offerReviews = useAppSelector(getOfferReviews);
+
+  if (offerReviews.length > MAX_REVIEWS) {
+    offerReviews = getArrayWithSpecificLengthFromRandomElements(offerReviews, MAX_REVIEWS);
+  }
 
   return (
     <section className="offer__reviews reviews">
