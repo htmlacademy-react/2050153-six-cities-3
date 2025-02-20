@@ -35,30 +35,24 @@ export const offers = createSlice({
     },
     updateOffersFavorite: (state, action: PayloadAction<{favoriteStatus: boolean; offerId: string}>) => {
       const{favoriteStatus, offerId} = action.payload;
-      const renewedOffers: OffersProps[] = [];
 
       state.offers.forEach((offer) => {
         if (offer.id === offerId) {
           offer.isFavorite = favoriteStatus;
         }
-        renewedOffers.push(offer);
       });
 
-      state.offers = renewedOffers;
       state.offersByCity = state.offers.filter((offer) => offer.city.name === state.city);
       state.sortedOffers = getCurrentSortedOffers(state.offersByCity, state.sortOption);
     },
     resetOffersFavorite: (state) => {
-      const renewedOffers: OffersProps[] = [];
 
       state.offers.forEach((offer) => {
         if (offer.isFavorite) {
           offer.isFavorite = false;
         }
-        renewedOffers.push(offer);
       });
 
-      state.offers = renewedOffers;
       state.offersByCity = state.offers.filter((offer) => offer.city.name === state.city);
       state.sortedOffers = getCurrentSortedOffers(state.offersByCity, state.sortOption);
     },

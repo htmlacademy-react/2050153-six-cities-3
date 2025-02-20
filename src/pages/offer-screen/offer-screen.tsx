@@ -1,21 +1,18 @@
 import MemoizedOfferGallery from './offer-screen-components/offer-gallery';
 import MemoizedOfferComponent from './offer-screen-components/offer-component';
-import MemoizedOfferReviewList from './offer-screen-components/offer-review-list';
-import MemoizedOfferReviewForm from './offer-screen-components/offer-review-form';
 import MemoizedOfferCard from '../../components/card/card';
 import { CardProps } from '../../types/offer';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import { AuthorizationStatus } from '../../const';
 import MemoizedMap from '../../components/map/map';
-import { ReviewsProps } from '../../types/review';
-import { fetchCurrentOffer, fetchNearOffers, fetchOfferReviews } from '../../store/api-actions';
+import { fetchCurrentOffer } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getCurrentOffer, getOfferLoadingStatus } from '../../store/current-offer/selectors';
-import { getOfferReviews, getReviewsLoadingStatus } from '../../store/current-offer-reviews/selectors';
 import LoadingScreen from '../loading-screen/loading-screen';
-import { getNearOffers, getNearOffersLoadingStatus } from '../../store/near-offers/selectors';
+import { getNearOffers } from '../../store/near-offers/selectors';
+import MemoizedOfferReviewList from './offer-screen-components/offer-review-list';
 
 type OfferScreenProps = {
   authorizationStatus: AuthorizationStatus;
@@ -26,23 +23,19 @@ function OfferScreen({authorizationStatus}: OfferScreenProps): JSX.Element {
   const nearPlacesClassName = 'near-places';
   const {id} = useParams();
 
-  const nearOffers = useAppSelector(getNearOffers);
+  const loadedNearOffers = useAppSelector(getNearOffers);
+  const nearOffers = loadedNearOffers?.slice(0, 3);
   const currentOffer = useAppSelector(getCurrentOffer);
-  const offerReviews = useAppSelector(getOfferReviews);
   const isOfferDataLoading = useAppSelector(getOfferLoadingStatus);
-  const isReviewsDataLoading = useAppSelector(getReviewsLoadingStatus);
-  const isNearOffersDataLoading = useAppSelector(getNearOffersLoadingStatus);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (id !== undefined) {
       dispatch(fetchCurrentOffer(id));
-      dispatch(fetchNearOffers(id));
-      dispatch(fetchOfferReviews(id));
     }
   }, [dispatch, id]);
 
-  if (isOfferDataLoading || isReviewsDataLoading || isNearOffersDataLoading) {
+  if (isOfferDataLoading) {
     return (
       <LoadingScreen />
     );
@@ -67,30 +60,15 @@ function OfferScreen({authorizationStatus}: OfferScreenProps): JSX.Element {
               offerClassName={offerPageClassName}
               authorizationStatus={authorizationStatus}
             />
-            <section className="offer__reviews reviews">
-              <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{offerReviews ? offerReviews.length : 0}</span></h2>
-              {offerReviews ?
-                (
-                  <ul className="reviews__list">
-                    {offerReviews.map((review: ReviewsProps) => (
-                      <MemoizedOfferReviewList
-                        key={review.id}
-                        offerReview={review}
-                      />
-                    ))}
-                  </ul>
-                ) : <p>This offer do not have any reviews.</p>}
-              {
-                authorizationStatus === AuthorizationStatus.Auth ?
-                  <MemoizedOfferReviewForm id={id} />
-                  : <b>Only authorized user could leave a review. Please Sign in</b>
-              }
-            </section>
+            <MemoizedOfferReviewList
+              authorizationStatus={authorizationStatus}
+              id={currentOffer.id}
+            />
           </div>
         </div>
         {nearOffers ?
           (
-            <MemoizedMap city={currentOffer.city} offers={nearOffers} activeOfferId={currentOffer.id} mapClassName={offerPageClassName} />
+            <MemoizedMap city={currentOffer.city} offers={nearOffers} currentOffer={currentOffer} activeOfferId={currentOffer.id} mapClassName={offerPageClassName} />
           ) : null}
       </section>
       <div className="container">

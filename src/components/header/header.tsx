@@ -9,7 +9,7 @@ import { getUser, getAuthCheckedStatus, getAuthorizationStatus } from '../../sto
 import { getFavoriteOffers } from '../../store/favorite-offers/selectors';
 import { resetFavoriteOffers } from '../../store/favorite-offers/favorite-offers';
 import { resetOffersFavorite } from '../../store/offers/offers';
-import { resetCurrentOfferFavorite } from '../../store/current-offer/current-offer';
+import { resetCurrentOffer } from '../../store/current-offer/current-offer';
 
 function Header(): JSX.Element {
   const {pathname} = useLocation();
@@ -56,7 +56,7 @@ function Header(): JSX.Element {
                       <Link className="header__nav-link header__nav-link--profile" to={`${AppRoute.Login}`}>
                         <div className="header__avatar-wrapper user__avatar-wrapper">
                         </div>
-                        <span className="header_login">Sign in</span>
+                        <span className="header__login">Sign in</span>
                       </Link>
                     )
                   }
@@ -71,7 +71,7 @@ function Header(): JSX.Element {
                           dispatch(logoutAction());
                           dispatch(resetFavoriteOffers());
                           dispatch(resetOffersFavorite());
-                          dispatch(resetCurrentOfferFavorite());
+                          dispatch(resetCurrentOffer());
                         }}
                         to={`${AppRoute.Main}`}
                       >

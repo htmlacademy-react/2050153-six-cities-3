@@ -33,7 +33,7 @@ export const offerReviews = createSlice({
         state.isReviewsDataLoading = false;
       })
       .addCase(postReviewAction.fulfilled, (state, action) => {
-        state.offerReviews.push(action.payload);
+        state.offerReviews = [action.payload, ...state.offerReviews];
         state.isReviewsDataLoading = false;
       });
   }

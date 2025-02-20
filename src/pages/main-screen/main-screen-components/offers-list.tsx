@@ -26,7 +26,10 @@ function OffersList ({currentCity, citiesClassName, authorizationStatus}: Offers
       <section className={`${citiesClassName}__places places`}>
         <h2 className="visually-hidden">Places</h2>
         <b className="places__found">
-          {currentSortedOffers.length} places to stay in {currentCity.name}
+          {currentSortedOffers.length > 1 ?
+            (`${currentSortedOffers.length} places to stay in ${currentCity.name}`)
+            :
+            (`${currentSortedOffers.length} place to stay in ${currentCity.name}`)}
         </b>
         <MemoizedPlaceSorting />
         <div className={`${citiesClassName}__places-list places__list tabs__content`}>
