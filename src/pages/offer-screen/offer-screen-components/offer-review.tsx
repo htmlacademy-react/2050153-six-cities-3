@@ -8,6 +8,8 @@ type OfferReviewListProps = {
 function OfferReview({offerReview}: OfferReviewListProps): JSX.Element {
   const {id, date, user, comment, rating} = offerReview;
 
+  const humanizedDate = new Date(date).toLocaleString('en-US', { month: 'long', year: 'numeric' });
+
   return (
     <li className="reviews__item" key={id}>
       <div className="reviews__user user">
@@ -32,7 +34,7 @@ function OfferReview({offerReview}: OfferReviewListProps): JSX.Element {
         <p className="reviews__text">
           {comment}
         </p>
-        <time className="reviews__time" dateTime={date}>{date}</time>
+        <time className="reviews__time" dateTime={`${new Date(date).toLocaleString()}`}>{humanizedDate}</time>
       </div>
     </li>
   );

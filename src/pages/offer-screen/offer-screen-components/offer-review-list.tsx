@@ -5,7 +5,7 @@ import { ReviewsProps } from '../../../types/review';
 import { useAppSelector } from '../../../hooks';
 import { getOfferReviews } from '../../../store/current-offer-reviews/selectors';
 import { memo } from 'react';
-import { getArrayWithSpecificLengthFromRandomElements } from '../../../utils/utils';
+import { getSortedReviewsByDate } from '../../../utils/page-utils';
 
 type OfferReviewListProps = {
   authorizationStatus: AuthorizationStatus;
@@ -15,8 +15,8 @@ type OfferReviewListProps = {
 function OfferReviewList({authorizationStatus, id}: OfferReviewListProps): JSX.Element {
   let offerReviews = useAppSelector(getOfferReviews);
 
-  if (offerReviews.length > MAX_REVIEWS) {
-    offerReviews = getArrayWithSpecificLengthFromRandomElements(offerReviews, MAX_REVIEWS);
+  if (offerReviews.length !== 0 && offerReviews !== undefined) {
+    offerReviews = getSortedReviewsByDate(offerReviews).slice(0, MAX_REVIEWS);
   }
 
   return (

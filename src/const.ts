@@ -9,6 +9,7 @@ export const BACKEND_URL = 'https://15.design.htmlacademy.pro/six-cities';
 export const REQUEST_TIMEOUT = 5000;
 export const REDIRECT_ACTION_TYPE = 'offers/redirectToRoute';
 export const MAX_REVIEWS = 10;
+export const MAX_NEAR_OFFERS = 3;
 
 export const SortOptions: string[] = [
   'Popular',

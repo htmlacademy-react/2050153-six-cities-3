@@ -1,5 +1,6 @@
 import { AppRoute, PageTitles } from '../const';
 import { OffersProps } from '../types/offer';
+import { ReviewsProps } from '../types/review';
 
 export const getLayoutState = (pathname: AppRoute) =>{
   let rootClassName = '';
@@ -44,3 +45,6 @@ export const getCurrentSortedOffers = (offers: OffersProps[], sortOption: string
   }
   return sortedOffers;
 };
+
+export const getSortedReviewsByDate = (reviews: ReviewsProps[]): ReviewsProps[] =>
+  [...reviews].sort((review1, review2) => Date.parse(review2.date) - Date.parse(review1.date));
