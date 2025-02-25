@@ -3,7 +3,7 @@ import MemoizedOfferComponent from './offer-screen-components/offer-component';
 import MemoizedOfferCard from '../../components/card/card';
 import { CardProps } from '../../types/offer';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import { AuthorizationStatus } from '../../const';
+import { AuthorizationStatus, MAX_NEAR_OFFERS } from '../../const';
 import MemoizedMap from '../../components/map/map';
 import { fetchCurrentOffer } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -24,7 +24,7 @@ function OfferScreen({authorizationStatus}: OfferScreenProps): JSX.Element {
   const {id} = useParams();
 
   const loadedNearOffers = useAppSelector(getNearOffers);
-  const nearOffers = loadedNearOffers?.slice(0, 3);
+  const nearOffers = loadedNearOffers?.slice(0, MAX_NEAR_OFFERS);
   const currentOffer = useAppSelector(getCurrentOffer);
   const isOfferDataLoading = useAppSelector(getOfferLoadingStatus);
   const dispatch = useAppDispatch();

@@ -1,11 +1,12 @@
-import { random } from 'faker';
 import { NameSpace } from '../../const';
 import { makeFakeFavoriteOffer } from '../../utils/mocks';
 import { getRandomInteger } from '../../utils/utils';
 import { getFavoriteOffers, getFavoriteOffersDataLoadingStatus, getFavoriteOfferAddStatus } from './selectors';
 
 describe('FavoritesOffers selectors', () => {
-  const userFavoriteOffers = random.arrayElements([makeFakeFavoriteOffer()], getRandomInteger(1, 20));
+  const userFavoriteOffers = Array.from(
+    {length: getRandomInteger(1, 20)},
+    () => makeFakeFavoriteOffer());
 
   const state = {
     [NameSpace.FavoritesData]: {

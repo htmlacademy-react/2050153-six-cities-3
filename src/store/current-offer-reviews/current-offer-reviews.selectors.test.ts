@@ -1,11 +1,12 @@
-import { random } from 'faker';
 import { NameSpace } from '../../const';
 import { makeFakeOfferReview } from '../../utils/mocks';
 import { getRandomInteger } from '../../utils/utils';
 import { getOfferReviews, getReviewsLoadingStatus } from './selectors';
 
 describe('CurrentOfferReviews selectors', () => {
-  const currentOfferReviews = random.arrayElements([makeFakeOfferReview()], getRandomInteger(0, 10));
+  const currentOfferReviews = Array.from(
+    {length: getRandomInteger(0, 10)},
+    () => makeFakeOfferReview());
 
   const state = {
     [NameSpace.CurrentOfferReviews]: {
