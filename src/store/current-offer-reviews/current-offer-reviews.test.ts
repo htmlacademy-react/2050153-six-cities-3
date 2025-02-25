@@ -1,11 +1,12 @@
 import { offerReviews } from './current-offer-reviews';
 import { makeFakeOfferReview } from '../../utils/mocks';
 import { fetchOfferReviews, postReviewAction } from '../api-actions';
-import { random } from 'faker';
 import { getRandomInteger } from '../../utils/utils';
 
 describe('OfferReviews Slice', () => {
-  const currentOfferReviews = random.arrayElements([makeFakeOfferReview()], getRandomInteger(0, 10));
+  const currentOfferReviews = Array.from(
+    {length: getRandomInteger(0, 10)},
+    () => makeFakeOfferReview());
 
   const defaultInitialState = {
     offerReviews: [],

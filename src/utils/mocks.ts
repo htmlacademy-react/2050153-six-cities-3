@@ -10,61 +10,73 @@ import { State } from '../types/state';
 
 export type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createAPI>, Action>;
 
-const city = random.arrayElement(cities);
+export const makeFakeOffer = (): OffersProps => {
+  const city = random.arrayElement(cities);
+  const imagesUrls = Array.from(
+    {length: 50},
+    () => image.imageUrl());
 
-export const makeFakeOffer = (): OffersProps => ({
-  id: datatype.uuid(),
-  title: datatype.string(),
-  type: random.word(),
-  price: datatype.number(1000),
-  city: city,
-  location: {
-    latitude: Number(address.latitude(city.location.latitude)),
-    longitude: Number(address.longitude(city.location.longitude)),
-    zoom: 8
-  },
-  isFavorite: datatype.boolean(),
-  isPremium: datatype.boolean(),
-  rating: datatype.number({ min: 1, max: 5, precision: 1 }),
-  previewImage: random.arrayElements([image.imageUrl()], 6),
-  description: datatype.string(),
-  bedrooms: datatype.number({ min: 0, max: 8, precision: 1 }),
-  goods: random.arrayElements([image.imageUrl()], 4),
-  host: {
-    name: internet.userName(),
-    avatarUrl: internet.avatar(),
-    isPro: datatype.boolean()
-  },
-  images: random.arrayElements([image.imageUrl()], 8),
-  maxAdults: datatype.number({ min: 1, max: 8, precision: 1 }),
-} as unknown as OffersProps);
+  return ({
+    id: datatype.uuid(),
+    title: datatype.string(),
+    type: random.word(),
+    price: datatype.number(1000),
+    city: city,
+    location: {
+      latitude: Number(address.latitude(city.location.latitude)),
+      longitude: Number(address.longitude(city.location.longitude)),
+      zoom: 8
+    },
+    isFavorite: datatype.boolean(),
+    isPremium: datatype.boolean(),
+    rating: datatype.number({ min: 1, max: 5, precision: 1 }),
+    previewImage: random.arrayElements(imagesUrls, 6),
+    description: datatype.string(),
+    bedrooms: datatype.number({ min: 0, max: 8, precision: 1 }),
+    goods: random.arrayElements(imagesUrls, 4),
+    host: {
+      name: internet.userName(),
+      avatarUrl: internet.avatar(),
+      isPro: datatype.boolean()
+    },
+    images: random.arrayElements(imagesUrls, 8),
+    maxAdults: datatype.number({ min: 1, max: 8, precision: 1 }),
+  } as unknown as OffersProps);
+};
 
-export const makeFakeFavoriteOffer = (): OffersProps => ({
-  id: datatype.uuid(),
-  title: datatype.string(),
-  type: random.word(),
-  price: datatype.number(1000),
-  city: city,
-  location: {
-    latitude: Number(address.latitude(city.location.latitude)),
-    longitude: Number(address.longitude(city.location.longitude)),
-    zoom: 8
-  },
-  isFavorite: true,
-  isPremium: datatype.boolean(),
-  rating: datatype.number({ min: 1, max: 5, precision: 1 }),
-  previewImage: random.arrayElements([image.imageUrl()], 6),
-  description: datatype.string(),
-  bedrooms: datatype.number({ min: 0, max: 8, precision: 1 }),
-  goods: random.arrayElements([image.imageUrl()], 4),
-  host: {
-    name: internet.userName(),
-    avatarUrl: internet.avatar(),
-    isPro: datatype.boolean()
-  },
-  images: random.arrayElements([image.imageUrl()], 8),
-  maxAdults: datatype.number({ min: 1, max: 8, precision: 1 }),
-} as unknown as OffersProps);
+export const makeFakeFavoriteOffer = (): OffersProps => {
+  const city = random.arrayElement(cities);
+  const imagesUrls = Array.from(
+    {length: 50},
+    () => image.imageUrl());
+
+  return ({
+    id: datatype.uuid(),
+    title: datatype.string(),
+    type: random.word(),
+    price: datatype.number(1000),
+    city: city,
+    location: {
+      latitude: Number(address.latitude(city.location.latitude)),
+      longitude: Number(address.longitude(city.location.longitude)),
+      zoom: 8
+    },
+    isFavorite: true,
+    isPremium: datatype.boolean(),
+    rating: datatype.number({ min: 1, max: 5, precision: 1 }),
+    previewImage: random.arrayElements(imagesUrls, 6),
+    description: datatype.string(),
+    bedrooms: datatype.number({ min: 0, max: 8, precision: 1 }),
+    goods: random.arrayElements(imagesUrls, 4),
+    host: {
+      name: internet.userName(),
+      avatarUrl: internet.avatar(),
+      isPro: datatype.boolean()
+    },
+    images: random.arrayElements(imagesUrls, 8),
+    maxAdults: datatype.number({ min: 1, max: 8, precision: 1 }),
+  } as unknown as OffersProps);
+};
 
 export const makeFakeUser = (): UserData => ({
   name: internet.userName(),

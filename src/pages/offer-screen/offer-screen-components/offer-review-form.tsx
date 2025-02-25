@@ -35,6 +35,7 @@ function OfferReviewForm({id}: ReviewFormProps): JSX.Element {
         offerId: id,
       }));
       evt.currentTarget.reset();
+      setReview(initialState);
     }
   };
 

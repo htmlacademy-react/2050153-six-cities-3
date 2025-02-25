@@ -1,11 +1,12 @@
 import { favoriteOffersData } from './favorite-offers';
 import { makeFakeFavoriteOffer, makeFakeOffer } from '../../utils/mocks';
 import { fetchFavoriteOffers, addFavoriteOffer } from '../api-actions';
-import { random } from 'faker';
 import { getRandomInteger } from '../../utils/utils';
 
 describe('FavoriteOffersData Slice', () => {
-  const userFavoriteOffers = random.arrayElements([makeFakeFavoriteOffer()], getRandomInteger(1, 20));
+  const userFavoriteOffers = Array.from(
+    {length: getRandomInteger(1, 20)},
+    () => makeFakeFavoriteOffer());
 
   const defaultInitialState = {
     favoriteOffers: [],

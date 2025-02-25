@@ -1,13 +1,14 @@
-import { random } from 'faker';
 import { nearOffers } from './near-offers';
 import { makeFakeOffer } from '../../utils/mocks';
-import { getRandomInteger } from '../../utils/utils';
 import { fetchNearOffers } from '../api-actions';
+import { MAX_NEAR_OFFERS } from '../../const';
 
 describe('NearOffers Slice', () => {
-  const allOffers = random.arrayElements([makeFakeOffer()], getRandomInteger(1, 50));
+  const allOffers = Array.from(
+    {length: 100},
+    () => makeFakeOffer());
   const currentOffer = makeFakeOffer();
-  const nearCurrentOfferOffers = allOffers.filter((offer) => offer.city.name === currentOffer.city.name);
+  const nearCurrentOfferOffers = allOffers.filter((offer) => offer.city.name === currentOffer.city.name).slice(0, MAX_NEAR_OFFERS);
 
   const state = {
     nearOffers: nearCurrentOfferOffers,

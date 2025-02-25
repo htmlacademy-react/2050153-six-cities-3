@@ -1,4 +1,3 @@
-import { random } from 'faker';
 import { cities, NameSpace, SortOptions } from '../../const';
 import { makeFakeOffer } from '../../utils/mocks';
 import { getCurrentSortedOffers } from '../../utils/page-utils';
@@ -6,7 +5,9 @@ import { getRandomInteger } from '../../utils/utils';
 import { getOffers, getCity, getOffersByCity, getOffersDataLoadingStatus, getSortOption, getSortedOffers } from './selectors';
 
 describe('Offers selectors', () => {
-  const allOffers = random.arrayElements([makeFakeOffer()], 100);
+  const allOffers = Array.from(
+    {length: 100},
+    () => makeFakeOffer());
   const chosenCity = cities[getRandomInteger(0, cities.length)].name;
   const sortingOption = SortOptions[getRandomInteger(0, SortOptions.length)];
   const allOffersByCity = allOffers.filter((offer: { city: { name: string } }) => offer.city.name === chosenCity);
